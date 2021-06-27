@@ -35,17 +35,55 @@
 {
     font-size: 20px !important;
     margin-left: 10px;
-    width: 70%;
+  
 }
-.seachInput
+.searchInput
 {
    border:none; 
+     width: 70%;
+}
+.searchInput:focus
+{
+outline: none;
 }
 .topbarRight{
     flex:4;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    color:white;
    
+}
+.topbarLink{
+    margin-right: 10px;
+    font-size:  14px;
+    cursor: pointer;
+}
+.topbarIcons{
+    display: flex;
+}
+.topbarIconItem
+{
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+}
+.topbarIconBadge
+{
+    width: 15px;
+    height: 15px;
+    background-color:red;
+    border-radius: 50%;
+    color:white;
+    position:absolute;
 }
 .topbarImg{
     width: 32px;
     height: 32px;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    justify-content:center;
+
+
 }
