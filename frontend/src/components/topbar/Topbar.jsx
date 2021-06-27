@@ -1,17 +1,17 @@
 import React from 'react'
 import "./topbar.css"
-import { Search?Person, Chat, Notifications } from "@material-ui/icons"
-import { Person } from "@material-ui/icons"
+import { Search, Person, Chat, Notifications } from "@material-ui/icons"
+
 
 export default function Topbar() {
     return (
         <div className="topbarContainer">
             <div className="topbarLeft">
-                <span className="log">Groupomania</span>
+                <span className="logo">Groupomania</span>
             </div>
             <div className="topbarCenter">
                 <div class="searchbar">
-                    <Search />
+                    <Search className="searchIcon" />
                     <input placeholder="Search for friend, post or video" className="impsearchInput" />
 
                 </div>
@@ -26,14 +26,14 @@ export default function Topbar() {
                 <div class="topbarIcons">
                     <div class="topbarIconItem">
                         <Person />
-                        <span class="topbarIconBadge">1</span>
+                        <span class="topbarIconBadge">2</span>
 
                     </div>
                 </div>
                 <div class="topbarIcons">
                     <div class="topbarIconItem">
                         <Chat />
-                        <span class="topbarIconBadge">1</span>
+                        <span class="topbarIconBadge">3</span>
 
                     </div>
                 </div>
@@ -44,6 +44,7 @@ export default function Topbar() {
 
                     </div>
                 </div>
+                <img src="/assets/person/21.jpg" alt="" className="topbarImg" />
             </div>
 
 
