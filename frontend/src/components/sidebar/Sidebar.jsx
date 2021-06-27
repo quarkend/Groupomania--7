@@ -26,8 +26,76 @@ export default function Sidebar() {
                         <span className="sidebarListItemText">Videos</span>
                     </li>
 
+
+
+
+
                 </ul>
-            </div>Rssfeed
+                <button class="sidebarButton">Show More</button>
+                <hr className="sidebarHr" />
+                <ul className="sidebarFriendList">
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                    <li class="sidebarFriend">
+                        <img className="sidebarFriendImg" src="/assets/person/6.jpg" alt="" />
+                        <span className="sidebarFriendName">Hinafi Yassir</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     )
 }
