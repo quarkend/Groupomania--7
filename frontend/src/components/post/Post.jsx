@@ -32,6 +32,7 @@ export default function Post() {
                         </span>
                     </div>
                     <div className="postBottomRight">
+                        <span class="postCommentText">56 comments</span>
 
                     </div>
                 </div>
