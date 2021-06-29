@@ -2,12 +2,13 @@ import { MoreVert } from '@material-ui/icons'
 import React from 'react'
 import "./post.css"
 
-export default function Post() {
+export default function Post({ post }) {
+    console.log(post);
     return (
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
-                    <div class="postTopLeft">
+                    <div className="postTopLeft">
                         <img className="postProfileImg" src="/assets/person/1.jpg" alt="" />
                         <span className="postUsername">Rayen</span>
                         <span className="postDate">2 seconds ago</span>
@@ -17,7 +18,7 @@ export default function Post() {
                     <MoreVert />
                 </div>
                 <div className="postCenter">
-                    <span class="postText">hey its my first post:)!</span>
+                    <span className="postText">hey its my first post:)!</span>
                     <img className="postImg" src="/assets/post/3.jpg" alt="" />
 
 
@@ -27,12 +28,12 @@ export default function Post() {
                     <div className="postBottomLeft">
                         <img className="likeIcon" src="/assets/post/HEART.jpg" alt="" />
                         <img className="likeIcon" src="/assets/post/LIKE.png" alt="" />
-                        <span class="postLikeCounter">165 like it
+                        <span className="postLikeCounter">165 like it
 
                         </span>
                     </div>
                     <div className="postBottomRight">
-                        <span class="postCommentText">56 comments</span>
+                        <span className="postCommentText">56 comments</span>
 
                     </div>
                 </div>

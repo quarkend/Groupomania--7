@@ -10,37 +10,37 @@ export default function Topbar() {
                 <span className="logo">Groupomania</span>
             </div>
             <div className="topbarCenter">
-                <div class="searchbar">
+                <div className="searchbar">
                     <Search className="searchIcon" />
                     <input placeholder="Search for friend, post or video" className="searchInput" />
 
                 </div>
             </div>
             <div className="topbarRight">
-                <div class="topbarLinks">
-                    <span class="topbarLink">Homepage</span>
-                    <span class="topbarLink">Timeline</span>
+                <div className="topbarLinks">
+                    <span className="topbarLink">Homepage</span>
+                    <span className="topbarLink">Timeline</span>
                 </div>
 
 
-                <div class="topbarIcons">
-                    <div class="topbarIconItem">
+                <div className="topbarIcons">
+                    <div className="topbarIconItem">
                         <Person />
-                        <span class="topbarIconBadge">2</span>
+                        <span className="topbarIconBadge">2</span>
 
                     </div>
                 </div>
-                <div class="topbarIcons">
-                    <div class="topbarIconItem">
+                <div className="topbarIcons">
+                    <div className="topbarIconItem">
                         <Chat />
-                        <span class="topbarIconBadge">3</span>
+                        <span className="topbarIconBadge">3</span>
 
                     </div>
                 </div>
-                <div class="topbarIcons">
-                    <div class="topbarIconItem">
+                <div className="topbarIcons">
+                    <div className="topbarIconItem">
                         <Notifications />
-                        <span class="topbarIconBadge">1</span>
+                        <span className="topbarIconBadge">1</span>
 
                     </div>
                 </div>
