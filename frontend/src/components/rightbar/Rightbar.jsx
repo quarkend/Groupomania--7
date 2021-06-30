@@ -1,7 +1,8 @@
 import React from 'react'
 import "./rightbar.css"
+import { Users } from '../../dummyData';
 
-export default function Rightbar() {
+export default function Rightbar(user) {
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
@@ -14,32 +15,13 @@ export default function Rightbar() {
                 <ul className="rightbarFriendList">
                     <li className="rightbarFriend">
                         <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg" src="assets/person/4.jpg" alt="" />
+                            <img className="rightbarProfileImg" src={user.profilePicture} alt="" />
                             <span className="rightbarOnline"></span>
                         </div>
-                        <span className="RightbarUsername"> Mana Shana</span>
+                        <span className="RightbarUsername"> {user.username}</span>
                     </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg" src="assets/person/1.jpg" alt="" />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="RightbarUsername"> greger</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg" src="assets/person/6.jpg" alt="" />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="RightbarUsername"> land</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg" src="assets/person/21.jpg" alt="" />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="RightbarUsername"> abdel</span>
-                    </li>
+
+
                 </ul>
             </div>
         </div>
