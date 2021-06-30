@@ -1,6 +1,6 @@
 import React from 'react'
 import "./online.css"
-import { Users } from '../../dummyData';
+
 
 export default function Oline(user) {
     return (
