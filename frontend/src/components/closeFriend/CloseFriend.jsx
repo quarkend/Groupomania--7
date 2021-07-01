@@ -1,7 +1,7 @@
 import React from 'react'
 import "./closeFriend.css"
 
-export default function CloseFriend(user) {
+export default function CloseFriend({ user }) {
     return (
         <div>
             <li className="sidebarFriend">

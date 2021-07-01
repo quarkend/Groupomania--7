@@ -2,7 +2,7 @@ import React from 'react'
 import "./online.css"
 
 
-export default function Oline(user) {
+export default function Oline({ user }) {
     return (
         <div>
             <li className="rightbarFriend">

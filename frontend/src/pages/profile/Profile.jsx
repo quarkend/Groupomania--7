@@ -12,11 +12,21 @@ export default function Profile() {
             <Topbar />
             <div className="profile">
                 <Sidebar />
-                <div class="profileRight">
-                    <div class="profileRightTop">eth v</div>
-                    <div class="profileRightBottom">
+                <div className="profileRight">
+                    <div className="profileRightTop">
+                        <div className="profileCover">
+                            <img className="profileCoverImg" src="assets/post/3.jpeg" alt="" />
+                            <img className="profileUserImg" src="assets/person/2.jpeg" alt="" />
+                        </div>
+                        <div className="profileInfo">
+                            <h4 className="profileInfoName">mohammed hinafi</h4>
+                            <span className="profileInfoDesc">hello my friend</span>
+                        </div>
+
+                    </div>
+                    <div className="profileRightBottom">
                         <Feed />
-                        <Rightbar />
+                        <Rightbar profile />
                     </div>
 
                 </div>
