@@ -5,7 +5,7 @@ import Online from "../online/Online";
 
 
 export default function Rightbar(profile) {
-    const HomeRightBar = () => {
+    const HomeRightbar = () => {
         return (
             <div>
                 <div className="birthdayContainer">
@@ -72,11 +72,11 @@ export default function Rightbar(profile) {
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
-                <ProfileRightbar />
+                {profile ? <ProfileRightbar /> : <HomeRightbar />}
                 {/* <HomeRightbar/> */}
             </div>
         </div>
-    )
+    );
 }
         // <div className="birthdayContainer">
         //             <img className="birthdayImg" src="assets/gift.png" alt="" />
