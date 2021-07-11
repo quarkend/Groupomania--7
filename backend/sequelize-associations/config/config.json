@@ -1,0 +1,9 @@
+{
+  "development": {
+    "database": "groupomania",
+    "username": "root",
+    "password": "password1",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}

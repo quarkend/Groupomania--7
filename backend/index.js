@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 const userRoute = require('./routes/users');
-const userRoute = require('./routes/auth');
+const authRoute = require('./routes/auth');
 
 //middleware
 app.use(express.json());
