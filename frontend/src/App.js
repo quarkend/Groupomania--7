@@ -10,6 +10,7 @@ import Register from "./pages/register/Register";
 import PageNotFound from "./pages/PageNotFound";
 import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
+import ImageUpdate from './components/Images/ImageUpdate'
 // import { API_AUTH_AUTHUSER } from '../../constants/api'
 function App() {
   const [authState, setAuthState] = useState({
@@ -49,17 +50,7 @@ function App() {
         <Router>
           <div className="navbar">
             <div className="links">
-              {!authState.status ? (
-                <span>
-                  <Link to="/login"> Login</Link>
-                  <Link to="/register"> Registration</Link>
-                </span>
-              ) : (
-                <span>
-                  <Link to="/"> Home Page</Link>
-                  <Link to="/createpost"> Create A Post</Link>
-                </span>
-              )}
+
             </div>
             <div className="loggedInContainer">
               <h1>{authState.username} </h1>
@@ -74,6 +65,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/profile/:id" exact component={Profile} />
             <Route path="*" exact component={PageNotFound} />
+            <Route path="/imageupdate/:id" exact component={ImageUpdate} />
           </Switch>
         </Router>
       </AuthContext.Provider>

@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 
+
 router.post("/", async (req, res) => {
     const { username, password } = req.body;
     bcrypt.hash(password, 10).then((hash) => {
@@ -64,6 +65,8 @@ router.put("/changepassword", validateToken, async (req, res) => {
         });
     });
 });
+const multer = require('../middlewares/multer-config');
+router.put('/:id', multer);
 
 module.exports = router;
 

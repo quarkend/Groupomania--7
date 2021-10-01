@@ -1,17 +1,79 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
-
+import Topbar from "./../components/topbar/Topbar"
+import Sidebar from "./../components/sidebar/Sidebar"
+import Feed from "./../components/feed/Feed"
+import Rightbar from "./../components/rightbar/Rightbar"
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 function Post() {
+  const [listOfPosts, setListOfPosts] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
+
+  const { authState } = useContext(AuthContext);
+  let history = useHistory();
+
   let { id } = useParams();
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
-  const { authState } = useContext(AuthContext);
+  useEffect(() => {
+    if (!localStorage.getItem("accessToken")) {
+      history.push("/login");
+    } else {
+      axios
+        .get("http://localhost:3001/posts", {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        })
+        .then((response) => {
+          setListOfPosts(response.data.listOfPosts);
+          setLikedPosts(
+            response.data.likedPosts.map((like) => {
+              return like.PostId;
+            })
+          );
+        });
+    }
+  }, []);
 
-  let history = useHistory();
+  const likeAPost = (postId) => {
+    axios
+      .post(
+        "http://localhost:3001/likes",
+        { PostId: postId },
+        { headers: { accessToken: localStorage.getItem("accessToken") } }
+      )
+      .then((response) => {
+        setListOfPosts(
+          listOfPosts.map((post) => {
+            if (post.id === postId) {
+              if (response.data.liked) {
+                return { ...post, Likes: [...post.Likes, 0] };
+              } else {
+                const likesArray = post.Likes;
+                likesArray.pop();
+                return { ...post, Likes: likesArray };
+              }
+            } else {
+              return post;
+            }
+          })
+        );
+
+        if (likedPosts.includes(postId)) {
+          setLikedPosts(
+            likedPosts.filter((id) => {
+              return id !== postId;
+            })
+          );
+        } else {
+          setLikedPosts([...likedPosts, postId]);
+        }
+      });
+  };
+
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
@@ -77,21 +139,17 @@ function Post() {
   return (
     <div className="postPage">
       <div className="leftSide">
-        <div className="post" id="individual">
-          <div className="title"> {postObject.title} </div>
-          <div className="body">{postObject.postText}</div>
-          <div className="footer">
-            {postObject.username}
-            {authState.username === postObject.username && (
-              <button
-                onClick={() => {
-                  deletePost(postObject.id);
-                }}
-              >
-                {" "}
-                Delete Post
-              </button>
-            )}
+
+        <div className="homeContainer">
+
+
+
+
+          <div className="post" id="individual">
+
+
+
+
           </div>
         </div>
       </div>
@@ -106,14 +164,17 @@ function Post() {
               setNewComment(event.target.value);
             }}
           />
-          <button onClick={addComment}> Add Comment</button>
+          <button onClick={addComment}> Add DGDGDFGFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFComment</button>
         </div>
         <div className="listOfComments">
+
           {comments.map((comment, key) => {
             return (
+
               <div key={key} className="comment">
                 {comment.commentBody}
-                <label> Username: {comment.username}</label>
+                <label> Usname: {comment.username}</label>
+
                 {authState.username === comment.username && (
                   <button
                     onClick={() => {
@@ -129,6 +190,7 @@ function Post() {
         </div>
       </div>
     </div>
+
   );
 }
 

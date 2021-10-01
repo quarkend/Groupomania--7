@@ -38,7 +38,7 @@ export default function Profile() {
                             <img className="profileUserImg" src="assets/person/2.jpeg" alt="" />
                         </div>
                         <div className="profileInfo">
-                            <h4 className="profileInfoName">mohammed hinafi</h4>
+                            <h4 className="profileInfoName">{authState.username} </h4>
                             <span className="profileInfoDesc">hello my friend</span>
                         </div>
 

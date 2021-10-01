@@ -4,11 +4,11 @@ const { Posts, Likes } = require("../models");
 
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
-router.get("/", validateToken, async (req, res) => {
-  const listOfPosts = await Posts.findAll({ include: [Likes] });
-  const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
-  res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
-});
+// router.get("/", validateToken, async (req, res) => {
+//   const listOfPosts = await Posts.findAll({ include: [Likes] });
+//   const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+//   res.json({ listOfPosts: listOfPosts, likedPosts: likedPosts });
+// });
 
 router.get("/byId/:id", async (req, res) => {
   const id = req.params.id;
@@ -20,7 +20,7 @@ router.get("/byuserId/:id", async (req, res) => {
   const id = req.params.id;
   const listOfPosts = await Posts.findAll({
     where: { UserId: id },
-    include: [Likes],
+    // include: [Likes],
   });
   res.json(listOfPosts);
 });
@@ -31,6 +31,15 @@ router.post("/", validateToken, async (req, res) => {
   post.UserId = req.user.id;
   await Posts.create(post);
   res.json(post);
+  const userObject = req.file ?
+    {
+      ...req.body.user,
+      imageUrl: req.file.filename
+    } : { ...req.body };
+
+  Posts.update({ ...userObject, id: req.params }, { where: { id: req.params } })
+  // .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
+  // .catch(error => res.status(400).json({ error }));
 });
 
 router.put("/title", validateToken, async (req, res) => {
