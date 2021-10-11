@@ -1,65 +1,47 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const morgan = require('morgan');
-const helmet = require('helmet');
-const path = require('path');
-app.use(express.json());
-app.use(cors());
+const http = require('http');
+const app = require('./app');
 
-app.use(cors({
-    credentials: true,
-    origin: ['http://localhost:3000'],
-    allowedHeaders: ['Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-}))
+const normalizePort = val => {
+    const port = parseInt(val, 10);
 
-const db = require("./models");
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+    return false;
+};
+const port = normalizePort(process.env.PORT || '3300');
+app.set('port', port);
 
-// Routers
-app.use('/images', express.static(path.join(__dirname, 'images')));
-const postRouter = require("./routes/Posts");
-app.use("/posts", postRouter);
-const commentsRouter = require("./routes/Comments");
-app.use("/comments", commentsRouter);
-const usersRouter = require("./routes/Users");
-app.use("/auth", usersRouter);
-const likesRouter = require("./routes/Likes");
-app.use("/likes", likesRouter);
+const errorHandler = error => {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+    const address = server.address();
+    const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires privileges.');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is alread in use.');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+};
 
+const server = http.createServer(app);
 
-
-
-app.use(helmet());
-app.use(morgan("common"));
-db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running on port 3001");
-    });
+server.on('error', errorHandler);
+server.on('listening', () => {
+    const address = server.address();
+    const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
+    console.log('Listening on ' + bind);
 });
-// const express = require('express');
-// // const bodyParser = require('body-parser');
-// // const fs = require('fs');
-// // const cookieParser = require('cookie-parser');
-// const morgan = require('morgan');
-// const helmet = require('helmet');
-// const dotenv = require('dotenv');
-// dotenv.config();
-// const app = express();
-// const userRoute = require('./routes/users');
-// const authRoute = require('./routes/auth');
 
-// //middleware
-// app.use(express.json());
-
-// // app.get("/", (rep, res) => {
-// //     res.send("Welcome to homepage ");
-// // });
-// // app.get("/users", (rep, res) => {
-// //     res.send("Welcome to user ");
-// // });
-// app.use("/api/users", userRoute);
-// app.use("/api/auth", authRoute);
-// app.listen(8800, () => {
-//     console.log("backend server is runing");
-// });
+server.listen(port);

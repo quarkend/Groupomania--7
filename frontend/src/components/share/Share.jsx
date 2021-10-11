@@ -1,3 +1,4 @@
+import React from 'react'
 import "./share.css";
 import {
     PermMedia,
@@ -25,11 +26,7 @@ export default function Share() {
     const [username, setUsername] = useState("");
 
     const { authState } = useContext(AuthContext);
-    const [authState, setAuthState] = useState({
-        username: "",
-        id: 0,
-        status: false,
-    });
+
 
 
     useEffect(() => {

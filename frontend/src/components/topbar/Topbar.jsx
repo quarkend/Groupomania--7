@@ -22,7 +22,7 @@ export default function Topbar() {
                 <div className="topbarLinks">
                     <span className="topbarLink">Homepage</span>
                     <span className="topbarLink">Timeline</span>
-                    <span className="logo"><Link to="/post/1">create post 2m v</Link> </span>
+                    <span className="logo"><Link to="/post/1">create comment</Link> </span>
                 </div>
 
 

@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password1",
-    "database": "gro66",
+    "database": "groupomania1",
     "host": "localhost",
     "dialect": "mysql"
   },

@@ -8,31 +8,31 @@ import { Link, useHistory } from "react-router-dom";
 import CloseFriend from '../closeFriend/CloseFriend';
 
 export default function Sidebar() {
-    const [authState, setAuthState] = useState({
-        username: "",
-        id: 0,
-        status: false,
-    });
+    // const [authState, setAuthState] = useState({
+    //     username: "",
+    //     id: 0,
+    //     status: false,
+    // });
 
-    useEffect(() => {
-        axios
-            .get("http://localhost:3001/auth/auth", {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            })
-            .then((response) => {
-                if (response.data.error) {
-                    setAuthState({ ...authState, status: false });
-                } else {
-                    setAuthState({
-                        username: response.data.username,
-                        id: response.data.id,
-                        status: true,
-                    });
-                }
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get("http://localhost:3001/auth/auth", {
+    //             headers: {
+    //                 accessToken: localStorage.getItem("accessToken"),
+    //             },
+    //         })
+    //         .then((response) => {
+    //             if (response.data.error) {
+    //                 setAuthState({ ...authState, status: false });
+    //             } else {
+    //                 setAuthState({
+    //                     username: response.data.username,
+    //                     id: response.data.id,
+    //                     status: true,
+    //                 });
+    //             }
+    //         });
+    // }, []);
 
 
 
@@ -70,7 +70,7 @@ export default function Sidebar() {
                     {/* {Users.map((u) => (
                         <CloseFriend key={u.id} user={u} />
                     ))} */}
-                    <h1>{authState.username} </h1>
+                    {/* <h1>{authState.username} </h1> */}
 
 
                 </ul>

@@ -1,25 +1,20 @@
-// Utilisation de multer pour enregistrer les fichiers images
 const multer = require('multer');
 
-// Modification de l'extension des fichiers
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png': 'png'
-};
+    'image/png': 'png',
+    'image/gif': 'gif'
+}
 
 const storage = multer.diskStorage({
-    // Enregistrement dans le dossier "images"
     destination: (req, file, callback) => {
-        callback(null, 'images')
+        callback(null, 'images');
     },
-    // Génération du nom du fichier : nom d'origine + numero unique + . + extension
     filename: (req, file, callback) => {
-        const brut = file.originalname;
-        name = brut.split('.').slice(0, -1).join('.');
-        finalName = name.split(' ').join('_');
+        const name = file.originalname.replace(/\..+$/, '').split(' ').join('_');
         const extension = MIME_TYPES[file.mimetype];
-        callback(null, finalName + Date.now() + '.' + extension);
+        callback(null, name + Date.now() + '.' + extension);
     }
 });
 

@@ -14,11 +14,7 @@ function CreatePost() {
     postText: "",
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      history.push("/login");
-    }
-  }, []);
+
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a Title!"),
     postText: Yup.string().required(),
@@ -27,10 +23,10 @@ function CreatePost() {
   const onSubmit = (data) => {
     axios
       .post("http://localhost:3001/posts", data, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
+
       })
       .then((response) => {
-        history.push("/");
+        history.push("/profile/1");
       });
   };
 

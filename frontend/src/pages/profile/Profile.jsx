@@ -4,9 +4,9 @@ import axios from "axios";
 
 import "./profile.css"
 import Topbar from "../../components/topbar/Topbar"
-// import Sidebar from "../../components/sidebar/Sidebar"
+import Sidebar from "../../components/sidebar/Sidebar"
 import Feed from "../../components/feed/Feed"
-// import Rightbar from "../../components/rightbar/Rightbar"
+import Rightbar from "../../components/rightbar/Rightbar"
 import { AuthContext } from './../../helpers/AuthContext';
 
 export default function Profile() {
@@ -44,7 +44,7 @@ export default function Profile() {
 
                     </div>
                     <div className="profileRightBottom">
-                        <Feed />
+
 
                     </div>
 
@@ -70,6 +70,7 @@ export default function Profile() {
                     return (
                         <div key={key} className="post">
                             <div className="title"> {value.title} </div>
+
                             <div
                                 className="body"
                                 onClick={() => {
@@ -81,7 +82,7 @@ export default function Profile() {
                             <div className="footer">
                                 <div className="username">{value.username}</div>
                                 <div className="buttons">
-                                    <label> {value.Likes.length}</label>
+                                    {/* <label> {value.Like.length}</label> */}
                                 </div>
                             </div>
                         </div>
