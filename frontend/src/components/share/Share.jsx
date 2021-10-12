@@ -9,6 +9,7 @@ import {
 } from "@material-ui/icons";
 import { useEffect, useContext, useRef, useState } from "react";
 import { AuthContext } from './../../helpers/AuthContext';
+// import { AuthContext } from "../../context/AuthContext";
 
 import axios from "axios";
 
@@ -19,30 +20,12 @@ export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const desc = useRef();
     const [file, setFile] = useState(null);
-    const [listOfPosts, setListOfPosts] = useState([]);
-    const [likedPosts, setLikedPosts] = useState([]);
-    let { id } = useParams();
-    let history = useHistory();
-    const [username, setUsername] = useState("");
 
-    const { authState } = useContext(AuthContext);
-
-
-
-    useEffect(() => {
-        axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
-            setUsername(response.data);
-        });
-
-        axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
-            setListOfPosts(response.data.username)
-        });
-    }, []);
     const submitHandler = async (e) => {
         e.preventDefault();
         const newPost = {
-            userId: id,
-
+            userId: user._id,
+            desc: desc.current.value,
         };
         if (file) {
             const data = new FormData();
@@ -65,8 +48,14 @@ export default function Share() {
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
+                    <img
 
-
+                    />
+                    <input
+                        placeholder={"What's in your mind " + user.username + "?"}
+                        className="shareInput"
+                        ref={desc}
+                    />
                 </div>
                 <hr className="shareHr" />
                 {file && (
@@ -88,8 +77,14 @@ export default function Share() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </label>
-
-
+                        <div className="shareOption">
+                            <Label htmlColor="blue" className="shareIcon" />
+                            <span className="shareOptionText">Tag</span>
+                        </div>
+                        <div className="shareOption">
+                            <Room htmlColor="green" className="shareIcon" />
+                            <span className="shareOptionText">Location</span>
+                        </div>
                         <div className="shareOption">
                             <EmojiEmotions htmlColor="goldenrod" className="shareIcon" />
                             <span className="shareOptionText">Feelings</span>
