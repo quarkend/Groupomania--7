@@ -6,45 +6,25 @@ module.exports = (sequelize, DataTypes) => {
     class Post extends Model {
         static associate(models) {
             Post.belongsTo(models.User, {
-                foreignKey: 'ownerId',
-                onDelete: 'CASCADE',
+                foreignKey: {
+                    allowNull: false
+                }
             });
+            models.Post.hasMany(models.Comment,
+                { onDelete: 'cascade' });
+
+            models.Post.hasMany(models.Like,
+                { onDelete: 'cascade' });
+
+
         }
     };
     Post.init({
-        id: {
-            type: DataTypes.INTEGER(11).UNSIGNED,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        title: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notNull: {
-                    msg: ' titre',
-                },
+        userId: DataTypes.INTEGER,
 
-
-            }
-        },
-        content: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-
-
-
-            }
-        },
-        image: {
-            type: DataTypes.STRING,
-        },
-        ownerId: {
-            type: DataTypes.INTEGER(11).UNSIGNED,
-            allowNull: false,
-        }
+        title: DataTypes.STRING,
+        content: DataTypes.TEXT,
+        postUrl: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Post',

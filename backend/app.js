@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
-
+const auth = require('./middlewares/auth');
 require('dotenv').config();
 
 const app = express();
@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
 const userRoutes = require('./routes/user');
+
 
 // Sécurité du http
 app.use(helmet());
@@ -24,7 +25,7 @@ app.use(helmet());
 //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 //     next();
 // });
-app.use(cors({ origin: "http://localhost:3006", credentials: true }));
+app.use(cors({ origin: "http://localhost:8800", credentials: true }));
 
 // Utilisation de sequelize
 db.sequelize
@@ -40,10 +41,10 @@ db.sequelize
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
-
+/*xhinafi2 s */
 app.use('/api/auth', authRoutes);
-app.use('/api/post', postRoutes);
-app.use('/api/comment', commentRoutes);
-app.use('/api/user', userRoutes);
-
+app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/users', auth, userRoutes);
+app.use('/api/users', userRoutes);
 module.exports = app;

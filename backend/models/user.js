@@ -1,40 +1,25 @@
 'use strict';
-
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
-        id: {
-            type: DataTypes.INTEGER(11).UNSIGNED,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        email: {
-            type: DataTypes.STRING(180),
-            allowNull: false,
-            unique: true,
+    class User extends Model {
+        static associate(models) {
+            models.User.hasMany(models.Post,
+                { onDelete: 'cascade' });
 
-        },
-        username: {
-            type: DataTypes.STRING(60),
-            allowNull: false,
-            unique: true,
-            validate: {
-                notNull: {
-                    msg: 'Vous devez saisir un nom d\'utilisateur',
-                },
+            models.User.hasMany(models.Comment,
+                { onDelete: 'cascade' });
 
-
-            }
-        },
-        roles: {
-            type: DataTypes.JSON,
-            allowNull: false,
-            defaultValue: ['USER'],
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            models.User.hasMany(models.Like,
+                { onDelete: 'cascade' });
         }
+    };
+    User.init({
+        email: DataTypes.STRING,
+        username: DataTypes.STRING,
+        password: DataTypes.STRING,
+        imageUrl: DataTypes.STRING,
+        image: DataTypes.STRING,
+        isAdmin: DataTypes.BOOLEAN
     }, {
         sequelize,
         modelName: 'User',

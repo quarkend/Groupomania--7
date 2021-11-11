@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     class Comment extends Model {
         static associate(models) {
             Comment.belongsTo(models.User, {
-                foreignKey: 'ownerId',
+                foreignKey: 'userId',
                 onDelete: 'CASCADE',
             });
             Comment.belongsTo(models.Post, {
@@ -23,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        message: {
+        content: {
             type: DataTypes.TEXT,
             allowNull: false,
 
         },
-        ownerId: {
+        userId: {
             type: DataTypes.INTEGER(11).UNSIGNED,
             allowNull: false,
         },
