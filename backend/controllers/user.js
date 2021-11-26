@@ -19,15 +19,34 @@ const fs = require('fs');
 
 // logique métier : lire tous utilisateurs
 exports.findAllUsers = (req, res, next) => {
+    console.log("kingparams: ", req.params);
     User.findAll()
         .then(users => {
-            console.log(users);
+            console.log("king: ", users);
             res.status(200).json({ data: users });
         })
         .catch(error => res.status(400).json({ error }));
 };
 
 // logique métier : lire un utilisateur par son id
+exports.findOneUser = (req, res, next) => {
+
+    User.findOne({ where: { userId: req.params.id } })
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(error => res.status(404).json({ error }));
+};
+
+// logique métier : lire un utilisateur par son id
+exports.findAllUserByName = (req, res, next) => {
+
+    User.findAll({ where: { username: req.params.name } })
+        .then(users => {
+            res.status(200).json(users)
+        })
+        .catch(error => res.status(404).json({ error }));
+};
 exports.findOneUser = (req, res, next) => {
 
     User.findOne({ where: { id: req.params.id } })
@@ -40,36 +59,49 @@ exports.findOneUser = (req, res, next) => {
 // logique métier : lire un utilisateur par son id
 exports.findAllUserByName = (req, res, next) => {
 
-    User.findAll({ where: { firstname: req.params.name } })
+    User.findAll({ where: { username: req.params.name } })
         .then(users => {
             res.status(200).json(users)
         })
         .catch(error => res.status(404).json({ error }));
 };
-
 // logique métier : modifier un utilisateur
 exports.modifyUser = (req, res, next) => {
     // éléments de la requète
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
+    const username = req.body.username;
+
 
     // vérification que tous les champs sont remplis
-    if (firstname === null || firstname === '' || lastname === null || lastname === '') {
+    if (username === null || username === '') {
         return res.status(400).json({ 'error': "Les champs 'nom' et 'prénom' doivent être remplis " });
     }
     // gestion d'ajout/modification image de profil
     const userObject = req.file ?
         {
             ...req.body.user,
-            imageUrl: req.file.filename
+            imageUrl: req.file.filename,
+            img: req.file.filename
         } : { ...req.body };
 
     User.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
-
+//delete user
+// router.delete("/:id", async (req, res) => {
+//     if (req.body.userId === req.params.id || req.body.isAdmin) {
+//         try {
+//             await User.findByIdAndDelete(req.params.id);
+//             res.status(200).json("Account has been deleted");
+//         } catch (err) {
+//             return res.status(500).json(err);
+//         }
+//     } else {
+//         return res.status(403).json("You can delete only your account!");
+//     }
+// });
 // logique métier : supprimer un utilisateur
+// if (req.body.userId === req.params.id || req.body.isAdmin)
 exports.deleteUser = (req, res, next) => {
     Like.destroy({ where: { userId: req.params.id } })
         .then(() =>
@@ -100,4 +132,22 @@ exports.deleteUser = (req, res, next) => {
                 )
         )
         .catch(error => res.status(400).json({ error }));
+};
+exports.getFriends = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        const friends = await Promise.all(
+            user.followings.map((friendId) => {
+                return User.findById(friendId);
+            })
+        );
+        let friendList = [];
+        friends.map((friend) => {
+            const { _id, username, profilePicture } = friend;
+            friendList.push({ _id, username, profilePicture });
+        });
+        res.status(200).json(friendList)
+    } catch (err) {
+        res.status(500).json(err);
+    }
 };

@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password1",
-    "database": "gro9",
+    "database": "gro19",
     "host": "localhost",
     "dialect": "mysql"
   },

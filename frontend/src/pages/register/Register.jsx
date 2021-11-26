@@ -21,7 +21,7 @@ function Register() {
     });
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:3001/auth", data).then(() => {
+        axios.post("http://localhost:8800/api/auth/signup", data).then(() => {
             console.log(data);
         });
 
@@ -138,7 +138,7 @@ export default Register;
 //     });
 
 //     const onSubmit = (data) => {
-//         axios.post("http://localhost:3001/auth", data).then(() => {
+//         axios.post("http://localhost:8800/auth", data).then(() => {
 //             console.log(data);
 //         });
 

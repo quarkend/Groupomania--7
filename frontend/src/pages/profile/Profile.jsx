@@ -16,11 +16,11 @@ export default function Profile() {
     const [listOfPosts, setListOfPosts] = useState([]);
     const { authState } = useContext(AuthContext);
     useEffect(() => {
-        axios.get(`http://localhost:3001/auth/basicInfo/${id}`).then((response) => {
+        axios.get(`http://localhost:8800/api/auth/basicInfo/${id}`).then((response) => {
             setUsername(response.data.username);
         });
 
-        axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
+        axios.get(`http://localhost:8800/api/posts/byuserId/${id}`).then((response) => {
             setListOfPosts(response.data);
         });
     }, []);
@@ -92,3 +92,10 @@ export default function Profile() {
         </div>
     );
 }
+// {/* <div className="listOfPosts">
+//     <Post />
+
+//     <div className="profileRightBottom">
+//         <Feed />
+//         <Rightbar profile />
+//     </div> */}

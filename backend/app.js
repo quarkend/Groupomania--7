@@ -19,13 +19,13 @@ const userRoutes = require('./routes/user');
 app.use(helmet());
 
 // CORS
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-//     next();
-// });
-app.use(cors({ origin: "http://localhost:8800", credentials: true }));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+app.use(cors({ origin: "http://localhost:3006", credentials: true }));
 
 // Utilisation de sequelize
 db.sequelize
@@ -45,6 +45,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
-app.use('/api/users', auth, userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/users', userRoutes);
 module.exports = app;

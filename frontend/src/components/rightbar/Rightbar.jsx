@@ -1,6 +1,6 @@
 import React from 'react'
 import "./rightbar.css"
-import { Users } from '../../dummyData';
+import { Users } from '../../DATA';
 import Online from "../online/Online";
 
 
@@ -28,37 +28,37 @@ export default function Rightbar(profile) {
         return (
             <div>
                 <h4 className="rightbarTitle">User Information </h4>
-                <div class="rightbarInfo">
-                    <div class="rightbarInfoItem">
-                        <span class="rightbarInfoKey">City:</span>
-                        <span class="rightbarInfoValue">New York</span>
+                <div className="rightbarInfo">
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">City:</span>
+                        <span className="rightbarInfoValue">New York</span>
 
                     </div>
-                    <div class="rightbarInfoItem">
-                        <span class="rightbarInfoKey">From:</span>
-                        <span class="rightbarInfoValue">Madrid</span>
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">From:</span>
+                        <span className="rightbarInfoValue">Madrid</span>
 
                     </div>
-                    <div class="rightbarInfoItem">
-                        <span class="rightbarInfoKey">Relationship:</span>
-                        <span class="rightbarInfoValue">Singel</span>
+                    <div className="rightbarInfoItem">
+                        <span className="rightbarInfoKey">Relationship:</span>
+                        <span className="rightbarInfoValue">Singel</span>
                         <h4 className="rightbarTitle">User friernds </h4>
-                        <div class="rightbarFollowings">
-                            <div class="rightbarFollowing">
-                                <img src="assets/person/1.jpeg" alt="" class="rightbarFollowingImg" />
-                                <span class="rightbarFollowingName"> Janell Shrum </span>
+                        <div className="rightbarFollowings">
+                            <div className="rightbarFollowing">
+                                <img src="assets/person/1.jpeg" alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
-                            <div class="rightbarFollowing">
-                                <img src="assets/person/3.jpeg" alt="" class="rightbarFollowingImg" />
-                                <span class="rightbarFollowingName"> Janell Shrum </span>
+                            <div className="rightbarFollowing">
+                                <img src="assets/person/3.jpeg" alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
-                            <div class="rightbarFollowing">
-                                <img src="assets/person/4.jpeg" alt="" class="rightbarFollowingImg" />
-                                <span class="rightbarFollowingName"> Janell Shrum </span>
+                            <div className="rightbarFollowing">
+                                <img src="assets/person/4.jpeg" alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
-                            <div class="rightbarFollowing">
-                                <img src="assets/person/5.jpeg" alt="" class="rightbarFollowingImg" />
-                                <span class="rightbarFollowingName"> Janell Shrum </span>
+                            <div className="rightbarFollowing">
+                                <img src="assets/person/5.jpeg" alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
                         </div>
                     </div>

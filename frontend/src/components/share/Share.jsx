@@ -23,8 +23,14 @@ export default function Share() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        const user = JSON.parse(localStorage.getItem(' accessToken'));
+        const posts = JSON.parse(localStorage.getItem(' setlistOfPosts'));
+
+        const userId = user.userId;
+
+        let token = "Bearer " + user.token;
         const newPost = {
-            userId: user._id,
+            userId: user.userId,
             desc: desc.current.value,
         };
         if (file) {
@@ -39,7 +45,11 @@ export default function Share() {
             } catch (err) { }
         }
         try {
-            await axios.post("/posts", newPost);
+            await axios.post("/posts", newPost,
+                {
+                    headers: { accessToken: localStorage.getItem("accessToken") }
+                }
+            );
             window.location.reload();
         } catch (err) { }
     };
@@ -49,13 +59,23 @@ export default function Share() {
             <div className="shareWrapper">
                 <div className="shareTop">
                     <img
+                        className="shareProfileImg"
+                        src={
 
+                            "person/noAvatar.png"
+                        }
+                        alt=""
                     />
                     <input
-                        placeholder={"What's in your mind " + user.username + "?"}
+                        placeholder={"What'smind? "}
                         className="shareInput"
                         ref={desc}
                     />
+                    {/* <input
+                        placeholder={"What's in your mind " + user.username + "?"}
+                        className="shareInput"
+                        ref={desc}
+                    /> */}
                 </div>
                 <hr className="shareHr" />
                 {file && (

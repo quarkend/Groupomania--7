@@ -15,28 +15,37 @@ export default function Post({ post }) {
     const [user, setUser] = useState({});
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user: currentUser } = useContext(AuthContext);
-    // const userId = 1;
 
-    // const [isLiked, setIsLiked] = useState(false)
-    // const likeHandler = () => {
-    //     // setLike(isLiked ? like - 1 : like + 1)
-    //     setIsLiked(!isLiked)
-    // }
+
+    const [isLiked, setIsLiked] = useState(false)
+    // // const likeHandler = () => {
+    // //     setLike(isLiked ? like - 1 : like + 1)
+    // //     setIsLiked(!isLiked)
+    // // }
     /** */
-    // let history = useHistory();
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         const res = await axios.get(`/users?userId=${post.userId}`);
-    //         setUser(res.data);
-    //     };
-    //     fetchUser();
-    // }, [post.userId]);
+    const storage = JSON.parse(localStorage.getItem('accessToken'));
+    const userId = storage.id;
+    let token = "Bearer " + storage.token;
+    let history = useHistory();
     useEffect(() => {
-        axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
+        const fetchUser = async () => {
+            const res = await axios.get(`/users?userId=${post.userId}`,
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            );
+            setUser(res.data);
+            localStorage.setItem('userAccount', JSON.stringify(res));
+        };
+        fetchUser();
+    }, [post.userId]);
+    useEffect(() => {
+        axios.get(`http://localhost:8800/api/posts/byId/${id}`).then((response) => {
             setPostObject(response.data);
         });
 
-        axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+        axios.get(`http://localhost:8800/api/comments/${id}`).then((response) => {
             setComments(response.data);
         });
     }, []);
@@ -44,7 +53,7 @@ export default function Post({ post }) {
     const addComment = () => {
         axios
             .post(
-                "http://localhost:3001/comments",
+                "http://localhost:8800/api/comments",
                 {
                     commentBody: newComment,
                     PostId: id,
@@ -71,7 +80,7 @@ export default function Post({ post }) {
 
     const deleteComment = (id) => {
         axios
-            .delete(`http://localhost:3001/comments/${id}`, {
+            .delete(`http://localhost:8800/api/comments/${id}`, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {
@@ -83,16 +92,16 @@ export default function Post({ post }) {
             });
     };
 
-    // const deletePost = (id) => {
-    //     axios
-    //         .delete(`http://localhost:3001/posts/${id}`, {
-    //             headers: { accessToken: localStorage.getItem("accessToken") },
-    //         })
-    //         .then(() => {
-    //             history.push("/");
-    //         });
+    const deletePost = (id) => {
+        axios
+            .delete(`http://localhost:8800/api/posts/${id}`, {
+                headers: { accessToken: localStorage.getItem("accessToken") },
+            })
+            .then(() => {
+                history.push("/");
+            });
 
-    // };
+    };
     return (
         <div className="post">
             <div className="postWrapper">
@@ -113,11 +122,11 @@ export default function Post({ post }) {
 
 
                 </div>
-
+                {/* onClick={likeHandler} alt="" */}
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        {/* <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
-                        <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" /> */}
+                        <img className="likeIcon" src="/assets/heart.png" alt="" />
+                        <img className="likeIcon" src="/assets/like.png" alt="" />
                         <span className="postLikeCounter">like
 
                         </span>

@@ -8,38 +8,49 @@ import Post from "./pages/CreateComment";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import PageNotFound from "./pages/PageNotFound";
-import { AuthContext } from "./helpers/AuthContext";
+import AuthApi from './components/AuthApi';
 import axios from "axios";
 import ImageUpdate from './components/Images/ImageUpdate'
 import CreateComment from './pages/CreateComment';
 import AllPosts from './components/allPosts/AllPosts';
+import Cookies from 'js-cookie';
 // import { API_AUTH_AUTHUSER } from '../../constants/api'
+import Topbar from './components/topbar/Topbar'
 function App() {
-  const [authState, setAuthState] = useState({
-    username: "",
-    id: 0,
-    status: false,
-  });
+  const [auth, setAuth] = React.useState(false);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/auth/auth", {
-  //       headers: {
-  //         accessToken: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.data.error) {
-  //         setAuthState({ ...authState, status: false });
-  //       } else {
-  //         setAuthState({
-  //           username: response.data.username,
-  //           id: response.data.id,
-  //           status: true,
-  //         });
-  //       }
-  //     });
-  // }, []);
+  // gestion des cookies
+  const readCookie = () => {
+    const user = Cookies.get("user");
+    if (user) {
+      setAuth(true);
+    }
+  }
+
+  React.useEffect(() => {
+    readCookie();
+  }, [])
+
+
+
+  // Gestion de la NavBar
+  let navLink;
+  if (auth === true) {
+    const userLog = JSON.parse(localStorage.getItem('accessToken'));
+    const userId = userLog.id;
+
+    navLink = <>
+      <div className="mr-auto">
+        <Link to="/posts" className="nav-link">Tous les articles</Link>
+        <Link to={"/user/" + userId} className="nav-link">Mon compte</Link>
+      </div>
+    </>
+  } else {
+    navLink = <div className="mr-auto">
+      <Link to="/register" className="nav-link">S'inscrire</Link>
+      <Link to="/login" className="nav-link">Se connecter</Link>
+    </div>
+  }
 
   // const logout = () => {
   //   localStorage.removeItem("accessToken");
@@ -48,16 +59,17 @@ function App() {
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ authState, setAuthState }}>
+      <AuthApi.Provider value={{ auth, setAuth }}>
         <Router>
           <div className="navbar">
             <div className="links">
 
             </div>
-            {/* <div className="loggedInContainer">
-              <h1>{authState.username} </h1>
-              {authState.status && <button onClick={logout}> Logout</button>}
-            </div> */}
+            <div className="className= mr-auto">
+              {/* <Link to="/" ><Topbar /></Link> */}
+              {navLink}
+
+            </div>
           </div>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -73,10 +85,9 @@ function App() {
 
           </Switch>
         </Router>
-      </AuthContext.Provider>
+      </AuthApi.Provider>
     </div>
   );
 }
 
 export default App;
-

@@ -5,7 +5,17 @@ const Comment = models.comments;
 const Like = models.likes;
 const db = require('../models');
 // logique métier : lire tous posts
-
+//get user's all posts
+// "http://localhost:3000/api/profile/:username", a
+exports.getusersallposts = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        const posts = await Post.find({ userId: user.id });
+        res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
 exports.findAllPosts = (req, res, next) => {
     db.Post.findAll({
         order: [
@@ -47,7 +57,7 @@ exports.findOnePost = (req, res, next) => {
 // exports.createPost = (req, res, next) => {
 //     db.Post.create({
 //         title: req.body.title,
-//         content: req.body.content,
+//         desc: req.body.desc,
 //         // userId: res.userId,
 //         image: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
 //     })
@@ -57,12 +67,16 @@ exports.findOnePost = (req, res, next) => {
 // FONCTIONNE logique métier : créer un post
 exports.createPost = (req, res, next) => {
     // éléments de la requète
+    const userId = req.body.id;
     const title = req.body.title;
-    const content = req.body.content;
-    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
+    const desc = req.body.desc;
+    const img = req.body.img;
 
+    // const img = req.body.img;
+    const image = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
+    // const img = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
     // vérification que tous les champs sont remplis
-    if (title === null || title === '' || content === null || content === '') {
+    if (title === null || title === '' || desc === null || desc === '') {
         return res.status(400).json({ 'error': "Veuillez remplir les champs 'titre' et 'contenu' pour créer un post" });
     }
 
@@ -82,10 +96,10 @@ exports.createPost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
     // éléments de la requète
     const title = req.body.title;
-    const content = req.body.content;
+    const desc = req.body.desc;
 
     // vérification que tous les champs sont remplis
-    if (title === null || title === '' || content === null || content === '') {
+    if (title === null || title === '' || desc === null || desc === '') {
         return res.status(400).json({ 'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un post" });
     }
 
@@ -126,7 +140,7 @@ exports.deletePost = (req, res, next) => {
 // exports.createPost = (req, res, next) => {
 //     db.Post.create({
 //         title: req.body.title,
-//         content: req.body.content,
+//         desc: req.body.desc,
 //         userId: res.userId,
 //         image: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
 //     })

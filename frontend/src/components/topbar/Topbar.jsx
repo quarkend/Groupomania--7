@@ -2,13 +2,16 @@ import React from 'react'
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import { Link } from "react-router-dom"
-
+import { useEffect, useState } from "react";
 export default function Topbar() {
+    const [username, setUsername] = useState({});
+    const storage = localStorage.getItem("accessToken");
+    const id = storage.userId;
     return (
         <div className="topbarContainer">
             <div className="topbarLeft">
                 <span className="logo"><Link to="/">HOME</Link> </span>
-                <span className="logo"><Link to="/profile/1" >profile 1</Link> </span>
+                <span className="logo" ><Link to={`/profile/${id}`} >profile id</Link> </span>
                 <span className="logo"><Link to="/CreatePost/">create post</Link> </span>
             </div>
             <div className="topbarCenter">
@@ -22,7 +25,7 @@ export default function Topbar() {
                 <div className="topbarLinks">
                     <span className="topbarLink">Homepage</span>
                     <span className="topbarLink">Timeline</span>
-                    <span className="logo"><Link to="/post/1">create comment</Link> </span>
+                    <span className="logo"><Link to="/post/:id">id create comment</Link> </span>
                 </div>
 
 

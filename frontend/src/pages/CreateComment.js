@@ -23,11 +23,11 @@ function CreateComment() {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
+    axios.get(`http://localhost:8800/api/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
     });
 
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+    axios.get(`http://localhost:8800/api/comments/${id}`).then((response) => {
       setComments(response.data);
     });
   }, []);
@@ -35,7 +35,7 @@ function CreateComment() {
   const addComment = () => {
     axios
       .post(
-        "http://localhost:3001/comments",
+        "http://localhost:8800/api/comments",
         {
           commentBody: newComment,
           PostId: id,
@@ -63,7 +63,7 @@ function CreateComment() {
 
   const deleteComment = (id) => {
     axios
-      .delete(`http://localhost:3001/comments/${id}`, {
+      .delete(`http://localhost:8800/api/comments/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {
@@ -77,7 +77,7 @@ function CreateComment() {
 
   const deletePost = (id) => {
     axios
-      .delete(`http://localhost:3001/posts/${id}`, {
+      .delete(`http://localhost:8800/api/posts/${id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then(() => {

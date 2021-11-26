@@ -40,7 +40,7 @@ export default function AllPosts(Post) {
                 <div className="post-card" key={"postCard" + post.id}>
                     {users.map((user) => {
                         if (user.id === post.userId && user.imageUrl) {
-                            return <img src={"http://localhost:3001/images/" + user.imageUrl} alt="user" key={"userImage" + post.id} />
+                            return <img src={"http://localhost:8800/images/" + user.imageUrl} alt="user" key={"userImage" + post.id} />
                         } else if (user.id === post.userId && !user.imageUrl) {
                             return <img />
                         } else {
@@ -95,7 +95,7 @@ export default function AllPosts(Post) {
 
 //     useEffect(() => {
 //         axios
-//             .get("http://localhost:3001/posts", {
+//             .get("http://localhost:8800/posts", {
 //                 headers: {
 //                     accessToken: localStorage.getItem("accessToken"),
 //                 },

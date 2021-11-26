@@ -28,7 +28,7 @@
 //         const userId = storage.userId;
 //         let token = "Bearer " + storage.token;
 
-//         fetch("http://localhost:3001/posts/" + 1,
+//         fetch("http://localhost:8800/posts/" + 1,
 //             {
 //                 method: 'put',
 //                 headers: { "Authorization": token },

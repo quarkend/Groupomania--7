@@ -2,7 +2,7 @@
 import Share from '../share/Share'
 import Post from '../post/Post'
 import "./feed.css"
-import { Posts } from '../../dummyData'
+import { Posts } from '../../DATA'
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import React, { useContext } from "react";
 import axios from "axios";
@@ -18,11 +18,11 @@ export default function Feed({ username }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     useEffect(() => {
-        axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
+        axios.get(`http://localhost:8800/api/posts/byId/${id}`).then((response) => {
             setPostObject(response.data);
         });
 
-        axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+        axios.get(`http://localhost:8800/api/comments/${id}`).then((response) => {
             setComments(response.data);
         });
     }, []);
@@ -30,7 +30,7 @@ export default function Feed({ username }) {
     useEffect(() => {
         const fetchPosts = async () => {
             const res = username
-            await axios.get("/profile/")
+            await axios.get("http://localhost:8800/api/profile/")
 
             setPosts(
                 res.data.sort((p1, p2) => {
@@ -45,7 +45,7 @@ export default function Feed({ username }) {
         <div className="feed">
             <div className="feedWrapper">
                 {(!username || username === user.username) && <Share />}
-                {posts.map((p) => (
+                {Posts.map((p) => (
                     <Post key={p._id} post={p} />
                 ))}
             </div>

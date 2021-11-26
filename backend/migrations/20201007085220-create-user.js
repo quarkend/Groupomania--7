@@ -22,23 +22,41 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      bio: {
+
+      profilePicture: {
         allowNull: true,
         type: Sequelize.STRING
       },
-      imageUrl: {
+      coverPicture: {
         allowNull: true,
         type: Sequelize.STRING
-      },
-      image: {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      isAdmin: {
+      }, isAdmin: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
         defaultValue: 0
       },
+      desc: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      city: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      from: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+
+      relationship: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      image: {
+        relationship: true,
+        type: Sequelize.STRING
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
