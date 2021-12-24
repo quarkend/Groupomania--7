@@ -64,7 +64,7 @@ function Post(post) {
                 "/comments",
                 {
                     commentBody: newComment,
-                    PostId: id,
+                    postId: id,
                 },
                 {
                     headers: {

@@ -2,6 +2,7 @@ import { MoreVert } from '@material-ui/icons';
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { format } from "timeago.js";
 import "./post.css";
 
 
@@ -153,19 +154,22 @@ export default function Post({ post }) {
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
-                    <div className="postProfileImg">
-                        <img
+                    <div className="postTopLeft">
+
+                        <img className="postProfileImg"
                             src={"http://localhost:8800/images/" + user.profilePicture}
                             alt="user"
 
                         />
 
-                        <Link to={`/profile/${user.username}`}>  profile </Link>
+                        {/* <Link to={`/profile/${user.username}`}>  profile </Link> */}
                         {/* <img className="postProfileImg" src={post.profilePicture} alt="" /> */}
 
-                        {/* <span className="postDate">{post.date}</span> */}
+
+
                     </div>
                     <div className="postTopRight">
+                        <span className="postDate">{format(post.createdAt)}</span>
                     </div>
                     <MoreVert />
                 </div>
@@ -174,14 +178,45 @@ export default function Post({ post }) {
                     <span className="postText">{post.desc}</span>
                     <div className="images">
 
-                        <img
+                        <img className="postImg"
                             src={"http://localhost:8800/images/" + post.img}
-                            alt="user"
+                            alt="center"
 
                         />
 
 
 
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="AJOUTER UN COMMENTAIRE"
+                        autoComplete="off"
+                        value={newComment}
+                        onChange={(event) => {
+                            setNewComment(event.target.value);
+                        }}
+                    />
+                    <button onClick={addComment}> Add Comment</button>
+
+                    <div className="listOfComments">
+                        {comments.map((comment, key) => {
+                            return (
+                                <div key={key} className="comment">
+                                    {comment.content}
+                                    <label> Username: {user.username}</label>
+                                    {(
+                                        <button
+                                            onClick={() => {
+                                                deleteComment(comment.id);
+                                            }}
+                                        >
+                                            ANNULER
+                                        </button>
+
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
 
                 </div>
@@ -193,42 +228,12 @@ export default function Post({ post }) {
                         <span className="postLikeCounter">{like} people like it</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText"> {postObject.desc} </span>
+                        <span className="postCommentText"> {post.desc} </span>
                     </div>
                 </div>
 
             </div>
-            <input
-                type="text"
-                placeholder="Comment..."
-                autoComplete="off"
-                value={newComment}
-                onChange={(event) => {
-                    setNewComment(event.target.value);
-                }}
-            />
-            <button onClick={addComment}> Add Comment</button>
 
-            <div className="listOfComments">
-                {comments.map((comment, key) => {
-                    return (
-                        <div key={key} className="comment">
-                            {comment.content}
-                            <label> Username: {user.username}</label>
-                            {(
-                                <button
-                                    onClick={() => {
-                                        deleteComment(comment.id);
-                                    }}
-                                >
-                                    X
-                                </button>
-
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
         </div>
     );
 }

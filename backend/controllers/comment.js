@@ -4,7 +4,7 @@ const Post = db.posts;
 
 // logique métier : lire tous les commentaires
 exports.findAllComments = (req, res, next) => {
-    Comment.findAll({ where: { PostId: req.params.id } })
+    Comment.findAll({ where: { postId: req.params.id } })
         .then(comments => {
             console.log(comments);
             res.status(200).json(comments);

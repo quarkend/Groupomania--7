@@ -12,10 +12,10 @@ router.get('/byId/:id', auth, userCtrl.findAllUsersById);
 /************************** */
 router.delete('/delete', userCtrl.deleteCurrentUser);
 
-router.get('/friends/:userId', userCtrl.getFriends);
+// router.get('/friends/:userId', userCtrl.getFriends);
 router.get('/:id', userCtrl.findOneUser);
 router.get('/:id', userCtrl.findAllUserByName);
 router.get('/:id/posts', postCtrl.findAllPosts);
-router.put('/:id', userCtrl.modifyUser);
-router.delete('/:id', userCtrl.deleteUser);
+// router.put('/:id', userCtrl.modifyUser);
+// router.delete('/:id', userCtrl.deleteUser);
 module.exports = router;
