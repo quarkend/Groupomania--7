@@ -50,7 +50,7 @@ function Register() {
                                 <ErrorMessage name="username" component="span" />
                                 <Field
                                     className="loginInput"
-                                    autocomplete="off"
+                                    autoComplete="on"
                                     id="inputCreatePost"
                                     name="username"
                                     placeholder="(Ex. John123...)"
@@ -60,7 +60,7 @@ function Register() {
                                 <Field
 
                                     className="loginInput"
-                                    autocomplete="off"
+                                    autoComplete="on"
                                     id="inputCreatePost"
                                     name="email"
                                     placeholder="(Ex. John1@love.fr)"
@@ -70,7 +70,7 @@ function Register() {
                                 <ErrorMessage name="password" component="span" />
                                 <Field
                                     className="loginInput"
-                                    autocomplete="off"
+                                    autoComplete="on"
                                     type="password"
                                     id="inputCreatePost"
                                     name="password"
@@ -167,14 +167,14 @@ export default Register;
 //                                 <ErrorMessage name="username" component="span" />
 //                                 <Field
 //                                     className="loginInput"
-//                                     autocomplete="off"
+//                                     autoComplete="on"
 //                                     id="inputCreatePost"
 //                                     name="username"
 //                                     placeholder="(Ex. John123...)"
 //                                 />
 //                                 <Field
 //                                     className="loginInput"
-//                                     autocomplete="off"
+//                                     autoComplete="on"
 //                                     id="inputCreatePost"
 //                                     name="email"
 //                                     placeholder="(Ex. John1@love.fr)"
@@ -184,7 +184,7 @@ export default Register;
 //                                 <ErrorMessage name="password" component="span" />
 //                                 <Field
 //                                     className="loginInput"
-//                                     autocomplete="off"
+//                                     autoComplete="on"
 //                                     type="password"
 //                                     id="inputCreatePost"
 //                                     name="password"

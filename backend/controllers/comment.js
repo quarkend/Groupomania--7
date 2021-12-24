@@ -1,12 +1,13 @@
 const db = require("../models");
 const Comment = db.comments;
+const Post = db.posts;
 
 // logique métier : lire tous les commentaires
 exports.findAllComments = (req, res, next) => {
     Comment.findAll({ where: { PostId: req.params.id } })
         .then(comments => {
             console.log(comments);
-            res.status(200).json({ data: comments });
+            res.status(200).json(comments);
         })
         .catch(error => res.status(400).json({ error }));
 };
@@ -21,26 +22,26 @@ exports.findOneComment = (req, res, next) => {
         .catch(error => res.status(404).json({ error }));
 };
 
-// logique métier : créer un commentaire
-exports.createComment = (req, res, next) => {
 
-    const commentObject = req.body;
-    // Création d'un nouvel objet commentaire
-    const comment = new Comment({
-        ...commentObject
-    });
-    // Enregistrement de l'objet commentaire dans la base de données
-    comment.save()
-        .then(() => {
-            Comment.findAll({
-                where: { PostId: req.body.PostId }
+exports.createComment = (req, res, next) => {
+    Post.findOne({ where: { id: req.body.postId } })
+        .then(post => {
+            if (!post) {
+                return res.status(404).json({ error: 'Post introuvable !' })
+            }
+
+            Comment.create({
+                id: req.params.id,
+                content: req.body.content,
+                userId: req.body.userId,
+                postId: post.id
             })
-                .then((comments) => {
-                    res.status(200).json(comments);
-                })
+                .then(comment => res.status(201).json({ comment }))
+                .catch(error => res.status(400).json({ error }))
         })
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(400).json({ error }))
 }
+
 
 // Logique métier : supprimer un commentaire
 exports.deleteComment = (req, res, next) => {

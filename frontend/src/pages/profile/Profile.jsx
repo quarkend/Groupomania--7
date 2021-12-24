@@ -1,32 +1,177 @@
+
+// import React, { useEffect, useState, useContext } from "react";
+// import { useParams, useHistory } from "react-router-dom";
+// import axios from "axios";
+
+// import "./profile.css"
+// import Topbar from "../../components/topbar/Topbar"
+// import Sidebar from "../../components/sidebar/Sidebar"
+// import Feed from "../../components/feed/Feed"
+// import Rightbar from "../../components/rightbar/Rightbar"
+// import { AuthContext } from './../../helpers/AuthContext';
+
+// export default function Profile() {
+//     // let { id } = useParams();
+//     let history = useHistory();
+//     const [user, setUser] = useState([]);
+//     const [username, setUsername] = useState("");
+//     const [listOfPosts, setListOfPosts] = useState([]);
+//     const { authState } = useContext(AuthContext);
+
+//     const storage = JSON.parse(localStorage.getItem('access'));
+
+
+//     const id = storage.userId;
+
+
+//     let token = "Bearer " + storage.token;
+
+
+//     useEffect(() => {
+
+
+//         axios.get(`/profile/${username}`,
+//             {
+//                 headers: { accessToken: localStorage.getItem("accessToken") }
+//             }).then((response) => {
+//                 setListOfPosts(response.data)
+//                 localStorage.setItem(' setListOfPostsbyuserIdnn', JSON.stringify(response.data));
+//             });
+//     }, [id, username]);
+//     // useEffect(() => {
+
+
+//     //     axios.get(`/posts/byuserId/${id}`,
+//     //         {
+//     //             headers: { accessToken: localStorage.getItem("accessToken") }
+//     //         }).then((response) => {
+//     //             setListOfPosts(response.data)
+//     //             localStorage.setItem(' setListOfPostsbyuserId', JSON.stringify(response.data));
+//     //         });
+//     // }, [id]);
+//     useEffect(() => {
+//         const fetchUser = async () => {
+//             const res = await axios.get(`users/${id}`,
+//                 {
+//                     headers:
+//                         { "Authorization": token }
+//                 }
+//             );
+//             setUser(res.data);
+//             localStorage.setItem('userAount', JSON.stringify(res.data));
+//             console.log(user)
+//         };
+//         fetchUser();
+//     }, [token, id, user]);
+//     return (
+
+//         <div className="profilePageContainer">
+//             <Topbar />
+//             <div className="profile">
+//                 <Sidebar />
+//                 <div className="profileRight">
+//                     <div className="profileRightTop">
+//                         <div className="profileCover">
+//                             {/* <img className="profileCoverImg" src={Posts.photo} alt="" /> */}
+//                             {/* <img className="profileUserImg" src={authState.photo} alt="" /> */}
+//                         </div>
+//                         <div className="profileInfo">
+//                             <h4 className="profileInfoName">{user.username}</h4>
+
+//                             <span className="profileInfoDesc">hello my fuuuriend</span>
+//                         </div>
+
+//                     </div>
+//                     <div className="profileRightBottom">
+//                         <Feed />
+
+//                     </div>
+
+//                 </div>
+//             </div>
+
+
+//         </div>
+
+
+//     );
+// }
+/*************************copie Groupomania--7 15sep2021 14 12 */
+
+
+
+
+
+
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
-import "./profile.css"
+// import "./profile.css"
 import Topbar from "../../components/topbar/Topbar"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Feed from "../../components/feed/Feed"
 import Rightbar from "../../components/rightbar/Rightbar"
 import { AuthContext } from './../../helpers/AuthContext';
+import Post from './../../components/post/Post';
 
 export default function Profile() {
     let { id } = useParams();
-    let history = useHistory();
-    const [username, setUsername] = useState("");
-    const [listOfPosts, setListOfPosts] = useState([]);
-    const { authState } = useContext(AuthContext);
-    useEffect(() => {
-        axios.get(`http://localhost:8800/api/auth/basicInfo/${id}`).then((response) => {
-            setUsername(response.data.username);
-        });
+    const [posts, setPosts] = useState([]);
+    const [comments, setComments] = useState([]);
+    // const [newComment, setNewComment] = useState("");
+    const [user, setUser] = useState({});
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    // const { user: currentUser } = useContext(AuthContext);
 
-        axios.get(`http://localhost:8800/api/posts/byuserId/${id}`).then((response) => {
-            setListOfPosts(response.data);
-        });
-    }, []);
+
+    const [isLiked, setIsLiked] = useState(false)
+    const sPost = JSON.parse(localStorage.getItem(' setLtOfPtsbyuserId'));
+    const storage = JSON.parse(localStorage.getItem('access'));
+    const userId = storage.userId;
+    const postId = sPost.id;
+    let token = "Bearer " + storage.token;
+    let history = useHistory();
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await axios.get(`/users/${userId}`,
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            )
+            setUser(res.data);
+            console.log(res.data)
+            localStorage.setItem('userAccount', JSON.stringify(res.data));
+        };
+        fetchUser();
+    }, [token, userId,]);
+
+    useEffect(() => {
+        axios.get(`/posts/byId/${postId}`,
+
+            {
+                headers:
+                    { "Authorization": token }
+            }).then((response) => {
+                setPosts(response.data);
+                console.log(response.data)
+                localStorage.setItem('postsbyuserIdprofile', JSON.stringify(response.data));
+            });
+
+        axios.get(`/comments/${userId}`,
+
+            {
+                headers:
+                    { "Authorization": token }
+            }).then((response) => {
+                setComments(response.data);
+                console.log(response.data)
+            });
+    }, [postId, token, userId]);
+
 
     return (
-
         <div className="profilePageContainer">
             <Topbar />
             <div className="profile">
@@ -34,61 +179,27 @@ export default function Profile() {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img className="profileCoverImg" src="assets/post/3.jpeg" alt="" />
-                            <img className="profileUserImg" src="assets/person/2.jpeg" alt="" />
+                            {/* <img className="profileCoverImg" src={Posts.photo} alt="" /> */}
+                            {/* <img className="profileUserImg" src={authState.photo} alt="" /> */}
                         </div>
                         <div className="profileInfo">
-                            <h4 className="profileInfoName">{authState.username} </h4>
+                            <h4 className="profileInfoName">{user.username}</h4>
+
                             <span className="profileInfoDesc">hello my friend</span>
                         </div>
 
                     </div>
-                    <div className="profileRightBottom">
+                    <div className="listOfPosts">
 
 
+                        <div className="profileRightBottom">
+                            <Feed />
+
+                        </div>
                     </div>
-
                 </div>
             </div>
 
-            <div className="basicInfo">
-                {" "}
-                <h1> Username: {username} </h1>
-                {authState.username === username && (
-                    <button
-                        onClick={() => {
-                            history.push("/changepassword");
-                        }}
-                    >
-                        {" "}
-                        Change My Password
-                    </button>
-                )}
-            </div>
-            <div className="listOfPosts">
-                {listOfPosts.map((value, key) => {
-                    return (
-                        <div key={key} className="post">
-                            <div className="title"> {value.title} </div>
-
-                            <div
-                                className="body"
-                                onClick={() => {
-                                    history.push(`/post/${value.id}`);
-                                }}
-                            >
-                                {value.postText}
-                            </div>
-                            <div className="footer">
-                                <div className="username">{value.username}</div>
-                                <div className="buttons">
-                                    {/* <label> {value.Like.length}</label> */}
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
         </div>
     );
 }

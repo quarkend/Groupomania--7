@@ -8,14 +8,15 @@ import {
     Cancel,
 } from "@material-ui/icons";
 import { useEffect, useContext, useRef, useState } from "react";
-import { AuthContext } from './../../helpers/AuthContext';
+// import { AuthContext } from './../../helpers/AuthContext';
 // import { AuthContext } from "../../context/AuthContext";
-
+import { AuthContext } from './../../helpers/AuthContext';
 import axios from "axios";
 
 import { useParams, Link, useHistory } from "react-router-dom";
 
 export default function Share() {
+    let { id } = useParams();
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const desc = useRef();
@@ -23,14 +24,16 @@ export default function Share() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const user = JSON.parse(localStorage.getItem(' accessToken'));
-        const posts = JSON.parse(localStorage.getItem(' setlistOfPosts'));
+        const storage = JSON.parse(localStorage.getItem('access'));
 
-        const userId = user.userId;
+        let token = "Bearer " + storage.token;
 
-        let token = "Bearer " + user.token;
+        // const user = JSON.parse(localStorage.getItem(' userAccount'));
+
+
+
         const newPost = {
-            userId: user.userId,
+            userId: storage.userId,
             desc: desc.current.value,
         };
         if (file) {
@@ -41,13 +44,14 @@ export default function Share() {
             newPost.img = fileName;
             console.log(newPost);
             try {
-                await axios.post("/upload", data);
+                await axios.post("http://localhost:8800/upload", data);
             } catch (err) { }
         }
         try {
             await axios.post("/posts", newPost,
                 {
-                    headers: { accessToken: localStorage.getItem("accessToken") }
+                    headers:
+                        { "Authorization": token }
                 }
             );
             window.location.reload();
@@ -58,14 +62,15 @@ export default function Share() {
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img
+                    {/* <img
                         className="shareProfileImg"
-                        src={
+                        src=
 
-                            "person/noAvatar.png"
-                        }
-                        alt=""
-                    />
+                        {PF + "images/16174607888833.jpeg"}
+
+                        alt="dd"
+                    />  */}
+                    <img src="http://localhost:3007/assets/person/1.jpeg" alt="XX" className="shareProfileImg" />
                     <input
                         placeholder={"What'smind? "}
                         className="shareInput"

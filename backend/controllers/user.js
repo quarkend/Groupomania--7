@@ -18,9 +18,9 @@ exports.deleteCurrentUser = (req, res, next) => {
 const fs = require('fs');
 
 // logique métier : lire tous utilisateurs
-exports.findAllUsers = (req, res, next) => {
+exports.findAllUsersById = (req, res, next) => {
     console.log("kingparams: ", req.params);
-    User.findAll()
+    User.findAll({ where: { userId: req.params.id } })
         .then(users => {
             console.log("king: ", users);
             res.status(200).json({ data: users });
@@ -87,19 +87,7 @@ exports.modifyUser = (req, res, next) => {
         .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
-//delete user
-// router.delete("/:id", async (req, res) => {
-//     if (req.body.userId === req.params.id || req.body.isAdmin) {
-//         try {
-//             await User.findByIdAndDelete(req.params.id);
-//             res.status(200).json("Account has been deleted");
-//         } catch (err) {
-//             return res.status(500).json(err);
-//         }
-//     } else {
-//         return res.status(403).json("You can delete only your account!");
-//     }
-// });
+
 // logique métier : supprimer un utilisateur
 // if (req.body.userId === req.params.id || req.body.isAdmin)
 exports.deleteUser = (req, res, next) => {

@@ -1,16 +1,31 @@
 import React from 'react'
 import "./rightbar.css"
-import { Users } from '../../DATA';
+import axios from 'axios'
 import Online from "../online/Online";
-
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function Rightbar(profile) {
     const HomeRightbar = () => {
+        const userId = id
+        const id = 1;
+        const [Users, setUsers] = useState([]);
+        useEffect(() => {
+            axios.get("http://localhost:3001/users").then((res) => {
+                setUsers(res.data)
+                console.log(res.data)
+            })
+            axios.get(`|http://localhost:3001/posts/byId/${id}`).then((res) => {
+                setUsers(res.data)
+                console.log(res.data)
+            })
+        }, []);
         return (
             <div>
                 <div className="birthdayContainer">
                     <img className="birthdayImg" src="assets/gift.png" alt="" />
-                    <span className="birthdayText"> <b>pol fost</b>  and 2 have birthday today</span>
+                    <span className="birthdayText"> <b>pol fost</b> {Users.desc}</span>
                 </div>
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
                 <h4 className="rightbarTitle">On line friends</h4>
@@ -25,6 +40,29 @@ export default function Rightbar(profile) {
         );
     };
     const ProfileRightbar = () => {
+
+        const storage = JSON.parse(localStorage.getItem('access'));
+        const id = storage.userId;
+
+
+        let token = "Bearer " + storage.token;
+        const [Users, setUsers] = useState([]);
+        const [posts, setPosts] = useState([]);
+        useEffect(() => {
+            axios.get(`/users/${id}`,
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            ).then((res) => {
+                setUsers(res.data)
+                console.log(res.data)
+            })
+            axios.get(`/posts/byId/${id}`).then((res) => {
+                setPosts(res.data)
+                console.log(res.data)
+            })
+        }, []);
         return (
             <div>
                 <h4 className="rightbarTitle">User Information </h4>
@@ -50,11 +88,11 @@ export default function Rightbar(profile) {
                             </div>
                             <div className="rightbarFollowing">
                                 <img src="assets/person/3.jpeg" alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName"> Janell Shrum </span>
+                                <span className="rightbarFollowingName">{posts.desc}</span>
                             </div>
                             <div className="rightbarFollowing">
-                                <img src="assets/person/4.jpeg" alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName"> Janell Shrum </span>
+                                <img src={"http://localhost:8800/images/" + Users.coverPicture} alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> {Users.coverPicture}</span>
                             </div>
                             <div className="rightbarFollowing">
                                 <img src="assets/person/5.jpeg" alt="" className="rightbarFollowingImg" />

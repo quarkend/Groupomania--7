@@ -4,8 +4,7 @@ const User = db.users;
 const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const { validateToken } = require("../middlewares/auth");
-// const { sign } = require("jsonwebtoken");
+
 // Logiques métiers pour les utilisateurs
 // Création de nouveaux utilisateurs (Post signup)
 exports.signup = (req, res, next) => {
@@ -21,10 +20,7 @@ exports.signup = (req, res, next) => {
         return res.status(400).json({ 'error': "Veuillez remplir l'ensemble des champs du formulaire" });
     }
 
-    // // Masquage de l'adresse mail
-    // let buff = new Buffer(email);
-    // let emailInbase64 = buff.toString('base64');
-    // vérification si l'user existe dans DB
+
     User.findOne({
         attributes: ['email'],
         where: { email: email }
@@ -35,9 +31,7 @@ exports.signup = (req, res, next) => {
                 // Hash du mot de passe avec bcrypt
                 bcrypt.hash(password, 10)
                     .then(hash => {
-                        // Masquage de l'adresse mail
-                        // let buff = new Buffer(email);
-                        // let emailInbase64 = buff.toString('base64');
+
 
                         // Création du nouvel utilisateur
                         const user = new User({
@@ -60,9 +54,7 @@ exports.signup = (req, res, next) => {
 
 // Création de connexion d'utilisateur enregistré (Post login)
 exports.login = (req, res, next) => {
-    // // Masquage de l'adresse mail
-    // let buff = new Buffer(req.body.email);
-    // let emailInbase64 = buff.toString('base64');
+
 
     // Recherche d'un utilisateur dans la base de données
     User.findOne({ where: { email: req.body.email } })
@@ -121,16 +113,7 @@ exports.getCurrentUser = async (req, res, next) => {
         res.status(500).json(err);
     }
 }
-/****************************************************/
-// /***** */
-// exports.findAllUsers = async (req, res) => {
-//     const id = req.params.id;
-//     const setlistOfUsers = await Users.findAll({
-//         where: { id: id },
 
-//     });
-//     res.json(setlistOfUsers);
-// };
 
 exports.findAllUsers = async (req, res, next) => {
     console.log(req.params);
@@ -151,90 +134,4 @@ exports.findAllUsers = async (req, res, next) => {
 
 
 
-//get friends
 
-/*********** */
-
-
-//get a user
-// exports.getCurrentUser(async (req, res, next) => {
-//     // const userId = req.query.userId;
-//     const userId = req.query.userId;
-
-//     const username = req.query.username;
-//     try {
-//         const user = userId
-//             ? await db.User.findById(userId)
-//             : await db.User.findOne({ username: username });
-//         const { password, updatedAt, ...other } = user._doc;
-//         res.status(200).json(other);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
-
-//get friends
-// router.get("/friends/:userId", async (req, res) => {
-//     try {
-//         const user = await User.findById(req.params.userId);
-//         const friends = await Promise.all(
-//             user.followings.map((friendId) => {
-//                 return User.findById(friendId);
-//             })
-//         );
-//         let friendList = [];
-//         friends.map((friend) => {
-//             const { _id, username, profilePicture } = friend;
-//             friendList.push({ _id, username, profilePicture });
-//         });
-//         res.status(200).json(friendList)
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
-
-//follow a user
-
-// router.put("/:id/follow", async (req, res) => {
-//     if (req.body.userId !== req.params.id) {
-//         try {
-//             const user = await User.findById(req.params.id);
-//             const currentUser = await User.findById(req.body.userId);
-//             if (!user.followers.includes(req.body.userId)) {
-//                 await user.updateOne({ $push: { followers: req.body.userId } });
-//                 await currentUser.updateOne({ $push: { followings: req.params.id } });
-//                 res.status(200).json("user has been followed");
-//             } else {
-//                 res.status(403).json("you allready follow this user");
-//             }
-//         } catch (err) {
-//             res.status(500).json(err);
-//         }
-//     } else {
-//         res.status(403).json("you cant follow yourself");
-//     }
-// });
-
-// //unfollow a user
-
-// router.put("/:id/unfollow", async (req, res) => {
-//     if (req.body.userId !== req.params.id) {
-//         try {
-//             const user = await User.findById(req.params.id);
-//             const currentUser = await User.findById(req.body.userId);
-//             if (user.followers.includes(req.body.userId)) {
-//                 await user.updateOne({ $pull: { followers: req.body.userId } });
-//                 await currentUser.updateOne({ $pull: { followings: req.params.id } });
-//                 res.status(200).json("user has been unfollowed");
-//             } else {
-//                 res.status(403).json("you dont follow this user");
-//             }
-//         } catch (err) {
-//             res.status(500).json(err);
-//         }
-//     } else {
-//         res.status(403).json("you cant unfollow yourself");
-//     }
-// });
-
-// module.exports = router;

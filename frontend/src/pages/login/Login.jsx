@@ -51,7 +51,7 @@ function Login() {
 
     const handleSubmit = useCallback(function (value) {
 
-        fetch("http://localhost:8800/api/auth/login/", {
+        fetch("/auth/login/", {
             method: "post",
             headers: { "Content-type": 'application/json' },
             body: JSON.stringify({
@@ -62,9 +62,12 @@ function Login() {
             .then(res => res.json())
             .then(
                 (result) => {
-                    localStorage.setItem('accessToken', JSON.stringify(result));
+                    localStorage.setItem('access', JSON.stringify(result));
+                    localStorage.setItem('accessToken', JSON.stringify(result.token));
                     let storage = JSON.parse(localStorage.getItem('accessToken'));
-                    if (storage.token === undefined) {
+
+                    //                 history.push("/");
+                    if (storage === undefined) {
                         Auth.setAuth(false)
                         alert("Utilisateur non identifié. Tentez de vous connecter à nouveau !")
                     } else {
@@ -74,6 +77,7 @@ function Login() {
                         alert("La communauté de Groupomania est contente de vous revoir !")
 
                     }
+
 
                 },
                 (error) => {

@@ -4,14 +4,14 @@ import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 export default function Topbar() {
-    const [username, setUsername] = useState({});
-    const storage = localStorage.getItem("accessToken");
-    const id = storage.userId;
+    // const [username, setUsername] = useState({});
+    const storage = JSON.parse(localStorage.getItem('access'));
+    const username = storage.username;
     return (
         <div className="topbarContainer">
             <div className="topbarLeft">
                 <span className="logo"><Link to="/">HOME</Link> </span>
-                <span className="logo" ><Link to={`/profile/${id}`} >profile id</Link> </span>
+                <span className="logo" ><Link to={`/profile/${username}`} >profile de {username}</Link> </span>
                 <span className="logo"><Link to="/CreatePost/">create post</Link> </span>
             </div>
             <div className="topbarCenter">
@@ -50,7 +50,7 @@ export default function Topbar() {
 
                     </div>
                 </div>
-                <img src="/assets/person/2.jpeg" alt="" className="topbarImg" />
+                <img src="/assets/person/1.jpeg" alt="" className="topbarImg" />
             </div>
 
 

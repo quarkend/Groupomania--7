@@ -1,21 +1,22 @@
-import { useState, useEffect } from 'react';
+
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import React from 'react'
 import Home from "./pages/home/Home";
 import Profile from './pages/profile/Profile';
-import CreatePost from "./pages/CreatePost";
-import Post from "./pages/CreateComment";
+// import CreatePost from "./pages/CreatePost";
+// import Post from "./pages/CreateComment";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import PageNotFound from "./pages/PageNotFound";
 import AuthApi from './components/AuthApi';
-import axios from "axios";
-import ImageUpdate from './components/Images/ImageUpdate'
-import CreateComment from './pages/CreateComment';
-import AllPosts from './components/allPosts/AllPosts';
+// import axios from "axios";
+// import ImageUpdate from './components/Images/ImageUpdate'
+// import CreateComment from './pages/CreateComment';
+// import AllPosts from './components/allPosts/AllPosts';
 import Cookies from 'js-cookie';
 // import { API_AUTH_AUTHUSER } from '../../constants/api'
-import Topbar from './components/topbar/Topbar'
+// import Topbar from './components/topbar/Topbar'
+// import Logout from './pages/logout/Logout';
 function App() {
   const [auth, setAuth] = React.useState(false);
 
@@ -23,7 +24,7 @@ function App() {
   const readCookie = () => {
     const user = Cookies.get("user");
     if (user) {
-      setAuth(true);
+      setAuth(false);
     }
   }
 
@@ -41,8 +42,8 @@ function App() {
 
     navLink = <>
       <div className="mr-auto">
-        <Link to="/posts" className="nav-link">Tous les articles</Link>
-        <Link to={"/user/" + userId} className="nav-link">Mon compte</Link>
+        <Link to="/" className="nav-link">Tous les articles</Link>
+        <Link to={"/profile/" + userId} className="nav-link">Mon compte</Link>
       </div>
     </>
   } else {
@@ -54,7 +55,7 @@ function App() {
 
   // const logout = () => {
   //   localStorage.removeItem("accessToken");
-  //   setAuthState({ username: "", id: 0, status: false });
+  //   setAuth({ username: "", id: 0, status: false });
   // };
 
   return (
@@ -66,22 +67,24 @@ function App() {
 
             </div>
             <div className="className= mr-auto">
-              {/* <Link to="/" ><Topbar /></Link> */}
+              <Link to="/" >Home</Link>
               {navLink}
-
+              {/* <Link className="shareButton" onClick={logout} >Logout</Link> */}
             </div>
           </div>
           <Switch>
+
             <Route path="/" exact component={Home} />
-            <Route path="/createComment" exact component={CreateComment} />
-            <Route path="/createpost" exact component={CreatePost} />
+            {/* <Route path="/createComment" exact component={CreateComment} /> */}
+            {/* <Route path="/createpost" exact component={CreatePost} />
             <Route path="/post/:id" exact component={Post} />
-            <Route path="/AllPosts/:id" exact component={AllPosts} />
+            <Route path="/AllPosts/:id" exact component={AllPosts} /> */}
             <Route path="/register" exact component={Register} />
             <Route path="/login" exact component={Login} />
-            <Route path="/profile/:id" exact component={Profile} />
+
+            <Route path="/profile/:username" exact component={Profile} />
             <Route path="*" exact component={PageNotFound} />
-            {/* <Route path="/imageupdate/:id" exact component={ImageUpdate} /> */}
+            {/* <Route path="/imageupdate/:id" exact component={ImageUpdate} />  */}
 
           </Switch>
         </Router>

@@ -17,12 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     Comment.init({
-        id: {
-            type: DataTypes.INTEGER(11).UNSIGNED,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
+
         content: {
             type: DataTypes.TEXT,
             allowNull: false,
