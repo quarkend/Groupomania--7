@@ -1,0 +1,66 @@
+/* @charset "UTF-8";
+/* backgrounds colors */
+/*Paramètres de la barre de navigation*/
+/*#root a img {
+  width: 50px;
+  margin: 0.6em;
+  border-radius: 50%;
+  border: 1px solid black;
+  text-decoration: none;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  opacity: 0.9;
+  -webkit-transition: -webkit-transform 300ms ease-in-out;
+  transition: -webkit-transform 300ms ease-in-out;
+  transition: transform 300ms ease-in-out;
+  transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
+} */
+/******  LOGIN PAGE  ******/
+
+
+
+
+/******  HEADER  ******/
+
+#navigation{
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #F42B4B;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  height: 70px;
+  top: 0;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.login-container{
+    background-image: url("./assets/login-page.png");
+}
+
+#navigation h1{
+  color: white;
+}
+
+#navigation button{
+  background-color: transparent;
+  border: none;
+  align-self: center;
+}
+
+#navigation button:hover{
+  cursor: pointer;
+}
+
+#navigation button:focus{
+  outline: none !important;
+}
+
+
+/******  HEADER  ******/
+
+
+
+

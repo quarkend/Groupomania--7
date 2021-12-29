@@ -1,48 +1,42 @@
 import React from 'react'
 import "./topbar.css"
+import { AuthContext } from "./../../App";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
-import { Link } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { Link, BrowserRouter  } from "react-router-dom"
+import { useEffect, useState , Redirect } from "react";
+import Home from './../../pages/home/Home';
 export default function Topbar() {
-    // const [username, setUsername] = useState({});
-    const storage = JSON.parse(localStorage.getItem('access'));
-    const username = storage.username;
+  const { state, dispatch } = React.useContext(AuthContext);
+    const user = JSON.parse(localStorage.getItem('user'));
+ 
+   
+   
     return (
+      <BrowserRouter>
+        <nav >
+     
+         {state.isAuthenticated && (
+           
+      <div>
         <div className="topbarContainer">
             <div className="topbarLeft">
-                <span className="logo"><Link to="/">HOME</Link> </span>
-                <span className="logo" ><Link to={`/profile/${username}`} >profile de {username}</Link> </span>
-                <span className="logo"><Link to="/CreatePost/">create post</Link> </span>
+           
+    <Link to="./" > <h1> GROUPOMANIA   </h1>
+</Link>
+    
+               
             </div>
-            <div className="topbarCenter">
-                <div className="searchbar">
-                    <Search className="searchIcon" />
-                    <input placeholder="Search for friend, post or video" className="searchInput" />
-
-                </div>
-            </div>
-            <div className="topbarRight">
+           
+     
                 <div className="topbarLinks">
-                    <span className="topbarLink">Homepage</span>
-                    <span className="topbarLink">Timeline</span>
-                    <span className="logo"><Link to="/post/:id">id create comment</Link> </span>
+                
+                  
+                   
                 </div>
 
 
-                <div className="topbarIcons">
-                    <div className="topbarIconItem">
-                        <Person />
-                        <span className="topbarIconBadge">2</span>
-
-                    </div>
-                </div>
-                <div className="topbarIcons">
-                    <div className="topbarIconItem">
-                        <Chat />
-                        <span className="topbarIconBadge">3</span>
-
-                    </div>
-                </div>
+           
+              
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
                         <Notifications />
@@ -50,13 +44,31 @@ export default function Topbar() {
 
                     </div>
                 </div>
-                <img src="/assets/person/1.jpeg" alt="" className="topbarImg" />
+                <span
+        onClick={() =>
+          dispatch({
+            type: "X"
+          })
+        }
+      >
+                <h1>Hi {state.user.username} (X) </h1> 
+              
+                </span>
+                <img src={"http://localhost:8800/images/" + user.profilePicture} alt="" className="topbarImg" />
             </div>
+            <img className="postProfileImg"
+                            src={"http://localhost:8800/images/" + user.profilePicture}
+                            alt="user"
 
+                        />
 
 
         </div>
-
+        
+    )}
+       </nav>
+        </BrowserRouter>
+        
 
     );
 }

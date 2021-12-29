@@ -1,27 +1,37 @@
 import { MoreVert } from '@material-ui/icons';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from './../../App';
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
 import "./post.css";
+import {
 
+    PermMedia,
+    Label,
+    Room,
+    EmojiEmotions,
+    Cancel,
+} from "@material-ui/icons";
 
 
 export default function Post({ post }) {
 
-    let { id } = useParams();
+    // let { id } = useParams();
     const [postObject, setPostObject] = useState([]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [user, setUser] = useState({});
-    // const { user: currentUser } = useContext(AuthContext);
+    // const [user, setUser] = useState({});
+    // const user  = useContext(AuthContext);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const storage = JSON.parse(localStorage.getItem('access'));
+    const storage = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
 
-    const userId = storage.userId;
+console.log(user)
+    const userId = storage.id;
     let token = "Bearer " + storage.token;
     const [like, setLike] = useState([])
     const [isLiked, setIsLiked] = useState(false)
@@ -37,7 +47,7 @@ export default function Post({ post }) {
             {
 
                 postId: post.id,
-                userId: userId,
+                userId: storage.id,
                 like: 1
             },
 
@@ -66,20 +76,20 @@ export default function Post({ post }) {
         });
     }, [post.id, token]);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get(`/users/${userId}`,
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         const res = await axios.get(`/users/${userId}`,
 
-                {
-                    headers:
-                        { "Authorization": token }
-                });
-            setUser(res.data);
-            console.log(res.data)
-        };
+    //             {
+    //                 headers:
+    //                     { "Authorization": token }
+    //             });
+    //         setUser(res.data);
+    //         console.log(res.data)
+    //     };
 
-        fetchUser();
-    }, [userId, token]);
+    //     fetchUser();
+    // }, [userId, token]);
     console.log(post)
 
 
@@ -104,7 +114,7 @@ export default function Post({ post }) {
                 {
                     content: newComment,
                     postId: post.id,
-                    userId: storage.userId
+                    userId: storage.id
                 },
 
                 {
@@ -151,6 +161,50 @@ export default function Post({ post }) {
 
     // };
     return (
+        <div className="card">
+ 
+        <p className="created-at"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
+        <div className="detail">
+              <hr />
+              <h3>{post.title}</h3>
+              <h3>{user.username}</h3>
+              <hr />
+              <br />
+              <h4>{post.desc}</h4>
+              <hr />
+        </div>
+
+        <div className="card-image__post">
+        <img  className="postImg"
+                            src={"http://localhost:8800/images/" + post.img}
+                            alt="center"
+
+                        />
+        </div>
+
+        <div className="card-reaction">
+      
+        </div>
+
+        <div className="card-comment">
+              
+          
+
+                    <form >
+              <input className="card-input" id="hcom" type="text" name="comment" placeholder="Laisser un commentaire " 
+                    
+                        autoComplete="off"
+                        value={newComment}
+                        onChange={(event) => {
+                            setNewComment(event.target.value);
+                        }}
+                    />
+                      </form>
+                  
+                      <div className="card-reaction">
+        <button id="hcom"  onClick={addComment}> Add Comment</button>
+        </div>
+        </div>
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
@@ -173,51 +227,42 @@ export default function Post({ post }) {
                     </div>
                     <MoreVert />
                 </div>
-                <div className="postCenter">
-                    <span className="postText">{comments.content}</span>
-                    <span className="postText">{post.desc}</span>
+     
                     <div className="images">
 
-                        <img className="postImg"
+                        {/* <img  className="postImg"
                             src={"http://localhost:8800/images/" + post.img}
                             alt="center"
 
-                        />
+                        /> */}
 
 
 
                     </div>
-                    <input
-                        type="text"
-                        placeholder="AJOUTER UN COMMENTAIRE"
-                        autoComplete="off"
-                        value={newComment}
-                        onChange={(event) => {
-                            setNewComment(event.target.value);
-                        }}
-                    />
-                    <button onClick={addComment}> Add Comment</button>
+      
 
-                    <div className="listOfComments">
+                    <div className="comments">
+                                    <ul className="comments-list">
                         {comments.map((comment, key) => {
                             return (
                                 <div key={key} className="comment">
                                     {comment.content}
-                                    <label> Username: {user.username}</label>
+                                    {/* <label> Username: {currentUser.username}</label> */}
                                     {(
-                                        <button
-                                            onClick={() => {
-                                                deleteComment(comment.id);
-                                            }}
-                                        >
-                                            ANNULER
-                                        </button>
+                                      
+                                        
+                                        
+                         <Cancel   className="shareIcon"     onClick={() => {
+                            deleteComment(comment.id);
+                        }} />
+                                    
 
                                     )}
                                 </div>
                             );
                         })}
-                    </div>
+                        </ul>
+                  
 
                 </div>
 
@@ -233,7 +278,7 @@ export default function Post({ post }) {
                 </div>
 
             </div>
-
+            </div>
         </div>
     );
 }

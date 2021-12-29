@@ -70,19 +70,17 @@ exports.login = (req, res, next) => {
                         return res.status(401).json({ error: 'Mot de passe incorrect !' })
                     }
                     res.status(200).json({
-                        username: user.username,
-                        email: user.email,
-                        userId: user.id,
-                        // // // userId: user.userId,
-                        userAdmin: user.isAdmin,
+                        user,
                         // Création d'un token pour sécuriser le compte de l'utilisateur
                         token: jwt.sign(
                             {
-                                username: user.username,
-                                email: user.email,
-                                userId: user.id,
-                                // // userId: user.userId,
-                                isAdmin: user.isAdmin
+                                success: true,
+                                message: 'Authentication successful!',
+
+                                user: {
+                                    username: "Admin",
+                                    email: "User",
+                                },
                             },
                             'secretToken',
                             { expiresIn: '23h' }

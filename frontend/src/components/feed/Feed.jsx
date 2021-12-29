@@ -18,10 +18,10 @@ export default function Feed({ username }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
 
-    const storage = JSON.parse(localStorage.getItem('access'));
+    const storage = JSON.parse(localStorage.getItem('user'));
 
 
-    const id = storage.userId;
+    const id = storage.id;
 
 
     let token = "Bearer " + storage.token;

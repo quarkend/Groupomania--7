@@ -16,7 +16,7 @@ import axios from "axios";
 import { useParams, Link, useHistory } from "react-router-dom";
 
 export default function Share() {
-    let { id } = useParams();
+    // let { id } = useParams();
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const desc = useRef();
@@ -24,7 +24,7 @@ export default function Share() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const storage = JSON.parse(localStorage.getItem('access'));
+        const storage = JSON.parse(localStorage.getItem('user'));
 
         let token = "Bearer " + storage.token;
 
@@ -33,7 +33,7 @@ export default function Share() {
 
 
         const newPost = {
-            userId: storage.userId,
+            userId: user.id,
             desc: desc.current.value,
         };
         if (file) {

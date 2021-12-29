@@ -27,7 +27,17 @@ exports.findAllPosts = (req, res, next) => {
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(500).json({ error }));
 };
-
+// getSongs (req, res) {
+//     res.json(songs);
+//   }
+// getOneSong (req, res) {
+//     const { id } = req.params;
+//     const songIndex = songs.findIndex(s => s.id === id);
+//     console.log(songIndex);
+//     if (songIndex === -1) return res.status(404).json({message: 'Song not found'});
+//     const song = songs[songIndex];
+//     return res.status(201).json(song);
+//   }
 // Find all posts where userId
 // exports.findPostsByUserId = (req, res, next) => {
 //     db.posts.findAll({
@@ -48,11 +58,21 @@ exports.findPostsByUserId = (async (req, res) => {
     });
     res.json(listOfPosts);
 });
+// exports.findOnePost = (async (req, res) => {
+//     const id = req.params.id;
+//     const post = await db.posts.findByPk(id);
+//     res.json(post);
+// });
 exports.findOnePost = (async (req, res) => {
     const id = req.params.id;
-    const post = await db.posts.findByPk(id);
+    const post = await db.posts.findIndex(s => s.id === id);
+    if (postIndex === -1) return res.status(404).json({message: 'Song not found'});
+    console.log(songIndex);
+    post = db.posts[postIndex];
     res.json(post);
 });
+
+ 
 // logique métier : lire un post par son id
 // exports.findOnePost = (req, res, next) => {
 //     db.posts.findByPk({
