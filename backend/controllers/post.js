@@ -58,19 +58,19 @@ exports.findPostsByUserId = (async (req, res) => {
     });
     res.json(listOfPosts);
 });
-// exports.findOnePost = (async (req, res) => {
-//     const id = req.params.id;
-//     const post = await db.posts.findByPk(id);
-//     res.json(post);
-// });
 exports.findOnePost = (async (req, res) => {
     const id = req.params.id;
-    const post = await db.posts.findIndex(s => s.id === id);
-    if (postIndex === -1) return res.status(404).json({message: 'Song not found'});
-    console.log(songIndex);
-    post = db.posts[postIndex];
+    const post = await db.posts.findByPk(id);
     res.json(post);
 });
+// exports.findOnePost = (async (req, res) => {
+//     const id = req.params.id;
+//     const post = await db.posts.findIndex(s => s.id === id);
+//     if (postIndex === -1) return res.status(404).json({message: 'Song not found'});
+//     console.log(songIndex);
+//     post = db.posts[postIndex];
+//     res.json(post);
+// });
 
  
 // logique métier : lire un post par son id

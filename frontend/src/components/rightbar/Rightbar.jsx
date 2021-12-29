@@ -41,28 +41,28 @@ export default function Rightbar(profile) {
     };
     const ProfileRightbar = () => {
 
-        const storage = JSON.parse(localStorage.getItem('access'));
-        const id = storage.userId;
+        // const storage = JSON.parse(localStorage.getItem('access'));
+        // const id = storage.userId;
 
 
-        let token = "Bearer " + storage.token;
-        const [Users, setUsers] = useState([]);
-        const [posts, setPosts] = useState([]);
-        useEffect(() => {
-            axios.get(`/users/${id}`,
-                {
-                    headers:
-                        { "Authorization": token }
-                }
-            ).then((res) => {
-                setUsers(res.data)
-                console.log(res.data)
-            })
-            axios.get(`/posts/byId/${id}`).then((res) => {
-                setPosts(res.data)
-                console.log(res.data)
-            })
-        }, []);
+        // let token = "Bearer " + storage.token;
+        // const [Users, setUsers] = useState([]);
+        // const [posts, setPosts] = useState([]);
+        // useEffect(() => {
+        //     axios.get(`/users/${id}`,
+        //         {
+        //             headers:
+        //                 { "Authorization": token }
+        //         }
+        //     ).then((res) => {
+        //         setUsers(res.data)
+        //         console.log(res.data)
+        //     })
+        //     axios.get(`/posts/byId/${id}`).then((res) => {
+        //         setPosts(res.data)
+        //         console.log(res.data)
+        //     })
+        // }, []);
         return (
             <div>
                 <h4 className="rightbarTitle">User Information </h4>
@@ -86,14 +86,14 @@ export default function Rightbar(profile) {
                                 <img src="assets/person/1.jpeg" alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
-                            <div className="rightbarFollowing">
+                            {/* <div className="rightbarFollowing">
                                 <img src="assets/person/3.jpeg" alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName">{posts.desc}</span>
                             </div>
                             <div className="rightbarFollowing">
                                 <img src={"http://localhost:8800/images/" + Users.coverPicture} alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName"> {Users.coverPicture}</span>
-                            </div>
+                            </div> */}
                             <div className="rightbarFollowing">
                                 <img src="assets/person/5.jpeg" alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName"> Janell Shrum </span>
