@@ -24,7 +24,7 @@ router.get('/', postCtrl.findAllPosts);
 
 router.get('/byuserId/:id', postCtrl.findPostsByUserId);
 router.get('/:id/comments', commentCtrl.findAllComments);
-// router.get('/:id/likes', likeCtrl.findAllLikes);
+router.get('/:id/likes', likeCtrl.findAllLikes);
 
 // router.post('/', likeCtrl.createLike);
 router.get('/byId/:id', postCtrl.findOnePost);

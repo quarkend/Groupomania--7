@@ -19,6 +19,7 @@ export default function Share() {
     // let { id } = useParams();
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const url = "http://localhost:8800/images/";
     const desc = useRef();
     const [file, setFile] = useState(null);
 
@@ -62,15 +63,18 @@ export default function Share() {
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    {/* <img
+                    <img
                         className="shareProfileImg"
-                        src=
+                        src={
+                            user.profilePicture
+                                ? url + user.profilePicture
+                                : url + "person/noAvatar.png"
 
-                        {PF + "images/16174607888833.jpeg"}
 
-                        alt="dd"
-                    />  */}
-                    <img src="http://localhost:3007/assets/person/1.jpeg" alt="XX" className="shareProfileImg" />
+                        }
+
+                        alt="profilePicture" />
+
                     <input
                         placeholder={"What'smind? "}
                         className="shareInput"

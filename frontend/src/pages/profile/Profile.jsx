@@ -27,18 +27,18 @@ export default function Profile() {
     let token = "Bearer " + storage.token;
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
 
-        axios.get(`/profile/${username}`,
-        {
-            headers:
-                { "Authorization": token }
-        }).then((response) => {
-                setListOfPosts(response.data)
-                localStorage.setItem(' setListOfPostsbyuserIdnn', JSON.stringify(response.data));
-            });
-    }, [id, token, username]);
+    //     axios.get(`/profile/${username}`,
+    //     {
+    //         headers:
+    //             { "Authorization": token }
+    //     }).then((response) => {
+    //             setListOfPosts(response.data)
+    //             localStorage.setItem(' setListOfPostsbyuserIdnn', JSON.stringify(response.data));
+    //         });
+    // }, [id, token, username]);
     // useEffect(() => {
 
 
@@ -50,26 +50,26 @@ export default function Profile() {
     //             localStorage.setItem(' setListOfPostsbyuserId', JSON.stringify(response.data));
     //         });
     // }, [id]);
-    useEffect(() => {
-        const fetchUser = async () => {
-            const res = await axios.get(`users/${id}`,
-                {
-                    headers:
-                        { "Authorization": token }
-                }
-            );
-            setUser(res.data);
-            localStorage.setItem('userAount', JSON.stringify(res.data));
-            console.log(user)
-        };
-        fetchUser();
-    }, [token, id, user]);
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         const res = await axios.get(`users/${id}`,
+    //             {
+    //                 headers:
+    //                     { "Authorization": token }
+    //             }
+    //         );
+    //         setUser(res.data);
+    //         localStorage.setItem('userAount', JSON.stringify(res.data));
+    //         console.log(user)
+    //     };
+    //     fetchUser();
+    // }, [token, id, user]);
     return (
 
         <div className="profilePageContainer">
          
             <div className="profile">
-                <Sidebar />
+            
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
@@ -85,8 +85,9 @@ export default function Profile() {
 
                     </div>
                     <div className="profileRightBottom">
+                    <Sidebar />
                         <Feed />
-                        <Rightbar profile />
+                        <Rightbar/>
                     </div>
 
                 </div>

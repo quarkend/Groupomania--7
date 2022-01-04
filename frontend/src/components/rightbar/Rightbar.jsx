@@ -83,7 +83,7 @@ export default function Rightbar(profile) {
                         <h4 className="rightbarTitle">User friernds </h4>
                         <div className="rightbarFollowings">
                             <div className="rightbarFollowing">
-                                <img src="assets/person/1.jpeg" alt="" className="rightbarFollowingImg" />
+                                <img src="" alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
                             {/* <div className="rightbarFollowing">
@@ -95,7 +95,7 @@ export default function Rightbar(profile) {
                                 <span className="rightbarFollowingName"> {Users.coverPicture}</span>
                             </div> */}
                             <div className="rightbarFollowing">
-                                <img src="assets/person/5.jpeg" alt="" className="rightbarFollowingImg" />
+                                <img src="" alt="" className="rightbarFollowingImg" />
                                 <span className="rightbarFollowingName"> Janell Shrum </span>
                             </div>
                         </div>

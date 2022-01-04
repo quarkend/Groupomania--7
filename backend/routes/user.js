@@ -8,7 +8,7 @@ const postCtrl = require('../controllers/post');
 const auth = require('../middlewares/auth');
 
 router.delete('/delete', userCtrl.deleteCurrentUser);
-router.get('/byId/:id', auth, userCtrl.findAllUsersById);
+router.get('/', userCtrl.findAllUsersById);
 /************************** */
 router.delete('/delete', userCtrl.deleteCurrentUser);
 

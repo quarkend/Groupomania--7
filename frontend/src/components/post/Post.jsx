@@ -173,8 +173,8 @@ export default function Post({ post }) {
                                 alt="user"
 
                             />
-
-                            <Link to={`/profile/${user.username}`}>  profile </Link>
+{/* 
+                            <Link to={`/profile/${user.username}`}>  profile </Link> */}
                             {/* <img className="postProfileImg" src={post.profilePicture} alt="" /> */}
 
 

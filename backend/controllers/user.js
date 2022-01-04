@@ -2,7 +2,9 @@ const db = require('../models');
 // imports
 const models = require("../models");
 const User = models.users;
-
+const Post  = models.posts;
+const Comment = models.comments;
+const Like = models.likes;
 exports.deleteCurrentUser = (req, res, next) => {
     db.User.destroy({ where: { id: res.userId } })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé' }))
@@ -20,10 +22,10 @@ const fs = require('fs');
 // logique métier : lire tous utilisateurs
 exports.findAllUsersById = (req, res, next) => {
     console.log("kingparams: ", req.params);
-    User.findAll({ where: { userId: req.params.id } })
+    User.findAll()
         .then(users => {
             console.log("king: ", users);
-            res.status(200).json({ data: users });
+            res.status(200).json( users );
         })
         .catch(error => res.status(400).json({ error }));
 };
@@ -138,4 +140,19 @@ exports.deleteUser = (req, res, next) => {
 //     } catch (err) {
 //         res.status(500).json(err);
 //     }
+// };
+// exports.deleteUser = (req, res, next) => {
+//     const accountId = req.params.id;
+//     const accountDeleteParams = [accountId];
+//     const accountDeleteSql = "DELETE FROM account WHERE account_id = ?;";
+//     db.query({ 'sql': accountDeleteSql, 'timeout': 10000 }, accountDeleteParams, function (err, result) {
+//         if (err) {
+//             throw err;
+//         }
+//         if (result.affectedRows === 1) {
+//             return res.status(200).json({ message: 'Le compte et toutes ses informations ont été supprimés avec succès !' });
+//         } else {
+//             return res.status(404).json({ message: 'Utilisateur non trouvé !' });
+//         }
+//     });
 // };

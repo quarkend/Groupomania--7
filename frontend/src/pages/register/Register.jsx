@@ -26,10 +26,11 @@ export default function Register() {
         history.push("/login");
       } catch (err) {
         console.log(err);
+        window.location.reload();
       }
     }
   };
-
+    
   return (
     <div className="login-container">
             <div className="cardlogin">
@@ -81,8 +82,9 @@ export default function Register() {
             <button className="loginRegisterButton" type="submit">
               Sign Up
             </button>
-            <button className="loginButton" ><Link to="/Login">log in</Link> </button>
+            <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/login" ) }}>Login</button>
           </form>
+       
           </div>
         </div>
       </div>

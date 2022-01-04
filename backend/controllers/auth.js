@@ -97,8 +97,8 @@ exports.getCurrentUser = async (req, res, next) => {
     const username = req.query.username;
     try {
         const user = userId
-            ? await db.User.findById({ userId: { userId: user.userId } })
-            : await db.User.findOne({ where: { username: user.username } })
+            ? await User.findById({ userId: { userId: user.userId } })
+            : await User.findOne({ where: { username: user.username } })
                 // db.User.findOne({ where: { username: user.username } })
                 .then(user => {
                     return res.status(200).json({
@@ -116,7 +116,7 @@ exports.getCurrentUser = async (req, res, next) => {
 exports.findAllUsers = async (req, res, next) => {
     console.log(req.params);
 
-    Users.findAll(
+    User.findAll(
         {
             attributes: {
                 attr1: 'id',

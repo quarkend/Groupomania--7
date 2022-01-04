@@ -7,7 +7,7 @@ export default function Oline({ user }) {
         <div>
             <li className="rightbarFriend">
                 <div className="rightbarProfileImgContainer">
-                    <img className="rightbarProfileImg" src={user.profilePicture} alt="" />
+                    <img className="rightbarProfileImg" src=""alt="" />
                     <span className="rightbarOnline"></span>
                 </div>
                 <span className="RightbarUsername">{user.username}</span>
