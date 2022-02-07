@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "password3",
-    "database": "gro11",
+    "password": "password",
+    "database": "groupomania11",
     "host": "localhost",
     "dialect": "mysql"
   },

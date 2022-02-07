@@ -16,12 +16,7 @@
   transition: transform 300ms ease-in-out, -webkit-transform 300ms ease-in-out;
 } */
 /******  LOGIN PAGE  ******/
-
-
-
-
 /******  HEADER  ******/
-
 #navigation{
   width: 100%;
   position: fixed;
@@ -39,28 +34,18 @@
 .login-container{
     background-image: url("./assets/login-page.png");
 }
-
 #navigation h1{
   color: white;
 }
-
 #navigation button{
   background-color: transparent;
   border: none;
   align-self: center;
 }
-
 #navigation button:hover{
   cursor: pointer;
 }
-
 #navigation button:focus{
   outline: none !important;
 }
-
-
 /******  HEADER  ******/
-
-
-
-

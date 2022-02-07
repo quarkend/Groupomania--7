@@ -10,31 +10,23 @@ import {
 import { useEffect, useContext, useRef, useState } from "react";
 // import { AuthContext } from './../../helpers/AuthContext';
 // import { AuthContext } from "../../context/AuthContext";
-import { AuthContext } from './../../helpers/AuthContext';
 import axios from "axios";
-
 import { useParams, Link, useHistory } from "react-router-dom";
-
+import { AuthContext } from './../../App';
 export default function Share() {
     // let { id } = useParams();
     const { user } = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const url = "http://localhost:8800/images/";
+    
     const desc = useRef();
     const [file, setFile] = useState(null);
-
     const submitHandler = async (e) => {
         e.preventDefault();
         const storage = JSON.parse(localStorage.getItem('user'));
-
         let token = "Bearer " + storage.token;
-
         // const user = JSON.parse(localStorage.getItem(' userAccount'));
-
-
-
         const newPost = {
-            userId: user.id,
+            userId: storage.id,
             desc: desc.current.value,
         };
         if (file) {
@@ -58,23 +50,18 @@ export default function Share() {
             window.location.reload();
         } catch (err) { }
     };
-
     return (
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img
+                    {/* <img
                         className="shareProfileImg"
                         src={
                             user.profilePicture
                                 ? url + user.profilePicture
                                 : url + "person/noAvatar.png"
-
-
                         }
-
-                        alt="profilePicture" />
-
+                        alt="profilePicture" /> */}
                     <input
                         placeholder={"What'smind? "}
                         className="shareInput"

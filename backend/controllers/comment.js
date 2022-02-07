@@ -1,7 +1,6 @@
 const db = require("../models");
 const Comment = db.comments;
 const Post = db.posts;
-
 // logique métier : lire tous les commentaires
 exports.findAllComments = (req, res, next) => {
     Comment.findAll({ where: { postId: req.params.id } })
@@ -11,7 +10,6 @@ exports.findAllComments = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ error }));
 };
-
 // logique métier : lire un commentaire par son id
 exports.findOneComment = (req, res, next) => {
     Comment.findOne({ where: { id: req.params.id } })
@@ -21,15 +19,12 @@ exports.findOneComment = (req, res, next) => {
         })
         .catch(error => res.status(404).json({ error }));
 };
-
-
 exports.createComment = (req, res, next) => {
     Post.findOne({ where: { id: req.body.postId } })
         .then(post => {
             if (!post) {
                 return res.status(404).json({ error: 'Post introuvable !' })
             }
-
             Comment.create({
                 id: req.params.id,
                 content: req.body.content,
@@ -41,11 +36,32 @@ exports.createComment = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ error }))
 }
-
-
 // Logique métier : supprimer un commentaire
 exports.deleteComment = (req, res, next) => {
     Comment.destroy({ where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: 'Commentaire supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 };
+// exports.modifyComment = (req, res, next) => {
+//     // éléments de la requète
+//     const content = req.body.content;
+//     // vérification que tous les champs sont remplis
+//     if (content === null || content === '' ) {
+//         return res.status(400).json({ 'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un post" });
+//     }
+//     const commentObject = req.body;
+//     Comment.update({ ...commentObject, userId: req.params.id }, { where: { userId: req.params.id } })
+//         .then(() => res.status(200).json({ message: 'Comment ifié !' }))
+//         .catch(error => res.status(400).json({ error }));
+// };
+exports.modifyComment = (req, res, next) => {
+	console.log('dans la fonction modify');
+    
+		Comment.findByPk(req.params.id)
+					Comment.update({
+						content: req.body.content,
+                        
+					}, {where: {userId: req.params.id}})
+						.then(() => res.status(200).json({ message: 'Objet modifié xxxxsssoooxx!'}))
+			.catch(error => res.status(400).json({ error : "L'utilisateur n'est pas trouvé !" }));
+	}

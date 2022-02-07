@@ -1,16 +1,12 @@
 .rightbar{
 flex: 3.5;
-
 }
 .rightbarWrapper{
-
 padding: 20px 20px 0 0;
-
 }
 .birthdayContainer{
     display: flex;
     align-items: center;
-
 }
 .birthdayImg{
     width: 40px;
@@ -44,7 +40,6 @@ padding: 20px 20px 0 0;
 .rightbarProfileImgContainer{
     margin-right: 10px;
     position: relative;
-
 }
 .rightbarProfileImg{
     width: 40px;

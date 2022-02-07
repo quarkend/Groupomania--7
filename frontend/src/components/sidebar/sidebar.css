@@ -1,12 +1,10 @@
 .sidebar{
     flex: 3;
-
     height:calc(100vh - 50px);
     overflow-y: scroll;
 position :sticky; 
 top: 50px;
 }  
-
 ::-webkit-scrollbar{
     width: 5px;
 }
@@ -16,12 +14,8 @@ top: 50px;
 ::-webkit-scrollbar-thumb{
    background-color:rgb(160, 137, 137);
 }
-
-
 .sidebarWrapper{
     padding: 20px;
-
-
 }
 .sidebarList{
     padding :0;
@@ -42,11 +36,9 @@ top: 50px;
     padding: 10px;
     border-radius: 5px;
     font-weight:500;
-
 }
 .sidebarHr{
     margin: 20px 0;
-
 }
 .sidebarFriendList{
     padding: 0;

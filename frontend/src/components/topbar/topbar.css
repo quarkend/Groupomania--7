@@ -16,12 +16,10 @@
     margin: left 20px;
     color:rgb(255, 255, 255);
     cursor: pointer;
-
 }
 .topbarCenter{
     flex:5;
    
-
 }
 .searchbar{
     width: 100%;
@@ -30,7 +28,6 @@
     border-radius: 30px;
     display: flex;
     align-items: center;
-
 }
 .searchIcon
 {
@@ -90,6 +87,4 @@ outline: none;
     object-fit: cover;
     cursor: pointer;
  
-
-
 }

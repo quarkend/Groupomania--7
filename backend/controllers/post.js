@@ -27,29 +27,7 @@ exports.findAllPosts = (req, res, next) => {
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(500).json({ error }));
 };
-// getSongs (req, res) {
-//     res.json(songs);
-//   }
-// getOneSong (req, res) {
-//     const { id } = req.params;
-//     const songIndex = songs.findIndex(s => s.id === id);
-//     console.log(songIndex);
-//     if (songIndex === -1) return res.status(404).json({message: 'Song not found'});
-//     const song = songs[songIndex];
-//     return res.status(201).json(song);
-//   }
-// Find all posts where userId
-// exports.findPostsByUserId = (req, res, next) => {
-//     db.posts.findAll({
-//         where: { userId: req.params.id },
 
-//     })
-//         .then(posts => {
-//             console.log(posts);
-//             res.status(200).json({ data: posts });
-//         })
-//         .catch(error => res.status(400).json({ error }) );
-// };
 exports.findPostsByUserId = (async (req, res) => {
     const id = req.params.id;
     const listOfPosts = await db.posts.findAll({
@@ -63,39 +41,7 @@ exports.findOnePost = (async (req, res) => {
     const post = await db.posts.findByPk(id);
     res.json(post);
 });
-// exports.findOnePost = (async (req, res) => {
-//     const id = req.params.id;
-//     const post = await db.posts.findIndex(s => s.id === id);
-//     if (postIndex === -1) return res.status(404).json({message: 'Song not found'});
-//     console.log(songIndex);
-//     post = db.posts[postIndex];
-//     res.json(post);
-// });
 
- 
-// logique métier : lire un post par son id
-// exports.findOnePost = (req, res, next) => {
-//     db.posts.findByPk({
-//         where: { id: req.params.id },
-
-//     })
-//         .then(post => {
-//             console.log(post);
-//             res.status(200).json({ data: post })
-//         })
-//         .catch(error => res.status(404).json({ error }));
-// };
-
-// exports.createPost = (req, res, next) => {
-//     db.Post.create({
-//         title: req.body.title,
-//         desc: req.body.desc,
-//         // userId: res.userId,
-//         image: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
-//     })
-//         .then(post => res.status(201).json({ post }))
-//         .catch(error => res.status(400).json({ error }))
-// }
 // FONCTIONNE logique métier : créer un post
 exports.createPost = (req, res, next) => {
     // éléments de la requète
@@ -105,7 +51,7 @@ exports.createPost = (req, res, next) => {
 
 
     // const img = req.body.img;
-    const img = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
+    // const img = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
     // const img = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
     // vérification que tous les champs sont remplis
     if (title === null || title === '' || desc === null || desc === '') {
@@ -124,24 +70,75 @@ exports.createPost = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 }
 
+// exports.modifyPostImg  = (req, res, next) => {
+// 	console.log('dans la fonction modify');
+// 	if (req.file) {
+// 		Post.findByPk(req.params.id)
+// 			.then(post => {
+// 				const filename = post.image.split('/images/')[1];
+// 				// suppression de l'anciene image
+// 				fs.unlink(`images/${filename}`, () => {
+// 				// update de utilisateur
+// 					Post.update({
+				
+// 						desc: req.body.desc,
+// 						title: req.body.title,
+                        
+// 					// image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+//                    img: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+// 					}, {where: {id: req.params.id}})
+// 						.then(() => res.status(200).json({ message: 'Objet modifié xxxxsssoooxx!'}))
+// 						.catch(error => res.status(400).json({ error }));
+// 				})
+
+// 			})
+// 			.catch(error => res.status(400).json({ error : "L'utilisateur n'est pas trouvé !" }));
+// 	}	else {
+// 			Post.update({
+			
+//                 desc: req.body.desc,
+//                 title: req.body.title,
+// 			}, {where: {userId: req.params.id}})
+// 				.then(() => res.status(200).json({ message: "L'utilisateur modifié !"}))
+// 				.catch(error => res.status(400).json({ error }));	
+// 		}
+// };
+
+
 // logique métier : modifier un post
-exports.modifyPost = (req, res, next) => {
+// exports.modifyPostImg = (req, res, next) => {
+//     // éléments de la requète
+
+//     const desc = req.body.desc;
+//     const img = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null);
+//     // vérification que tous les champs sont remplis
+//     if (title === null || title === '' || desc === null || desc === '') {
+//         return res.status(400).json(window.alert("Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un post" ));
+//     }
+
+//     const postObject = req.body;
+
+//     Post.update({ ...postObject, id: req.params.id }, { where: { id: req.params.id } })
+//         .then(() => res.status(200).json({ message: 'Post modifié !' }))
+//         .catch(error => res.status(400).json({ error }));
+// };
+// update a post
+
+
+exports.modifyPostImg = (req, res, next) => {
     // éléments de la requète
-    const title = req.body.title;
-    const desc = req.body.desc;
+  
+// gestion d'ajout/modification image de profil
+const userObject = req.file ?
+  {
+    ...req.body.user,
+    img: req.file.filename
+  } : { ... req.body};
 
-    // vérification que tous les champs sont remplis
-    if (title === null || title === '' || desc === null || desc === '') {
-        return res.status(400).json({ 'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un post" });
-    }
-
-    const postObject = req.body;
-
-    Post.update({ ...postObject, id: req.params.id }, { where: { id: req.params.id } })
-        .then(() => res.status(200).json({ message: 'Post modifié !' }))
-        .catch(error => res.status(400).json({ error }));
+Post.update({ ...userObject, id:  req.params.id}, { where: {id: req.params.id} })
+.then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
+.catch(error => res.status(400).json({ error }));
 };
-
 // Logique métier : supprimer un post
 exports.deletePost = (req, res, next) => {
     Like.destroy({ where: { postId: req.params.id } })

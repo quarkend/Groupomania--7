@@ -8,20 +8,23 @@ import {
 import "./App.css";
 import Home from "./pages/home/Home";
 import Profile from './pages/profile/Profile';
-
 import Topbar from "./components/topbar/Topbar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Admin from './pages/profile/Admin';
 import DeleteUser from './pages/profile/DeleteUser';
-export const AuthContext = React.createContext();
+import UpdateProfilePhoto from "./pages/profile/UpdateProfilePhoto";
+import UpdateUser from './pages/profile/UpdateUser';
+import MyPost from './pages/profile/MyPost';
+import UpdateProfile from './pages/profile/UpdateProfile/UpdateProfile';
 
+
+export const AuthContext = React.createContext();
 const initialState = {
   isAuthenticated: false,
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   token: null,
 };
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
@@ -44,14 +47,11 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || null)
     const token = JSON.parse(localStorage.getItem('token') || null)
-
     if(user && token){
       dispatch({
         type: 'LOGIN',
@@ -71,7 +71,6 @@ function App() {
       }}
     >
 <Topbar/>
-
       {/* <div className="App">{!state.isAuthenticated ? <Login/> : <Home/>}</div> */}
       <Switch>
         <Route exact path="/">
@@ -90,11 +89,22 @@ function App() {
         <Route path="/deleteuser/:id">
           <DeleteUser/>
         </Route>
+        <Route path = "/updateprofilephoto">
+          <UpdateProfilePhoto/>
+           </Route>
+           <Route path = "/UpdateUser/:id">
+          <UpdateUser/> 
+        </Route> 
+        <Route path = "/UpdateProfile">
+          <UpdateProfile/>
+          </Route>
+         <Route path = "/mypost">
+          <MyPost/>
+        </Route> 
+   
       </Switch>
     </AuthContext.Provider>
       </Router>
   );
 }
-
 export default App;
-

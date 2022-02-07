@@ -2,7 +2,6 @@
 .login-container{
   display: flex;
   align-items: center;
-
   height: calc(100vh - 70px);
   background-repeat: no-repeat;
   background-position: right;
@@ -10,7 +9,6 @@
   padding-right: 5%;
   margin-top: 70px;
 }
-
 .cardlogin {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -18,23 +16,19 @@
   height: 70%;
   width: 45%;
 }
-
 /* On mouse-over, add a deeper shadow */
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-
 /* Add some padding inside the card container */
 .login-container .container {
   padding-left: 7%;
   padding-right: 7%;
   height: 100%;
 }
-
 .login-container .container h1{
   font-size: 2.5rem;
 }
-
 .login-container .container form{
   display: flex;
   height: 80%;
@@ -42,7 +36,6 @@
   justify-content: space-around;
   align-self: center;
 }
-
 input[type="text"], input[type="password"]{
   padding-left: 1px;
   padding-right: 1px;
@@ -51,12 +44,10 @@ input[type="text"], input[type="password"]{
   border: .5px solid rgb(143, 143, 143);
   font-size: 15px;
 }
-
 label{
   display: flex;
   flex-direction: column;
 }
-
 .login-container button{
   height: 40px;
   font-weight: bold;
@@ -64,29 +55,20 @@ label{
   background-color: #F42B4B;
   color: rgb(255, 255, 255);
 }
-
 .login-container button:hover{
   background-color: rgb(151, 25, 46);
   cursor: pointer;
 }
-
-
 .login-container button:focus{
   outline: none !important;
 }
-
-
-
 .spinner {
   animation: spinner infinite .9s linear;
   height: 90%;
 }
-
 .spinner:focus{
   border:none;
 }
-
-
 @keyframes spinner {
   from {
     transform: rotate(0deg);
@@ -95,12 +77,10 @@ label{
     transform: rotate(360deg);
   }
 }
-
 .form-error{
   color: #F42B4B;
   text-align: center;
 }
-
 @media screen and (max-width: 700px){
   .login-container{
     justify-content: center;
@@ -112,14 +92,10 @@ label{
   }
   
 }
-
 @media screen and (max-width: 350px){
   .card {
     width: 100%;
   }
   
 }
-
-
 /******  LOGIN PAGE  ******/
-

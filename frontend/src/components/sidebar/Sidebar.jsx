@@ -6,14 +6,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import CloseFriend from '../closeFriend/CloseFriend';
-
 export default function Sidebar() {
     // const [authState, setAuthState] = useState({
     //     username: "",
     //     id: 0,
     //     status: false,
     // });
-
     // useEffect(() => {
     //     axios
     //         .get("/auth/auth", {
@@ -33,9 +31,6 @@ export default function Sidebar() {
     //             }
     //         });
     // }, []);
-
-
-
     return (
         <div className="sidebar">
             <div className="sidebarWrapper">
@@ -44,12 +39,10 @@ export default function Sidebar() {
                         <RssFeed className="sidebarIcon" />
                         <span className="sidebarListItemText">Feed</span>
                     </li>
-
                     <li className="sidebarListItem">
                         <Chat className="sidebarIcon" />
                         <span className="sidebarListItemText">Chat</span>
                     </li>
-
                     <li className="sidebarListItem">
                         <Group className="sidebarIcon" />
                         <span className="sidebarListItemText">Groups</span>
@@ -58,11 +51,6 @@ export default function Sidebar() {
                         <PlayCircleFilled className="sidebarIcon" />
                         <span className="sidebarListItemText">Videos</span>
                     </li>
-
-
-
-
-
                 </ul>
                 <button className="sidebarButton">Show More</button>
                 <hr className="sidebarHr" />
@@ -71,8 +59,6 @@ export default function Sidebar() {
                         <CloseFriend key={u.id} user={u} />
                     ))} */}
                     {/* <h1>{authState.username} </h1> */}
-
-
                 </ul>
             </div>
         </div>

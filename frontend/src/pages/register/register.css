@@ -9,7 +9,6 @@ justify-content : center;
 .loginWrapper{
 width: 70%;
 height:70%;
-
 display : flex;
 }
 .loginLeft,.loginRight{
@@ -72,4 +71,3 @@ padding-left: 20px;
   font-weight: 500;
   cursor: pointer;
 }
-

@@ -4,38 +4,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Cancel } from '@material-ui/icons';
-
 export default function User({user}) {
     const history = useHistory();
+     const token = JSON.parse(localStorage.getItem('user'));
 
-
-const storage = JSON.parse(localStorage.getItem('user'));
-const token = storage.token;
-
-// useEffect(() => {
-//     axios.get(`/user`,
-//     {
-//         headers: {Authorization: token}
-//     }).then((response) => {
-//         setUser(response.data)
-//     })
-// })
-// const deleteUser = (id) => {
-//     axios.delete(`/user`, 
-//     {
-//         headers : {"Authorization" : token}
-//     }
-//     ).then(()=>
-//     {
-//         history.push("/")
-//     })
-
-// }
-const id = storage.id;
-
+const id = user.id;
 const deleteUser = (id) => {
     axios.delete(`/users/${id}`,
-
             {
                 headers:
                     { "Authorization": token }
@@ -43,7 +18,6 @@ const deleteUser = (id) => {
         .then(() => {
             history.push("/");
         });
-
 };
     return (
            
@@ -56,6 +30,5 @@ const deleteUser = (id) => {
             <Cancel className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</Cancel>
             </div>
         </div>
-
     )
 }

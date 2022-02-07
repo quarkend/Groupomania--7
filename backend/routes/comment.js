@@ -13,5 +13,6 @@ router.get('/', commentCtrl.findAllComments);
 router.get('/:id', commentCtrl.findOneComment);
 router.post('/', commentCtrl.createComment);
 router.delete('/:id', commentCtrl.deleteComment);
+router.put('/:id', commentCtrl.modifyComment )
 
 module.exports = router;

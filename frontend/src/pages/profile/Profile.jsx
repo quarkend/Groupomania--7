@@ -1,216 +1,152 @@
-
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
-
+import { useForm } from 'react-hook-form'
 import "./profile.css"
-import Topbar from "../../components/topbar/Topbar"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Feed from "../../components/feed/Feed"
 import Rightbar from "../../components/rightbar/Rightbar"
 import { AuthContext } from './../../App';
+import UpdateProfilePhoto from './UpdateProfilePhoto';
 
+import UpdateProfileUsername from './UpdateProfileUsername';
+
+// ^\s*$\n 
+const POSTS_URL = "/posts/"
+ const UPDATE = "/users/"
+const USER_INFO_URL  = "/users/"
+const DELETE_ACCOUNT_URL = "/users/delete/"
 export default function Profile() {
     // let { id } = useParams();
-    let history = useHistory();
-    const [user, setUser] = useState([]);
-    const [username, setUsername] = useState("");
-    const [listOfPosts, setListOfPosts] = useState([]);
-    const { authState } = useContext(AuthContext);
-
-    const storage = JSON.parse(localStorage.getItem('user'));
-
-
-    const id = storage.id;
-
-
-    let token = "Bearer " + storage.token;
-
-
-    // useEffect(() => {
-
-
-    //     axios.get(`/profile/${username}`,
-    //     {
-    //         headers:
-    //             { "Authorization": token }
-    //     }).then((response) => {
-    //             setListOfPosts(response.data)
-    //             localStorage.setItem(' setListOfPostsbyuserIdnn', JSON.stringify(response.data));
-    //         });
-    // }, [id, token, username]);
-    // useEffect(() => {
-
-
-    //     axios.get(`/posts/byuserId/${id}`,
-    //         {
-    //             headers: { accessToken: localStorage.getItem("accessToken") }
-    //         }).then((response) => {
-    //             setListOfPosts(response.data)
-    //             localStorage.setItem(' setListOfPostsbyuserId', JSON.stringify(response.data));
-    //         });
-    // }, [id]);
-    // useEffect(() => {
-    //     const fetchUser = async () => {
-    //         const res = await axios.get(`users/${id}`,
-    //             {
-    //                 headers:
-    //                     { "Authorization": token }
-    //             }
-    //         );
-    //         setUser(res.data);
-    //         localStorage.setItem('userAount', JSON.stringify(res.data));
-    //         console.log(user)
-    //     };
-    //     fetchUser();
-    // }, [token, id, user]);
-    return (
-
-        <div className="profilePageContainer">
+    const { user } = useContext(AuthContext);
+   const storage = JSON.parse(localStorage.getItem('user'));
+   const userId = storage.id;
+   let token = "Bearer " + storage.token;
+   const auth = useContext(AuthContext)
+    const userCredentials = JSON.parse(localStorage.getItem('user'))
+    const [data, setData] = useState('')
+    const { handleSubmit, register } = useForm()
+   const [showUpdatePhoto, setShowUpdatePhoto] =  useState(false);
+     const [showUpdateEmail, setShowUpdateEmail] = useState(false)
+     const [showUpdateUsername, setShowUpdateUsername] = useState(false)
+   async function handleUpdateProfilePhoto(data) {
          
-            <div className="profile">
-            
-                <div className="profileRight">
+         const formData = new FormData()
+         formData.append('image', data.profilePicture)
+          const sendPhoto = await fetch(`${'/profile'}/${userCredentials.id}` ,{
+                method: 'put',
+                headers: {
+                      Authorization: "Bearer " + token
+                },
+                body: formData
+          })
+          const response = await sendPhoto.json()
+          console.log(response)
+          getPostData()
+          setShowUpdatePhoto(false)
+   }
+   async function handleUpdateProfileEmail(data) {
+          console.log(data)
+          const { userId } = userCredentials
+         const sendedEmail = await fetch("/profile/"+ userId, {
+                method: 'put',
+                headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " +token
+                },
+                body: JSON.stringify(data)
+          })
+          const response = await sendedEmail.json()
+          console.log(response)
+          getUserData()
+          setShowUpdateEmail(false)
+    }
+   async function handleUpdateProfileUsername(data) {
+          const {userId } = userCredentials
+          const sendedUsername = await fetch(`${'http://localhost:8800/api/profile'}/${userCredentials.id}` ,userId, {
+                method: 'put',
+                headers: {
+                      "Content-Type": "application/json",
+                      Authorization: "Bearer " + token
+                },
+                body: JSON.stringify(data)
+          })
+          console.log(data)
+          const response = await sendedUsername.json()
+         getUserData()
+         setShowUpdateUsername(true)
+          console.log(response)
+   }
+   async function getUserData() {
+     const URL = `${"http://localhost:8800/api/profile/"}${userId}`
+     const data = await fetch(URL, {
+            headers: {
+                  Authorization: 'Bearer ' + token
+            }
+      })
+      const response = await data.json()
+     setData( response)
+      console.log(response.username)
+}
+useEffect(() => {
+      getUserData()
+      console.log(data.username)
+}, [])
+    async function getPostData() {
+         const URL = `${POSTS_URL}`
+         const data = await fetch(URL, {
+                headers: {
+                      Authorization: 'Bearer ' + token
+                }
+          })
+          const response = await data.json()
+         setData(response)
+          console.log(response)
+    }
+    useEffect(() => {
+          getPostData()
+    }, [])
+   async function deleteUser() {
+          const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
+          const URL = `${DELETE_ACCOUNT_URL}/${userCredentials.id}`
+         if (conf) {
+                const sendedData = await fetch(URL, {
+                      method: 'delete',
+                      headers: {
+                            Authorization: "Bearer " + token
+                      },
+                      body: JSON.stringify(data)
+                })
+                const response = await sendedData.json()
+                console.log(response)
+                auth.Logout()
+          }
+    }
+   return (
+       <div className="profilePageContainer">
+           <div className="profile">
+               <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
                              <img className="profileCoverImg"  src={"http://localhost:8800/images/" + storage.profilePicture} alt="" /> 
-                                                          
-                             <img className="profileUserImg" src={"http://localhost:8800/images/" + storage.profilePicture}  alt="" /> 
+                            <img className="profileUserImg" src={"http://localhost:8800/images/" + storage.profilePicture}  alt="" /> 
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{storage.username}</h4>
-
-                            <span className="profileInfoDesc">hello my fuuuriend</span>
+                           <span className="profileInfoDesc">hello my fuuuriend</span>
                         </div>
-
-                    </div>
+              
+                   </div>
                     <div className="profileRightBottom">
-                    <Sidebar />
+                      
                         <Feed />
-                        <Rightbar/>
+               
+         
+         
+ 
                     </div>
-
                 </div>
             </div>
-
-
-        </div>
-
-
-    );
+       </div>
+   );
 }
-/*************************copie Groupomania--7 15sep2021 14 12 */
-
-
-
-
-
-
-// import React, { useEffect, useState, useContext } from "react";
-// import { useParams, useHistory } from "react-router-dom";
-// import axios from "axios";
-
-// // import "./profile.css"
-// import Topbar from "../../components/topbar/Topbar"
-// import Sidebar from "../../components/sidebar/Sidebar"
-// import Feed from "../../components/feed/Feed"
-// import Rightbar from "../../components/rightbar/Rightbar"
-
-// import Post from './../../components/post/Post';
-// import { AuthContext } from './../../App';
-
-// export default function Profile() {
-//     let { id } = useParams();
-//     const [posts, setPosts] = useState([]);
-//     const [comments, setComments] = useState([]);
-//     // const [newComment, setNewComment] = useState("");
-//     const [user, setUser] = useState({});
-//     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-//     // const { user: currentUser } = useContext(AuthContext);
-
-
-//     const [isLiked, setIsLiked] = useState(false)
-//     const sPost = JSON.parse(localStorage.getItem(' setLtOfPtsbyuserId'));
-//     const storage = JSON.parse(localStorage.getItem('user'));
-//     const userId = storage.id;
-//     const postId = 1;
-//     let token = "Bearer " + storage.token;
-//     let history = useHistory();
-//     useEffect(() => {
-//         const fetchUser = async () => {
-//             const res = await axios.get(`/users/${userId}`,
-//                 {
-//                     headers:
-//                         { "Authorization": token }
-//                 }
-//             )
-//             setUser(res.data);
-//             console.log(res.data)
-//             localStorage.setItem('userAccount', JSON.stringify(res.data));
-//         };
-//         fetchUser();
-//     }, [token, userId,]);
-
-//     useEffect(() => {
-//         axios.get(`/posts/byId/${postId}`,
-
-//             {
-//                 headers:
-//                     { "Authorization": token }
-//             }).then((response) => {
-//                 setPosts(response.data);
-//                 console.log(response.data)
-//                 localStorage.setItem('postsbyuserIdprofile', JSON.stringify(response.data));
-//             });
-
-//         axios.get(`/comments/${userId}`,
-
-//             {
-//                 headers:
-//                     { "Authorization": token }
-//             }).then((response) => {
-//                 setComments(response.data);
-//                 console.log(response.data)
-//             });
-//     }, [postId, token, userId]);
-
-
-//     return (
-//         <div className="profilePageContainer">
-      
-//             <div className="profile">
-
-//                 <div className="profileRight">
-//                     <div className="profileRightTop">
-//                         <div className="profileCover">
-//                             {/* <img className="profileCoverImg" src={Posts.photo} alt="" /> */}
-//                             {/* <img className="profileUserImg" src={authState.photo} alt="" /> */}
-//                         </div>
-//                         <div className="profileInfo">
-//                             <h4 className="profileInfoName">user.username</h4>
-
-//                             <span className="profileInfoDesc">hello my friend</span>
-//                         </div>
-
-//                     </div>
-//                     <div className="listOfPosts">
-
-
-//                         <div className="profileRightBottom">
-//                             <Feed />
-
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-
-//         </div>
-//     );
-// }
-// {/* <div className="listOfPosts">
-//     <Post />
-
-//     <div className="profileRightBottom">
-//         <Feed />
-//         <Rightbar profile />
-//     </div> */}

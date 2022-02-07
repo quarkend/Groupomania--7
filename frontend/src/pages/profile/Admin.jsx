@@ -1,166 +1,141 @@
-// import React, { useEffect, useState, useContext } from "react";
-
-// // import Post from "./../../Post";
-// import { AuthContext } from './../../App';
-// import Feed from './../../components/feed/Feed';
-
-// import Post from './../../components/post/Post';
-// import Share from './../../components/share/Share';
-// import User from "../profile/User";
-
-
-// const initialState = {
-//     users: [],
-//     isFetching: false,
-//     hasError: false,
-// };
-
-// const reducer = (state, action) => {
-    
-//     switch (action.type) {
-//         case "FETCH_U_REQUEST":
-//             return {
-//                 ...state,
-//                 isFetching: true,
-//                 hasError: false
-//             };
-//         case "FETCH_U_SUCCESS":
-//             return {
-//                 ...state,
-//                 isFetching: false,
-//                 posts: action.payload
-//             };
-//         case "FETCH_U_FAILURE":
-//             return {
-//                 ...state,
-//                 hasError: true,
-//                 isFetching: false
-//             };
-//         default:
-//             return state;
-//     }
-// };
-
-// export const Admin = () => {
-//     const { state: authState } = React.useContext(AuthContext);
-//     const [state, dispatch] = React.useReducer(reducer, initialState);
-
-//     React.useEffect(() => {
-        
-//         dispatch({
-//             type: "FETCH_U_REQUEST"
-//         });
-//         fetch("/users", {
-//             headers: {
-//                 Authorization: `Bearer ${authState.token}`
-//             }
-//         })
-//             .then(res => {
-//                 if (res.ok) {
-               
-//                     return res.json();
-//                 } else {
-//                     throw res;
-//                 }
-//             })
-//             .then(resJson => {
-        
-//                 dispatch({
-//                     type: "FETCH_U_SUCCESS",
-//                     payload: resJson,
-                   
-//                 });
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//                 dispatch({
-//                     type: "FETCH_U_FAILURE"
-//                 });
-//             });
-//     }, [authState.token]);
-
-
-//     return (
-//         <React.Fragment>
-//             <div className="home">
-//                 {state.isFetching ? (
-//                     <span className="loader">LOADING...</span>
-//                 ) : state.hasError ? (
-//                     <span className="error">AN ERROR HAS OCCURED</span>
-//                 ) : (
-//                     <>
-                    
-                 
-//                              {
-                                 
-//             state.users.map(user => (
-                
-//               <User key={user.id.toString()} user={user} />
-//             ))} 
-
-            
-//                     </>
-//                 )}
-//             </div>
-//         </React.Fragment>
-//     );
-// };
-// export default Admin;
-
-
-
-
-
-
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import User from './User';
 import "./profile.css"
-import Topbar from "../../components/topbar/Topbar"
-import Sidebar from "../../components/sidebar/Sidebar"
-import Feed from "../../components/feed/Feed"
-import Rightbar from "../../components/rightbar/Rightbar"
+import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../App';
+import UpdateProfilePhoto from './UpdateProfilePhoto';
 
-export default function Admin() {
+import UpdateProfileUsername from './UpdateProfileUsername';
+import { Fragment } from 'react';
+import Post from './../../components/post/Post';
+const POSTS_URL = "/posts/"
+const UPDATE = "/users/"
+const DELETE_ACCOUNT_URL = "/users/delete/"
+export default function Admin({ submit, username }) {
+    const auth = useContext(AuthContext)
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-
+    const [post, setPost] = useState([]);
     let { id } = useParams();
     let history = useHistory();
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState([]);
-    const [post, setPost] = useState([]);
-    const [username, setUsername] = useState("");
-    const [listOfPosts, setListOfPosts] = useState([]);
-    const { authState } = useContext(AuthContext);
-
     const storage = JSON.parse(localStorage.getItem('user'));
-
-
-    // const id = storage.id;
-
-
-    let token = "Bearer " + storage.token;
-
-
+    const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
+    const userId = storage.id;
+    const userCredentials = JSON.parse(localStorage.getItem('user'))
+    const [data, setData] = useState('')
+    const { handleSubmit, register } = useForm()
+    const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
+    const [showUpdateEmail, setShowUpdateEmail] = useState(false)
+    const [showUpdateUsername, setShowUpdateUsername] = useState(false)
+    async function handleUpdateProfilePhoto(data) {
+        const { userId } = userCredentials
+        const formData = new FormData()
+        formData.append('profilePicture', data.image)
+        const sendPhoto = await fetch(`${'/users'}/${userCredentials.id}`, userId, {
+            method: 'put',
+            headers: {
+                Authorization: "Bearer " + token
+            },
+            body: formData
+        })
+        const response = await sendPhoto.json()
+        console.log(response)
+        getPostData()
+        setShowUpdatePhoto(false)
+    }
+    async function handleUpdateProfileEmail(data) {
+        console.log(data)
+        const { userId } = userCredentials
+        const sendedEmail = await fetch(UPDATE + userId, {
+            method: 'put',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await sendedEmail.json()
+        console.log(response)
+        getUserData()
+        setShowUpdateEmail(false)
+    }
+    async function handleUpdateProfileUsername(data) {
+        const { userId } = userCredentials
+        const sendedUsername = await fetch(`${'/users'}/${userCredentials.id}`, userId, {
+            method: 'put',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token
+            },
+            body: JSON.stringify(data)
+        })
+        console.log(data)
+        const response = await sendedUsername.json()
+        getUserData()
+        setShowUpdateUsername(true)
+        console.log(response)
+    }
+    async function getUserData() {
+        const URL = `${"/users/"}/${userId}`
+        const data = await fetch(URL, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        const response = await data.json()
+        setData(response)
+        console.log(response.username)
+    }
     useEffect(() => {
-
-
+        getUserData()
+       
+    }, [])
+    async function getPostData() {
+        const URL = `${POSTS_URL}`
+        const data = await fetch(URL, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        const response = await data.json()
+        setData(response)
+        console.log(response)
+    }
+    useEffect(() => {
+        getPostData()
+    }, [])
+    async function deleteUser() {
+        const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
+        const URL = `${DELETE_ACCOUNT_URL}/${userCredentials.id}`
+        if (conf) {
+            const sendedData = await fetch(URL, {
+                method: 'delete',
+                headers: {
+                    Authorization: "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            })
+            const response = await sendedData.json()
+            console.log(response)
+            auth.Logout()
+        }
+    }
+    useEffect(() => {
         axios.get(`/users/${id}`,
-        {
-            headers:
-                { "Authorization": token }
-        }).then((response) => {
+            {
+                headers:
+                    { "Authorization": token }
+            }).then((response) => {
                 setUser(response.data)
                 console.log(response.data)
                 localStorage.setItem(' setLisuserIdX', JSON.stringify(response.data));
             });
     }, [id, token]);
     // useEffect(() => {
-
-
     //     axios.get(`/users`,
     //         {
     //             headers: { "Authorization": token}
@@ -197,168 +172,88 @@ export default function Admin() {
         };
         fetchPost();
     }, [token]);
-
-    const deleteUserAccount = (id) =>  {
-        axios.delete(`http://localhost:8800/api/users/${id}`, 
-    
-        {
-            headers : {"Authorization" : token}
-        }
-        ).then(()=>
-        {
+    const deleteUserAccount = (id) => {
+        axios.delete(`http://localhost:8800/api/users/${id}`,
+            {
+                headers: { "Authorization": token }
+            }
+        ).then(() => {
             history.push("/")
         })
         window.location.reload();
     }
-
-
+    const updateUsename = (id) => {
+        axios.put(`http://localhost:8800/api/users/${id}`,
+            {
+                headers: { "Authorization": token }
+            }
+        )
+            .then(() => {
+                history.push("/")
+            })
+    }
     return (
-
-       <div className="profilePageContainer">
-           <div className="profile">
-         
-       
-         <div className="card">
-      
-               
+        <div className="profilePageContainer">
+            <div className="profile">
+                <div className="card">
                     <h1>admin</h1>
                     <h4 className="detail"> {user.username}</h4>
-                   
+                    <form className="signup-form margin" onSubmit={submit}  >
+                        <div className="form-group">
+                            <label htmlFor="username"> {user.username || "Username"}</label>
+                            <input className="add-input" type="text" name="username" id="username" placeholder={username === undefined ? 'username...' : username} ref={register} />
+                        </div>
+                    </form>
+                    <button onClick={() => { updateUsename(user.id) }}>updateUsename</button>
                     <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
-                    </div> 
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
+                </div>
+            </div>
+            {users.map(u => (
+                <User key={u.id} user={u} />
+            ))}
+            <Fragment>
+                <h2 className='profile-title'>MON COMPTE</h2>
+                <div className="card">
+                    <div className="profile-image-div">
+                        <img src={"http://localhost:8800/images/" + user.image} alt=" profil" />
                     </div>
-                                     {users.map(u => (
-                    <User key={u.id} user={u} />
-                ))} 
-
-                     
-            
-                            
-                        
-             
-             
-            
-
-
-             </div>
-            
-            
-
+                    <div className="user-info">
+                        <p>Username : {user.username}</p>
+                        <p>Email : {data.email}</p>
+                        <p>Email : {storage.email}</p>
+                    </div>
+           
+                    <div className="user-action">
+                        <i className="fas fa-user white fa-3x" onClick={() => {
+                            setShowUpdateUsername(!showUpdateUsername)
+                            setShowUpdateEmail(false)
+                            setShowUpdatePhoto(false)
+                        }}
+                        >up usernam</i>
+                        <i className="fas fa-envelope-open white fa-3x" onClick={() => {
+                            setShowUpdateEmail(!showUpdateEmail)
+                            setShowUpdatePhoto(false)
+                            setShowUpdateUsername(false)
+                        }}>up emil
+                        </i>
+                        <i className="fas fa-portrait white fa-3x" onClick={() => {
+                            setShowUpdatePhoto(!showUpdatePhoto)
+                            setShowUpdateEmail(false)
+                            setShowUpdateUsername(false)
+                        }}>up pho
+                        </i>
+                        <i className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
+                    </div>
+                </div>
+                {showUpdatePhoto &&
+                    <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} {...register({ required: true })} />
+                }
+      
+                {showUpdateUsername &&
+                    <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} {...register({ required: true })} />
+                }
+            </Fragment>
+        </div>
     );
 }
-/*************************copie Groupomania--7 15sep2021 14 12 */
-
-
-
-
-
-
-// import React, { useEffect, useState, useContext } from "react";
-// import { useParams, useHistory } from "react-router-dom";
-// import axios from "axios";
-
-// // import "./profile.css"
-// import Topbar from "../../components/topbar/Topbar"
-// import Sidebar from "../../components/sidebar/Sidebar"
-// import Feed from "../../components/feed/Feed"
-// import Rightbar from "../../components/rightbar/Rightbar"
-
-// import Post from './../../components/post/Post';
-// import { AuthContext } from './../../App';
-
-
-// export default function Profile() {
-//     let { id } = useParams();
-//     const [posts, setPosts] = useState([]);
-//     const [comments, setComments] = useState([]);
-//     // const [newComment, setNewComment] = useState("");
-//     const [user, setUser] = useState({});
-//     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-//     // const { user: currentUser } = useContext(AuthContext);
-
-
-//     const [isLiked, setIsLiked] = useState(false)
-//     const sPost = JSON.parse(localStorage.getItem(' setLtOfPtsbyuserId'));
-//     const storage = JSON.parse(localStorage.getItem('user'));
-//     const userId = storage.id;
-//     const postId = 1;
-//     let token = "Bearer " + storage.token;
-//     let history = useHistory();
-//     useEffect(() => {
-//         const fetchUser = async () => {
-//             const res = await axios.get(`/users/${userId}`,
-//                 {
-//                     headers:
-//                         { "Authorization": token }
-//                 }
-//             )
-//             setUser(res.data);
-//             console.log(res.data)
-//             localStorage.setItem('userAccount', JSON.stringify(res.data));
-//         };
-//         fetchUser();
-//     }, [token, userId,]);
-
-//     useEffect(() => {
-//         axios.get(`/posts/byId/${postId}`,
-
-//             {
-//                 headers:
-//                     { "Authorization": token }
-//             }).then((response) => {
-//                 setPosts(response.data);
-//                 console.log(response.data)
-//                 localStorage.setItem('postsbyuserIdprofile', JSON.stringify(response.data));
-//             });
-
-//         axios.get(`/comments/${userId}`,
-
-//             {
-//                 headers:
-//                     { "Authorization": token }
-//             }).then((response) => {
-//                 setComments(response.data);
-//                 console.log(response.data)
-//             });
-//     }, [postId, token, userId]);
-
-
-//     return (
-//         <div className="profilePageContainer">
-      
-//             <div className="profile">
-
-//                 <div className="card-comment">
-//                     <div className="profileRightTop">
-//                         <div className="profileCover">
-//                             {/* <img className="profileCoverImg" src={Posts.photo} alt="" /> */}
-//                             {/* <img className="profileUserImg" src={authState.photo} alt="" /> */}
-//                         </div>
-//                         <div className="profileInfo">
-//                             <h4 className="profileInfoName">user.username</h4>
-
-//                             <span className="profileInfoDesc">hello my friend</span>
-//                         </div>
-
-//                     </div>
-//                     <div className="listOfPosts">
-
-
-//                         <div className="profileRightBottom">
-//                             <Feed />
-
-//                         </div>
-//                     </div>
-//                 </className=>
-//             </div>
-
-//         </div>
-//     );
-// }
-// {/* <div className="listOfPosts">
-//     <Post />
-
-//     <div className="profileRightBottom">
-//         <Feed />
-//         <Rightbar profile />
-//     </div> */}

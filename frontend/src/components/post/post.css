@@ -4,7 +4,6 @@
 -webkit-box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58); 
 box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58);
 margin:30px 0;
-
 }
 .postWrapper{
     padding: 10px;
@@ -14,7 +13,6 @@ margin:30px 0;
     display: flex;
     align-items: center;
     justify-content:space-between;
-
 }
 .postTopLeft{
     display: flex;
@@ -53,7 +51,6 @@ margin: 0 10px;
        display: flex;
     align-items: center;
     margin: 0 10px;
-
 }
 .likeIcon{
 width: 25px;
@@ -72,14 +69,14 @@ cursor: pointer;
  .listOfComments{
     padding-left: 0.5rem;
         display: block;
-        width: 70%;
+        width: 67%;
         margin: auto;
         height: auto;
-        box-shadow: 0px 0px 10px black;
-        background-color: rgb(181, 219, 241);
+        box-shadow: 0px 0px 13px rgb(172, 160, 160);
+        background-color: rgb(231, 220, 220);
         outline: none;
         transition: .3s;
-        border: 1.5px solid gray;
+        border: 0.5px solid rgb(185, 181, 181);
     
 } 
 .white {
@@ -90,24 +87,21 @@ cursor: pointer;
     transition: .3s;
     background-color: none;
 }
-
 .red {
     color: crimson;
 }
 .green  {
     color: chartreuse;
 }
-
 .card {
     width: 45rem;
     overflow: hidden;
     margin: 2rem auto;
     animation: borderAnimation 20s ease infinite;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color: rgb(247, 241, 241);
-    box-shadow: -1px 0px 20px black;
+    box-shadow: -1px 0px 5px black;
 }
-
 .card-username__info {
     margin-top: 0.4rem;
     height: 60px;
@@ -116,7 +110,6 @@ cursor: pointer;
     justify-content: space-between;
     padding: 0 0.5rem;
 }
-
 .created-at {
     color: #d83535;
     margin-top: 0.5rem;
@@ -128,32 +121,27 @@ cursor: pointer;
     border-radius: 50%;
     overflow: hidden;
 }
-
 .detail {
     padding: 0 0.5rem;
 }
 .detail h3 {
     color: rgb(23, 36, 221);
 }
-
 .card-username__info div img {
     height: inherit;
     width: inherit;
     object-fit: cover;
 }
-
 .card-image__post {
     height: auto;
     width: 45rem;
     overflow: hidden;
 }
-
 .card-image__post img {
     width: 45rem;
     object-fit: cover;
     height: inherit;
 }
-
 .card-reaction {
     display: flex;
     align-items: center;
@@ -163,15 +151,12 @@ cursor: pointer;
 .card-reaction span {
     padding: 0 2rem;
 }
-
 .card-reaction span i {
     cursor: pointer;
 }
-
 .card-reaction span {
     color: rgb(51, 20, 160);
 }
-
 .card-comment {
     height: 70px;
 }
@@ -184,11 +169,10 @@ cursor: pointer;
     margin: auto;
     height: 25px;
     box-shadow: 0px 0px 10px black;
-    background-color: rgb(24, 17, 121);
+    background-color: rgb(186, 181, 255);
     outline: none;
     transition: .3s;
 }
-
 .btn-comment{
     margin: .5rem auto;
     padding: .4rem 1rem;
@@ -205,11 +189,9 @@ cursor: pointer;
 .fa-thumbs-down {
     color: crimson;
 }
-
 .username {
     color: #b8a2a2;
 }
-
 .actions__container{
     overflow: visible !important;
     width: auto !important;
@@ -223,14 +205,12 @@ cursor: pointer;
     font-size: 3rem;
     text-transform: uppercase;
 }
-
 .post-null-add {
     color: #CA4F6E !important;
     font-size: 2.5rem;
     margin-top: 3rem;
     text-decoration: underline;
 }
-
 .post-null-container {
     display: flex;
     align-items: center;
@@ -240,18 +220,15 @@ cursor: pointer;
     flex-direction: column;
     
 }
-
 #username-comment {
     justify-content: flex-start;
     padding: 0;
     height: 50px;
 }
-
 .comments-list {
     padding: 0;
     margin: 0;
 }
-
 .comments-list li {
     border: 0.5px solid gray;
 }
@@ -265,7 +242,6 @@ cursor: pointer;
     margin-bottom: 0.05rem;
     color: rgb(206, 126, 21);
 }
-
 #comment-right h3 {
     font-size: 0.95rem;
 }
@@ -274,7 +250,6 @@ cursor: pointer;
     width: 30px;
     height: 30px;
 }
-
 .hcom {
     display: block;
     text-align: center;
@@ -294,22 +269,20 @@ cursor: pointer;
     color: rgb(172, 139, 97) !important;
     outline: none;
 }
-
 .card-input:focus{
     background-color: #85083c !important;
     transform: scale(1.15) !important;
     color: rgb(126, 148, 180) !important;
 }
-
 @keyframes borderAnimation {
     from {
-       border: 5px solid #ca4f6e;
+       border: 1px solid #8c8da0;
     }
     50%{
-      border: 5px solid #ca4f6e; 
+      border: 1px solid #80809b; 
     }
     to{
-        border:  5px solid #ca4f6e;
+        border:  1px solid #8e8c99;
     }
 }
 @media screen and (max-width: 800px) {
@@ -319,12 +292,10 @@ cursor: pointer;
     .card {
         width: 93vw;
     }
-
     .card-image__post img {
         width: 93vw;
     }
 }
-
 #hcom{
     display: block;
     text-align: center;

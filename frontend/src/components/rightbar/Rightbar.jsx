@@ -5,7 +5,6 @@ import Online from "../online/Online";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 export default function Rightbar(profile) {
     const HomeRightbar = () => {
         const userId = id
@@ -33,18 +32,13 @@ export default function Rightbar(profile) {
                     {Users.map((u) => (
                         <Online key={u.id} user={u} />
                     ))}
-
-
                 </ul>
             </div>
         );
     };
     const ProfileRightbar = () => {
-
         // const storage = JSON.parse(localStorage.getItem('access'));
         // const id = storage.userId;
-
-
         // let token = "Bearer " + storage.token;
         // const [Users, setUsers] = useState([]);
         // const [posts, setPosts] = useState([]);
@@ -70,12 +64,10 @@ export default function Rightbar(profile) {
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">City:</span>
                         <span className="rightbarInfoValue">New York</span>
-
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">From:</span>
                         <span className="rightbarInfoValue">Madrid</span>
-
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">Relationship:</span>
@@ -100,13 +92,9 @@ export default function Rightbar(profile) {
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>)
     }
-
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
@@ -126,6 +114,4 @@ export default function Rightbar(profile) {
         //             {Users.map((u) => (
         //                 <Online key={u.id} user={u} />
         //             ))}
-
-
         //         </ul>

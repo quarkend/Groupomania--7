@@ -5,7 +5,7 @@ const postCtrl = require('../controllers/post');
 const commentCtrl = require('../controllers/comment');
 const likeCtrl = require('../controllers/like');
 const auth = require('../middlewares/auth');
-
+const multer = require('../middlewares/multer-config')
 // Routes
 // router.get("http://localhost:8800/api/profile/:username", async (req, res) => {
 //     try {
@@ -29,7 +29,8 @@ router.get('/:id/likes', likeCtrl.findAllLikes);
 // router.post('/', likeCtrl.createLike);
 router.get('/byId/:id', postCtrl.findOnePost);
 router.post('/', postCtrl.createPost);
-router.put('/:id', postCtrl.modifyPost);
+router.put('/upimg/:id',multer, postCtrl.modifyPostImg);
+// router.put('/uppost/:id', postCtrl.modifyPost);
 router.delete('/:id', postCtrl.deletePost);
 
 module.exports = router;

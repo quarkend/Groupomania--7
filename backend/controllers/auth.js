@@ -77,10 +77,10 @@ exports.login = (req, res, next) => {
                                 success: true,
                                 message: 'Authentication successful!',
 
-                                user: {
-                                    username: "Admin",
-                                    email: "User",
-                                },
+                                // user: {
+                                //     username: "Admin",
+                                //     email: "User",
+                                // },
                             },
                             'secretToken',
                             { expiresIn: '23h' }
