@@ -8,6 +8,7 @@ import Home from './../../pages/home/Home';
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { Component } from './../Component';
+import MenuBurger from '../menuBurger';
 export default function Topbar() {
   const [isActive, setActive] = useState('false')
   const [error, setError] = useState(null);
@@ -23,14 +24,18 @@ export default function Topbar() {
 
   return (
     <BrowserRouter>
+        
       <nav >
+  
         {state.isAuthenticated && (
           <div>
+               <MenuBurger/>
             <div className="topbarContainer">
-
+          
+         
               <div className="topbarLeft">
-       <Component/>
-                <h1> GROUPOMANIA   </h1>
+              <h1> GROUPOMANIA   </h1>
+                
 
               </div>
       
