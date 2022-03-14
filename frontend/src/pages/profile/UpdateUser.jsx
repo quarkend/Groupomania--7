@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useContext, useCallback } from 'react';
+import React, { useEffect, useState, Fragment, useContext } from 'react';
 import { useForm } from 'react-hook-form'
 import './profile.css'
 import { AuthContext } from './../../App';
@@ -9,8 +9,7 @@ import UpdateProfileUsername from './UpdateProfileUsername';
 
 
 const USER_INFO_URL = "http://localhost:8800/api/users/"
-const UPDATE_USER_URL = "http://localhost:8800/api/users/"
-const DELETE_ACCOUNT_URL = "http://localhost:8800/api/users/"
+
 
 export default function UpdateUser() {
       
@@ -25,7 +24,7 @@ export default function UpdateUser() {
       const [showUpdateEmail, setShowUpdateEmail] = useState(false)
       const [showUpdateUsername, setShowUpdateUsername] = useState(false)
       async function handleUpdateProfilePhoto(data) {
-            const { userId } = userCredentials
+           
             const formData = new FormData()
             formData.append('image', data.image[0])
             // const imagedata = document.querySelector('input[type="file"]').files[0];
@@ -49,7 +48,7 @@ export default function UpdateUser() {
             }
       }
       async function handleUpdateProfileEmail(data) {
-            const { userId } = userCredentials
+        
             const sendedEmail = await fetch( "http://localhost:8800/api/users/"+ user.id, {
                   method: 'put',
                   headers: {
@@ -65,7 +64,7 @@ export default function UpdateUser() {
             setShowUpdateEmail(false)
       }
       async function handleUpdateProfileUsername(data) {
-            const { userId } = userCredentials
+     
             const sendedUsername = await fetch( "http://localhost:8800/api/users/"+ user.id, {
                   method: 'put',
                   headers: {

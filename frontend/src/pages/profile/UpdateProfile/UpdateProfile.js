@@ -10,7 +10,7 @@ import Share from './../../../components/share/Share';
 import ImageUpload from "./../../../components/ImageUpload/ImageUpload";
 // import ConfirmModal from './../../../components/ConfirmModal/ConfirmModal';
 const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
-const storage = "Bearer " + JSON.parse(localStorage.getItem('user'));
+const storage =  JSON.parse(localStorage.getItem('user'));
 const UpdateProfile = () => {
     // Authentication context
     const auth = useContext(AuthContext);
@@ -75,7 +75,7 @@ const UpdateProfile = () => {
         formData.append("image", formState.inputs.profilePicture.value);
      
         try {
-            await axios.put("http://localhost:8800/api/users/" + user.id, formData,
+            await axios.put("http://localhost:8800/api/users/" + storage.id, formData,
        
                 {
                     headers:
@@ -93,7 +93,7 @@ const UpdateProfile = () => {
 
 
     async function getUserData() {
-        const URL = `${"http://localhost:8800/api/users/"}/${user.id}`
+        const URL = `${"http://localhost:8800/api/users/"}/${storage.id}`
         const data = await fetch(URL, {
               headers: {
                     Authorization: 'Bearer ' + token
@@ -146,7 +146,7 @@ const UpdateProfile = () => {
         <button
             id="back"
             name="Retourner"
-            link={`/profile/${user.id}`}
+            link={`/profile/${storage.id}`}
             btnStyle={btnStyle}
             iconColor={iconStyle}
         />
@@ -154,7 +154,7 @@ const UpdateProfile = () => {
     const closeConfirmModalHandler = () => {
         setShowConfirmModal(false);
         setTimeout(() => {
-            history.push(`/profile/${user.id}`);
+            history.push(`/profile/${storage.id}`);
         }, 300);
     };
     if (userDataState) {

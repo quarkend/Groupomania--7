@@ -1,0 +1,42 @@
+#burger-nav {
+    display: none;
+}
+
+@media screen and (max-width: 800px){
+    #burger-nav {
+        display: block;
+    }
+    aside {
+        background-color: #272222;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        
+    }
+    
+    .burger-navigation {
+        width: 100%;
+     
+    }
+    .fa-sign-out-alt{
+        color: chartreuse;
+    }
+    .burger-navigation ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .burger-navigation ul li a {
+        color: antiquewhite;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .burger-navigation ul {
+        width: 80%;
+        justify-content: space-between;
+    }
+    .burger-navigation ul li a {
+        font-size: .7rem;
+    }
+}

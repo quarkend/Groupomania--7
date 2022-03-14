@@ -63,7 +63,7 @@ export default function Share() {
                         }
                         alt="profilePicture" /> */}
                     <input
-                        placeholder={"What'smind? "}
+                        placeholder={"Create Post : Title "}
                         className="shareInput"
                         ref={desc}
                     />

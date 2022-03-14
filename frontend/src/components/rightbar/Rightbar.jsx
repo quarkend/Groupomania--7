@@ -5,30 +5,41 @@ import Online from "../online/Online";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-export default function Rightbar(profile) {
+import { useContext } from 'react';
+import { AuthContext } from './../../App';
+export default function Rightbar({ user}) {
+    
+    const storage = JSON.parse(localStorage.getItem('user'));
+    const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
+    const id = storage.id;
+
+
+
+
+
+
     const HomeRightbar = () => {
-        const userId = id
-        const id = 1;
+   
         const [Users, setUsers] = useState([]);
         useEffect(() => {
-            axios.get("http://localhost:3001/users").then((res) => {
+            axios.get("http://localhost:8800/api/users").then((res) => {
                 setUsers(res.data)
                 console.log(res.data)
             })
-            axios.get(`|http://localhost:3001/posts/byId/${id}`).then((res) => {
+            axios.get(`|http://http://localhost:8800/api/posts/byId/${id}`).then((res) => {
                 setUsers(res.data)
                 console.log(res.data)
             })
         }, []);
         return (
             <div>
-                <div className="birthdayContainer">
-                    <img className="birthdayImg" src="assets/gift.png" alt="" />
-                    <span className="birthdayText"> <b>pol fost</b> {Users.desc}</span>
+                <div className="eventContainer">
+                    <img className="eventImg" src="assets/gift.png" alt="" />
+                    <span className="eventText"> <b>{storage.username}</b></span>
                 </div>
                 <img className="rightbarAd" src="assets/ad.png" alt="" />
                 <h4 className="rightbarTitle">On line friends</h4>
-                <ul className="rightbarFriendList">
+                <ul className="rightbarColleagueList">
                     {Users.map((u) => (
                         <Online key={u.id} user={u} />
                     ))}
@@ -37,59 +48,50 @@ export default function Rightbar(profile) {
         );
     };
     const ProfileRightbar = () => {
-        // const storage = JSON.parse(localStorage.getItem('access'));
-        // const id = storage.userId;
-        // let token = "Bearer " + storage.token;
-        // const [Users, setUsers] = useState([]);
-        // const [posts, setPosts] = useState([]);
-        // useEffect(() => {
-        //     axios.get(`/users/${id}`,
-        //         {
-        //             headers:
-        //                 { "Authorization": token }
-        //         }
-        //     ).then((res) => {
-        //         setUsers(res.data)
-        //         console.log(res.data)
-        //     })
-        //     axios.get(`/posts/byId/${id}`).then((res) => {
-        //         setPosts(res.data)
-        //         console.log(res.data)
-        //     })
-        // }, []);
+        const storage = JSON.parse(localStorage.getItem('user'));
+        const id = storage.userId;
+        let token = "Bearer " + storage.token;
+        const [Users, setUsers] = useState([]);
+        const [posts, setPosts] = useState([]);
+        useEffect(() => {
+            axios.get(`/users/${id}`,
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            ).then((res) => {
+                setUsers(res.data)
+                console.log(res.data)
+            })
+            axios.get(`/posts/byId/${id}`).then((res) => {
+                setPosts(res.data)
+                console.log(res.data)
+            })
+        }, []);
         return (
             <div>
                 <h4 className="rightbarTitle">User Information </h4>
                 <div className="rightbarInfo">
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">City:</span>
-                        <span className="rightbarInfoValue">New York</span>
+                         <span className="rightbarInfoValue">{storage.city}</span> 
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">From:</span>
-                        <span className="rightbarInfoValue">Madrid</span>
+                        <span className="rightbarInfoValue">{storage.from}</span> 
                     </div>
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">Relationship:</span>
                         <span className="rightbarInfoValue">Singel</span>
                         <h4 className="rightbarTitle">User friernds </h4>
                         <div className="rightbarFollowings">
+                    
+                     
                             <div className="rightbarFollowing">
-                                <img src="" alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName"> Janell Shrum </span>
-                            </div>
-                            {/* <div className="rightbarFollowing">
-                                <img src="assets/person/3.jpeg" alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName">{posts.desc}</span>
-                            </div>
-                            <div className="rightbarFollowing">
-                                <img src={"http://localhost:8800/images/" + Users.coverPicture} alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName"> {Users.coverPicture}</span>
-                            </div> */}
-                            <div className="rightbarFollowing">
-                                <img src="" alt="" className="rightbarFollowingImg" />
-                                <span className="rightbarFollowingName"> Janell Shrum </span>
-                            </div>
+                                <img src={"http://localhost:8800/images/" + storage.coverPicture} alt="" className="rightbarFollowingImg" />
+                                <span className="rightbarFollowingName"> {storage.username}</span>
+                            </div> 
+          
                         </div>
                     </div>
                 </div>
@@ -98,20 +100,12 @@ export default function Rightbar(profile) {
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
-                {profile ? <ProfileRightbar /> : <HomeRightbar />}
-                {/* <HomeRightbar/> */}
+                {/* {storage ? <ProfileRightbar /> : <HomeRightbar />}  */}
+                <ProfileRightbar />
+                <HomeRightbar />
+         
             </div>
         </div>
     );
 }
-        // <div className="birthdayContainer">
-        //             <img className="birthdayImg" src="assets/gift.png" alt="" />
-        //             <span className="birthdayText"> <b>pol fost</b>  and 2 have birthday today</span>
-        //         </div>
-        //         <img className="rightbarAd" src="assets/ad.png" alt="" />
-        //         <h4 className="rightbarTitle">On line friends</h4>
-        //         <ul className="rightbarFriendList">
-        //             {Users.map((u) => (
-        //                 <Online key={u.id} user={u} />
-        //             ))}
-        //         </ul>
+  

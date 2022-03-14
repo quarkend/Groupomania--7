@@ -5,7 +5,11 @@ import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import { Link, BrowserRouter, useParams, useHistory } from "react-router-dom"
 import { useEffect, useState, Redirect } from "react";
 import Home from './../../pages/home/Home';
+
+import MenuIcon from "@material-ui/icons/Menu";
+import { Component } from './../Component';
 export default function Topbar() {
+  const [isActive, setActive] = useState('false')
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let history = useHistory();
@@ -13,15 +17,23 @@ export default function Topbar() {
   const storage = JSON.parse(localStorage.getItem('user'));
   // const  isAdmin = storage.isAmin;
   // const id = storage.id;
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
   return (
     <BrowserRouter>
       <nav >
         {state.isAuthenticated && (
           <div>
             <div className="topbarContainer">
+
               <div className="topbarLeft">
+       <Component/>
                 <h1> GROUPOMANIA   </h1>
+
               </div>
+      
               <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/admin/" + state.user.id) }}>admin</button>
               <div className="topbarLinks">
                 <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/UpdateUser/" + state.user.id) }}>updateuser</button>

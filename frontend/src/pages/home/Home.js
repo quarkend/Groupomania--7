@@ -77,27 +77,31 @@ export const Home = () => {
     return (
        
            <div className="homeContainer">
+                   <div className="feed">
+            <div className="feedWrapper">
+                  <Share />
+                
                 {state.isFetching ? (
                     <span className="loader">LOADING...</span>
                 ) : state.hasError ? (
                     <span className="error">AN ERROR HAS OCCURED</span>
                 ) : (
                     <>
-                <Sidebar />
-        <Feed/>
-        <Rightbar/>
+         
+      
+  
                     
-                             {/* {
+                              {
                                  
             state.posts.map(post => (
                 
               <Post key={post.id.toString()} post={post} />
-            ))}  */}
+            ))}  
             
                     </>
                 )}
             </div>
-        
+            </div></div>
     );
 };
 export default Home;

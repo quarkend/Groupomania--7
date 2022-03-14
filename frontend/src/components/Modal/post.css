@@ -66,19 +66,19 @@ cursor: pointer;
     border-bottom: 1px dashed rgb(80, 93, 84);
     font-size: 15px;
 }
-  .listOfComments{
+ .listOfComments{
     padding-left: 0.5rem;
         display: block;
-        width: auto;
+        width: 67%;
         margin: auto;
         height: auto;
-        /* box-shadow: 0px 0px 13px rgb(172, 160, 160);
-        background-color: rgb(231, 220, 220); */
+        box-shadow: 0px 0px 13px rgb(172, 160, 160);
+        background-color: rgb(231, 220, 220);
         outline: none;
         transition: .3s;
         border: 0.5px solid rgb(185, 181, 181);
     
-} 
+}  
 .white {
     color: rgb(255, 102, 102);    
     cursor: pointer;
@@ -157,7 +157,9 @@ cursor: pointer;
 .card-reaction span {
     color: rgb(51, 20, 160);
 }
-
+.card-comment {
+    height: 70px;
+}
 .comment-list{
     transition: 2s;
 }

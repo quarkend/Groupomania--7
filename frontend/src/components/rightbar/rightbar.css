@@ -4,18 +4,18 @@ flex: 3.5;
 .rightbarWrapper{
 padding: 20px 20px 0 0;
 }
-.birthdayContainer{
+.eventContainer{
     display: flex;
     align-items: center;
 }
-.birthdayImg{
+.eventImg{
     width: 40px;
     height: 40px;
     margin-right: 5px;
     
     object-fit: cover;
 }
-.birthdayText{
+.eventText{
     font-weight: 300;
     font-size: 15px;
 }
@@ -27,12 +27,12 @@ padding: 20px 20px 0 0;
 .rightbarTitle{
     margin-bottom: 20px;
 }
-.rightbarFriendList{
+.rightbarColleagueList{
     padding: 0;
     margin: 0;
     list-style: none;
 }
-.rightbarFriend{
+.rightbarColleague{
     display: flex;
     align-items: center;
     margin-bottom: 15px;

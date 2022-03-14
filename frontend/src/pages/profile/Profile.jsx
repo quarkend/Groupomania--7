@@ -13,8 +13,7 @@ import UpdateProfileUsername from './UpdateProfileUsername';
 
 // ^\s*$\n 
 const POSTS_URL = "/posts/"
- const UPDATE = "/users/"
-const USER_INFO_URL  = "/users/"
+
 const DELETE_ACCOUNT_URL = "/users/delete/"
 export default function Profile() {
     // let { id } = useParams();
@@ -30,8 +29,7 @@ export default function Profile() {
      const [showUpdateEmail, setShowUpdateEmail] = useState(false)
      const [showUpdateUsername, setShowUpdateUsername] = useState(false)
    async function handleUpdateProfilePhoto(data) {
-         
-         const formData = new FormData()
+        const formData = new FormData()
          formData.append('image', data.profilePicture)
           const sendPhoto = await fetch(`${'/profile'}/${userCredentials.id}` ,{
                 method: 'put',
@@ -135,16 +133,12 @@ useEffect(() => {
                             <h4 className="profileInfoName">{storage.username}</h4>
                            <span className="profileInfoDesc">hello my fuuuriend</span>
                         </div>
-              
-                   </div>
+                  </div>
                     <div className="profileRightBottom">
-                      
-                        <Feed />
                
-         
-         
- 
-                    </div>
+                        <Feed />
+                
+                   </div>
                 </div>
             </div>
        </div>

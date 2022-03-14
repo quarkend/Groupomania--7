@@ -70,8 +70,12 @@ app.use('/api/profile', userRoutes);
 app.use("/api/likes", likesRouter);
 module.exports = app;
 
-db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running on port 3001");
-    });
-});
+db.sequelize.sync()
+
+
+
+// .then(() => {
+//     app.listen(3001, () => {
+//         console.log("Server running on port 3001");
+//     });
+// });

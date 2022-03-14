@@ -5,7 +5,7 @@ import { RssFeed, Chat, Group, PlayCircleFilled } from "@material-ui/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import CloseFriend from '../closeFriend/CloseFriend';
+// import CloseColleague from '../closeColleague/CloseColleague';
 export default function Sidebar() {
     // const [authState, setAuthState] = useState({
     //     username: "",
@@ -54,9 +54,9 @@ export default function Sidebar() {
                 </ul>
                 <button className="sidebarButton">Show More</button>
                 <hr className="sidebarHr" />
-                <ul className="sidebarFriendList">
+                <ul className="sidebarColleagueList">
                     {/* {Users.map((u) => (
-                        <CloseFriend key={u.id} user={u} />
+                        <CloseColleague key={u.id} user={u} />
                     ))} */}
                     {/* <h1>{authState.username} </h1> */}
                 </ul>
