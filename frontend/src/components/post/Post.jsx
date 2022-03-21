@@ -293,6 +293,7 @@ import {Update,
     EmojiEmotions,
     Cancel,
 } from "@material-ui/icons";
+import MenuDots from '../MenuDots';
 const USER_INFO_URL = "http://localhost:8800/api/users/"
 
 export default function Post({ post }) {
@@ -525,27 +526,26 @@ useEffect(() => {
                                 alt="user"
                                 /> 
 
-                            <Link to={`/profile/${user.state.user.username}`}>  profile </Link> 
+                            <Link to={`/profile/${user.state.user.username}`}> {user.state.user.username}</Link> 
               
                         </div>
                         <div className="postTopRight">
                             <span className="postDate">{format(post.createdAt)}</span>
                         </div>
-                        <MoreVert />
-                        
+                        <MenuDots/>      
                         {/* <BurgerNav/> */}
                     </div>
                     <p className="created-at"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                     <div className="detail">
                         <hr />
                         <h3>{post.title}</h3>
-                        <h3>{user.state.user.username}</h3>
-                        <hr />
-                        <br />
+                
+                
                         <h4>{post.desc}</h4>
                         <hr />
                     </div>
                  <div className="card-image__post">
+               
                         <img className="postImg"
                             src={"http://localhost:8800/images/" + post.img}
                             alt="center"

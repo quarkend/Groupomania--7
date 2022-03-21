@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import Rightbar from "../../components/rightbar/Rightbar";
-import Sidebar from "../../components/sidebar/Sidebar";
+
 // import Post from "./../../Post";
 import { AuthContext } from './../../App';
 import "./home.css"
 import Post from './../../components/post/Post';
 import Share from './../../components/share/Share';
 import Feed from './../../components/feed/Feed';
+import Sidebar from './../../components/sidebar/Sidebar';
 
 const initialState = {
     posts: [],
@@ -77,11 +78,14 @@ export const Home = () => {
     return (
        
            <div className="homeContainer">
-                   <div className="feed">
+               <Sidebar/>
+               <div className="feed">
             <div className="feedWrapper">
-                  <Share />
-                
-                {state.isFetching ? (
+        
+            <Share/>
+              
+            </div>
+            {state.isFetching ? (
                     <span className="loader">LOADING...</span>
                 ) : state.hasError ? (
                     <span className="error">AN ERROR HAS OCCURED</span>
@@ -101,7 +105,10 @@ export const Home = () => {
                     </>
                 )}
             </div>
-            </div></div>
+            
+               
+               <Rightbar/>
+      </div>
     );
 };
 export default Home;

@@ -1,8 +1,8 @@
 .post{
     width:100%;
        border-radius: 10px;
--webkit-box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58); 
-box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58);
+/* -webkit-box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58); 
+box-shadow: 0px 0px 25px -8px rgba(0,0,0,0.58); */
 margin:30px 0;
 }
 .postWrapper{
@@ -97,10 +97,10 @@ cursor: pointer;
     width: 45rem;
     overflow: hidden;
     margin: 2rem auto;
-    animation: borderAnimation 20s ease infinite;
+
     border-radius: 5px;
-    background-color: rgb(247, 241, 241);
-    box-shadow: -1px 0px 5px black;
+  
+    background-color: white;
 }
 .card-username__info {
     margin-top: 0.4rem;

@@ -248,6 +248,10 @@ export default function UpdateProfilePhoto({submit, register, title}){
                        return
                  }
            },[image])
+
+
+
+           
       return(
                   <form className="card"  encType="multipart/form-data" onSubmit={submit}  >
                         <div className="form-group">

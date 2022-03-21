@@ -117,7 +117,7 @@ export default function UpdateUser() {
                                     <img src={"http://localhost:8800/images/" + data.profilePicture} alt="profile" />
                               </div>
                               <div className="user-info">
-                              <p>image : {data.image}</p>
+                              <p>data.profilePicture : {data.profilePicture}</p>
                                     <p>Username : {data.username}</p>
                                     <p>Email : {data.email}</p>
                                     <p>Profil crée le : {data.createdAt.split('T').join(' à ').split('.000Z')}</p>

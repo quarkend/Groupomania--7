@@ -49,3 +49,6 @@
   outline: none !important;
 }
 /******  HEADER  ******/
+#root{
+  background-color:#f0f2f5;
+}

@@ -22,14 +22,26 @@ export default function Rightbar({ user}) {
    
         const [Users, setUsers] = useState([]);
         useEffect(() => {
-            axios.get("http://localhost:8800/api/users").then((res) => {
-                setUsers(res.data)
+            let componentMounted = true;
+            let abortController = new AbortController(); 
+            const fetchData = async () => { axios.get("http://localhost:8800/api/users").then((res) => {
+                if(componentMounted) {
+                    setUsers(res?.data);
+                  }
                 console.log(res.data)
             })
-            axios.get(`|http://http://localhost:8800/api/posts/byId/${id}`).then((res) => {
-                setUsers(res.data)
-                console.log(res.data)
-            })
+        }
+
+            // axios.get(`|http://http://localhost:8800/api/posts/byId/${id}`).then((res) => {
+            //     setUsers(res.data)
+            //     console.log(res.data)
+            // })
+        
+              fetchData();
+              return () => {
+               componentMounted = false;
+               abortController.abort();
+              }
         }, []);
         return (
             <div>
@@ -54,20 +66,31 @@ export default function Rightbar({ user}) {
         const [Users, setUsers] = useState([]);
         const [posts, setPosts] = useState([]);
         useEffect(() => {
-            axios.get(`/users/${id}`,
+            let componentMounted = true;
+            let abortController = new AbortController(); 
+            const fetchData = async () => {
+                axios.get(`/users/${id}`,
                 {
                     headers:
                         { "Authorization": token }
                 }
             ).then((res) => {
-                setUsers(res.data)
+                if(componentMounted) {
+                    setUsers(res?.data);
+                  }
                 console.log(res.data)
             })
-            axios.get(`/posts/byId/${id}`).then((res) => {
-                setPosts(res.data)
-                console.log(res.data)
-            })
-        }, []);
+     
+    };
+    fetchData();
+    return () => {
+     componentMounted = false;
+     abortController.abort();
+    }
+          
+        
+        
+        }, [id, token]);
         return (
             <div>
                 <h4 className="rightbarTitle">User Information </h4>
@@ -101,7 +124,7 @@ export default function Rightbar({ user}) {
         <div className="rightbar">
             <div className="rightbarWrapper">
                 {/* {storage ? <ProfileRightbar /> : <HomeRightbar />}  */}
-                <ProfileRightbar />
+                {/* <ProfileRightbar /> */}
                 <HomeRightbar />
          
             </div>

@@ -15,6 +15,7 @@ router.get('/:id', userCtrl.findOneUser);
 router.get('/:id', userCtrl.findAllUserByName);
 router.get('/:id/posts', postCtrl.findAllPosts);
 router.put('/:id', multer,userCtrl.modifyUser);
+// router.put('/:id/modifycoverPicture', multer,userCtrl.modifyCoverPicture);
 // router.put('/:id', userCtrl.modifyUserPic);
  router.delete('/:id', userCtrl.deleteUser);
 //  router.post('/upload',userCtrl.upload);

@@ -2,16 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 // import NavBtn from "../../../components/NavBtn/NavBtn";
-import { useForm } from "./../../../hooks/form-hook";
+import { useForm } from "../../../hooks/form-hook";
 
 import styles from "./UpdateProfile.module.css";
-import { AuthContext } from './../../../helpers/AuthContext';
-import Share from './../../../components/share/Share';
-import ImageUpload from "./../../../components/ImageUpload/ImageUpload";
+import { AuthContext } from '../../../helpers/AuthContext';
+import Share from '../../../components/share/Share';
+import ImageUpload from "../../../components/ImageUpload/ImageUpload";
+
 // import ConfirmModal from './../../../components/ConfirmModal/ConfirmModal';
 const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
 const storage =  JSON.parse(localStorage.getItem('user'));
-const UpdateProfile = () => {
+export default function UpdateProfile()  {
     // Authentication context
     const auth = useContext(AuthContext);
     const { user } = useContext(AuthContext);
@@ -235,4 +236,4 @@ const UpdateProfile = () => {
     );
 };
 
-export default UpdateProfile;
+

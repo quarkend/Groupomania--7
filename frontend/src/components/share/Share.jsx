@@ -7,6 +7,7 @@ import {
     EmojiEmotions,
     Cancel,
 } from "@material-ui/icons";
+import Picker from 'emoji-picker-react';
 import { useEffect, useContext, useRef, useState } from "react";
 // import { AuthContext } from './../../helpers/AuthContext';
 // import { AuthContext } from "../../context/AuthContext";
@@ -19,6 +20,13 @@ export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     
     const desc = useRef();
+    /////
+    const [state, setState] = useState({ shown: false });
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+
+    const onEmojiClick = (event, emojiObject) => {
+      setChosenEmoji(emojiObject);
+    };
     const [file, setFile] = useState(null);
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -50,6 +58,15 @@ export default function Share() {
             window.location.reload();
         } catch (err) { }
     };
+//   Picker.init({
+//         selector: "#mytextarea",
+//         plugins: "emoticons autoresize",
+//         toolbar: "emoticons",
+//         toolbar_location: "bottom",
+//         menubar: false,
+//         statusbar: false
+//       });
+      
     return (
         <div className="share">
             <div className="shareWrapper">
@@ -93,18 +110,30 @@ export default function Share() {
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </label>
-                        <div className="shareOption">
+                        {/* <div className="shareOption">
                             <Label htmlColor="blue" className="shareIcon" />
                             <span className="shareOptionText">Tag</span>
-                        </div>
-                        <div className="shareOption">
+                        </div> */}
+                        <label className="shareOption">
                             <Room htmlColor="green" className="shareIcon" />
                             <span className="shareOptionText">Location</span>
-                        </div>
-                        <div className="shareOption">
-                            <EmojiEmotions htmlColor="goldenrod" className="shareIcon" />
-                            <span className="shareOptionText">Feelings</span>
-                        </div>
+                        </label>
+                        <label className="shareOption">
+                            <EmojiEmotions   onEmojiClick={onEmojiClick}  onClick={() => setState({ shown: !state.shown })} htmlColor="goldenrod" className="shareIcon" />
+                            {/* <span className="shareOptionText">Feelings</span> */}
+                       
+                           
+      {chosenEmoji ? (
+        <span  className="shareOptionText">Feelings: {chosenEmoji.emoji}</span>
+      ) : (
+        <span>No emoji Chosen</span>
+      )}
+       </label>    
+      <h2 >{state.shown ?   <Picker onEmojiClick={onEmojiClick}  />  : '' }</h2>
+      {/* <button onEmojiClick={onEmojiClick}  onClick={() => setState({ shown: !state.shown })}>Toggle</button> */}
+    
+  
+ 
                     </div>
                     <button className="shareButton" type="submit">
                         Share

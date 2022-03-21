@@ -1,7 +1,7 @@
 .topbarContainer{
     height: 50px;
     width: 100%;
-    background-color:rgb(69, 136, 199);
+    background-color:rgb(140, 183, 233);
     display:flex;
     align-items:center;
     position: sticky;
@@ -11,6 +11,7 @@
 .topbarLeft{
     flex:3;
     padding-left: 5.5rem;
+    display: flex;
 }
 .logo{
     font-size:  24px;
@@ -26,11 +27,12 @@
     cursor: pointer;
 }
 .topbarCenter{
-    flex:5;
+    flex:8;
+    display: flex;
    
 }
 .searchbar{
-    width: 100%;
+    width: 70%;
      height: 30px;
     background-color:white;
     border-radius: 30px;
@@ -68,6 +70,11 @@ outline: none;
 .topbarIcons{
     display: flex;
 }
+
+.topbarIcons svg {
+  height: 28px;
+  width: 28px;
+}
 .topbarIconItem
 {
     margin-right: 15px;
@@ -94,7 +101,17 @@ outline: none;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
+    padding: 0 0.5em 0;
  
+}
+.topbarIcon{
+  width: 32px;
+  height: 32px;
+
+  object-fit: cover;
+  cursor: pointer;
+  padding: 0 0.5em 0;
+
 }
 /* menuBurger */
 #page-wrap {
@@ -124,11 +141,12 @@ outline: none;
   
   /* Position and sizing of burger button */
   .bm-burger-button {
-    position: relative;
+    position: absolute;
     width: 36px;
     height: 30px;
-    left: 36px;
-    top: 36px;
+    left: 20px;
+    top: 20px;
+    
   }
   
   /* Color/shape of burger icon bars */
@@ -168,4 +186,76 @@ outline: none;
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
   }
+  /* //dot// */
+  .more-dot {
+    background-color: #aab8c2;
+    margin: 0 auto;
+    display: inline-block;
+ 
+    margin-right: 1px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    pointer-events: auto;
+}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+body {
   
+  font-family: "Open Sans", Arial, sans-serif;
+  color: #042e72;
+  /* font-size: 1em;
+  line-height: 1.5;
+  padding: 1rem; */
+}
+
+.container {
+  
+ 
+  position: relative;
+  display: inline-block;
+}
+
+/* .button {
+  padding: 0;
+  width: 50px;
+  border: 0;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  outline: 0;
+  font-size: 40px;
+} */
+
+.dropdown-wrapper {
+
+  position: absolute;
+  top: 100%;
+  left: -276px;
+  width: 300px;
+  z-index: 2;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+}
+
+.dropdown-menu {
+  background-color:white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dropdown-menu__item {
+  padding: 8px 12px;
+}
+.dropdown-menu__item:hover {
+  
+  background-color: rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+}
+

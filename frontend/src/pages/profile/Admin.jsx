@@ -34,8 +34,8 @@ export default function Admin({ submit, username }) {
     async function handleUpdateProfilePhoto(data) {
         const { userId } = userCredentials
         const formData = new FormData()
-        formData.append('profilePicture', data.image)
-        const sendPhoto = await fetch(`${'/users'}/${userCredentials.id}`, userId, {
+        formData.append('image', data.image[0])
+        const sendPhoto = await fetch(`${'/users'}/${userCredentials.id}`, {
             method: 'put',
             headers: {
                 Authorization: "Bearer " + token
@@ -88,7 +88,7 @@ export default function Admin({ submit, username }) {
         })
         const response = await data.json()
         setData(response)
-        console.log(response.username)
+        console.log(response)
     }
     useEffect(() => {
         getUserData()
@@ -197,16 +197,16 @@ export default function Admin({ submit, username }) {
             <div className="profile">
                 <div className="card">
                     <h1>admin</h1>
-                    <h4 className="detail"> {user.username}</h4>
+                    {/* <h4 className="detail"> {user.username}</h4> */}
                     <form className="signup-form margin" onSubmit={submit}  >
                         <div className="form-group">
-                            <label htmlFor="username"> {user.username || "Username"}</label>
+                           <label htmlFor="username"> {storage.username || "Username"}</label> 
                             <input className="add-input" type="text" name="username" id="username" placeholder={username === undefined ? 'username...' : username} ref={register} />
                         </div>
                     </form>
                     <button onClick={() => { updateUsename(user.id) }}>updateUsename</button>
                     <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
+               
                 </div>
             </div>
             {users.map(u => (
@@ -216,12 +216,13 @@ export default function Admin({ submit, username }) {
                 <h2 className='profile-title'>MON COMPTE</h2>
                 <div className="card">
                     <div className="profile-image-div">
-                        <img src={"http://localhost:8800/images/" + user.image} alt=" profil" />
+                        {/* <img src={"http://localhost:8800/images/" + user.profilePicture} alt=" profil" /> */}
                     </div>
                     <div className="user-info">
-                        <p>Username : {user.username}</p>
-                        <p>Email : {data.email}</p>
+                        {/* <p>Username : {user.username}</p> */}
+                        {/* <p>Email : {data.email}</p> */}
                         <p>Email : {storage.email}</p>
+                        {/* <p>user.profilePicture: {user.profilePicture}</p> */}
                     </div>
            
                     <div className="user-action">
@@ -247,7 +248,7 @@ export default function Admin({ submit, username }) {
                     </div>
                 </div>
                 {showUpdatePhoto &&
-                    <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} {...register({ required: true })} />
+                    <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
                 }
       
                 {showUpdateUsername &&
