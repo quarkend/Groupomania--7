@@ -10,7 +10,7 @@
 }
 .topbarLeft{
     flex:3;
-    padding-left: 5.5rem;
+    padding-left: 0.5rem;
     display: flex;
 }
 .logo{
@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 .topbarCenter{
-    flex:8;
+    flex:4;
     display: flex;
    
 }

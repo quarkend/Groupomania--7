@@ -306,7 +306,7 @@ export default function Post({ post }) {
     const [updateComment, setUpdateComment] = useState("")
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    // const [user, setUser] = useState({});
+    const [users, setUsers] = useState([]);
      const user  = useContext(AuthContext);
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [error, setError] = useState(null);
@@ -316,9 +316,28 @@ export default function Post({ post }) {
     const history = useHistory();
     console.log(user.state.user)
     const userId = storage.id;
-    let token = "Bearer " + storage.token;
+    const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
+    let { id } = useParams();
+   
     const [like, setLike] = useState([])
     const [isLiked, setIsLiked] = useState(false)
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await axios.get(`/users`,
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            );
+            setUsers(res.data);
+            localStorage.setItem('userAount', JSON.stringify(res.data));
+            console.log(res.data)
+        };
+        fetchUser();
+    }, [token]);
+
+
     const likeHandler = () => {
         axios.post(`/likes`,
             {
@@ -521,12 +540,15 @@ useEffect(() => {
                 <div className="postWrapper">
                     <div className="postTop">
                         <div className="postTopLeft">
+                        <span className="postUsername">
+              {/* {users.filter((u) => u.id === post?.userId)[0].username} */}
+            </span>
                          <img className="postProfileImg"
-                                src={"http://localhost:8800/images/" + user.state.user.profilePicture}
+                                src={"http://localhost:8800/images/" + data.profilePicture}
                                 alt="user"
                                 /> 
 
-                            <Link to={`/profile/${user.state.user.username}`}> {user.state.user.username}</Link> 
+                            <Link to={`/profile/${data.username}`}> {data.username}</Link> 
               
                         </div>
                         <div className="postTopRight">

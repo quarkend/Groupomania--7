@@ -33,12 +33,17 @@ export default function Topbar() {
   
         {state.isAuthenticated && (
           <div>
-               <MenuBurger/>
+          
             <div className="topbarContainer">
           
          
               <div className="topbarLeft">
-         
+         <h1>Groupomania</h1>
+      
+     
+
+              </div>
+              <div className="topbarCenter">
               <div className="searchbar">
           <Search className="searchIcon" />
           <input
@@ -46,23 +51,7 @@ export default function Topbar() {
             className="searchInput"
           />
         </div>
-     
 
-              </div>
-              <div className="topbarCenter">
-              <div className="topbarIcons">
-              <div className="topbarIcon">
-            <HomeIcon  onClick={() => { history.push("/") }}/>
-           
-          </div>
-  <div className="topbarIcon">
-              <SupervisorAccountIcon onClick={() => { history.push("/admin/" + state.user.id) }}/>
-              </div>
-    
-          <div className="topbarIconItem">
-          <PostAddIcon onClick={() => { history.push("/mypost/" + state.user.id) }}/>
-          </div>
-      </div>
       </div>
              
               {/* <div className="topbarLinks"> */}
@@ -77,6 +66,19 @@ export default function Topbar() {
 
 
               <div className="topbarIcons">
+              <div className="topbarIcons">
+              <div className="topbarIcon">
+            <HomeIcon  onClick={() => { history.push("/") }}/>
+           
+          </div>
+  <div className="topbarIcon">
+              <SupervisorAccountIcon onClick={() => { history.push("/admin/" + state.user.id) }}/>
+              </div>
+    
+          <div className="topbarIconItem">
+          <PostAddIcon onClick={() => { history.push("/mypost/" + state.user.id) }}/>
+          </div>
+      </div>
               <div className="topbarIcon">
             <Person />
     
@@ -97,7 +99,7 @@ export default function Topbar() {
         <span className="topbarLinks">{state.user.username}  </span>  
           </div>
           <div className="topbarIconItem">
-            < MenuIcon/>
+          <MenuBurger/>
         
           </div>
         </div>

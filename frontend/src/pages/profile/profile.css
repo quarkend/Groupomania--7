@@ -25,6 +25,24 @@
     top: 150px;
     border: 3px solid white;
 }
+.profileUserImgChange{
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50%;
+    object-fit:cover;
+    position: absolute;
+    left: 7em;
+    right: 0;
+    margin:auto;
+   
+    border: 3px solid white;
+   
+    background-color: darkgrey;
+}
+.profileUserImgChange svg{
+    margin: 3px;
+
+}
 .profileInfo{
     display: flex;
     flex-direction: column;

@@ -1,19 +1,38 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
+import {useRef,useState} from 'react'
 import {slide as Menu} from "react-burger-menu";
 import { AuthContext } from '../App';
 import { BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import  "./topbar/topbar.css";    
+import MenuIcon from "@material-ui/icons/Menu";
 export default  props => {
   const storage = JSON.parse(localStorage.getItem('user'));
   const { state, dispatch } = React.useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const container = useRef(null);
+  const handleClickOutside = event => {
+    if(container.current && !container.current.contains(event.target)){
+      setOpen(false);
+    }
+  }
+  useEffect(() =>{
+    document.addEventListener("mousedown",handleClickOutside);
+    return ()=> {
+      // clean
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  })
   return (
-    <BrowserRouter>
+ 
         
-    <nav >
-
-      {state.isAuthenticated && (
+    <div className = "container" ref = {container}>
+    <MenuIcon onClick={() => setOpen(!open)}{...props}/>
+      {open && (
         <div>
-    <Menu {...props}>
+    <div class="dropdown-wrapper">
+        <ul class="dropdown-menu">
       
     <a className="menu-item" href="/">
     Home
@@ -42,10 +61,11 @@ Update Profile
                 deconexion
                
               </a>
-    </Menu>
+              </ul>
+    </div>
     </div>
         )}
-      </nav>
-    </BrowserRouter>
+      </div>
+    
   );
 };

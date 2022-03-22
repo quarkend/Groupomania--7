@@ -10,6 +10,7 @@ import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
 import { Fragment } from 'react';
 import Post from './../../components/post/Post';
+import Search from "../../components/search/Search";
 const POSTS_URL = "/posts/"
 const UPDATE = "/users/"
 const DELETE_ACCOUNT_URL = "/users/delete/"
@@ -219,9 +220,19 @@ export default function Admin({ submit, username }) {
                         {/* <img src={"http://localhost:8800/images/" + user.profilePicture} alt=" profil" /> */}
                     </div>
                     <div className="user-info">
-                        {/* <p>Username : {user.username}</p> */}
-                        {/* <p>Email : {data.email}</p> */}
+                         <p>Username : {user.username}</p> 
+                         <p>Email : {data.email}</p> 
                         <p>Email : {storage.email}</p>
+                        <p>post : {post.id}</p>
+                        <div>
+  {/* {posts.filter(post => post.id === 1).map(id => (
+    
+      {id}
+    
+  ))} */}
+  <div className ="search-list"></div>
+
+</div>
                         {/* <p>user.profilePicture: {user.profilePicture}</p> */}
                     </div>
            
@@ -255,6 +266,7 @@ export default function Admin({ submit, username }) {
                     <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} {...register({ required: true })} />
                 }
             </Fragment>
+            <Search/>
         </div>
     );
 }
