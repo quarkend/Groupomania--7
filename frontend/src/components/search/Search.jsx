@@ -3,32 +3,33 @@ import React, { useEffect, useState,  useCallback } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import "./search.css"
-import { ReactDOM } from 'react-dom';
+import ReactDOM from 'react-dom';
 
 
  
 export default function Search(){
 
-
-    const storage = JSON.parse(localStorage.getItem('user'));
+   
+    const users = JSON.parse(localStorage.getItem('userAount'));
     const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
-    const userId = storage.id;
-    const [users, setUsers] = useState([]);
-
-useEffect(() => {
-    const fetchUser = async () => {
-        const res = await axios.get(`/users`,
-            {
-                headers:
-                    { "Authorization": token }
-            }
-        );
-        setUsers(res.data);
-        localStorage.setItem('userAount', JSON.stringify(res.data));
-        console.log(res.data)
-    };
-    fetchUser();
-}, [token]);
+   
+    // const userId = storage.id;
+//     // const [users, setUsers] = useState([]);
+//     const [items, setItems] = useState([]);
+// useEffect(() => {
+//     const fetchUser = async () => {
+//         const res = await axios.get(`/users`,
+//             {
+//                 headers:
+//                     { "Authorization": token }
+//             }
+//         );
+//         setUsers(res.data);
+//         localStorage.setItem('userAount', JSON.stringify(res.data));
+//         console.log(res.data)
+//     };
+//     fetchUser();
+// }, [token]);
 
 const filterIt = (terms, arr) => {
     if ("" === terms || terms.length < 3) return arr;
@@ -65,10 +66,13 @@ const filterIt = (terms, arr) => {
       {items.map((item) => (
         <li key={item.id}>
           <h6>{item.id}</h6>
-          <span>{item.name}</span>
+           <span>{item.username}</span> 
         </li>
       ))}
+    
     </ul>
+
   );
-      }
   ReactDOM.render(<FilteredList />, document.getElementById("search-list"));
+      }
+ 

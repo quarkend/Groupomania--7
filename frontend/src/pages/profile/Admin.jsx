@@ -230,12 +230,12 @@ export default function Admin({ submit, username }) {
       {id}
     
   ))} */}
-  <div className ="search-list"></div>
+  
 
 </div>
                         {/* <p>user.profilePicture: {user.profilePicture}</p> */}
                     </div>
-           
+                    <Search />
                     <div className="user-action">
                         <i className="fas fa-user white fa-3x" onClick={() => {
                             setShowUpdateUsername(!showUpdateUsername)
@@ -266,7 +266,7 @@ export default function Admin({ submit, username }) {
                     <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} {...register({ required: true })} />
                 }
             </Fragment>
-            <Search/>
+        
         </div>
     );
 }
