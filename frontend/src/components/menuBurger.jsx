@@ -5,15 +5,17 @@ import {slide as Menu} from "react-burger-menu";
 import { AuthContext } from '../App';
 import { BrowserRouter } from 'react-router-dom';
 import { useEffect } from 'react';
-import  "./topbar/topbar.css";    
+ import  "./topbar/topbar.css";   
+import "./search/search.css" 
 import MenuIcon from "@material-ui/icons/Menu";
 export default  props => {
   const storage = JSON.parse(localStorage.getItem('user'));
   const { state, dispatch } = React.useContext(AuthContext);
   const [open, setOpen] = useState(false);
-  const container = useRef(null);
+  const dropdownwrapper = useRef(null);
+  
   const handleClickOutside = event => {
-    if(container.current && !container.current.contains(event.target)){
+    if(dropdownwrapper.current && !dropdownwrapper.current.contains(event.target)){
       setOpen(false);
     }
   }
@@ -27,12 +29,12 @@ export default  props => {
   return (
  
         
-    <div className = "container" ref = {container}>
+    <div className = "dropdownwrapper" ref = {dropdownwrapper}>
     <MenuIcon onClick={() => setOpen(!open)}{...props}/>
       {open && (
         <div>
-    <div class="dropdown-wrapper">
-        <ul class="dropdown-menu">
+    <div className="dropdpper">
+        <ul className="modal">
       
     <a className="menu-item" href="/">
     Home

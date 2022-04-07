@@ -1,3 +1,4 @@
+import React from 'react'
 import axios from "axios";
 import { useRef } from "react";
 import { useHistory,Link } from 'react-router-dom';
@@ -38,6 +39,7 @@ export default function Register() {
               <label htmlFor="Username">
                   Username
             <input
+            type="username"
               placeholder="Username"
               autoComplete="off"
               required
@@ -67,6 +69,8 @@ export default function Register() {
               minLength="6"
             />
                </label>
+               <label htmlFor="Password Again">
+               Password Again
             <input
               placeholder="Password Again"
               required
@@ -74,6 +78,7 @@ export default function Register() {
               className="loginInput"
               type="password"
             />
+            </label>
             <button className="loginRegisterButton" type="submit">
               Sign Up
             </button>

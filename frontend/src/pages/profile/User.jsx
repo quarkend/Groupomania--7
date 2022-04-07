@@ -28,8 +28,9 @@ const deleteUser = (id) => {
             <h1 > {user.email} </h1>
             <h1 > {user.profilePicture} </h1>
       
-            <Cancel onClick={()=>{deleteUser(storage.id)}}>XXxxxxxx</Cancel>
-            <Cancel className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</Cancel>
+            {/* <Cancel onClick={()=>{deleteUser(storage.id)}}>XXxxxxxx</Cancel> */}
+            <li className="fas fa-user-slash white fa-3x"  onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</li>
+            
             </div>
         </div>
     )

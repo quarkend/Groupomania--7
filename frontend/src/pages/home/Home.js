@@ -78,7 +78,7 @@ export const Home = () => {
     return (
        
            <div className="homeContainer">
-               <Sidebar/>
+               {/* <Sidebar/> */}
                <div className="feed">
             <div className="feedWrapper">
         
@@ -107,7 +107,7 @@ export const Home = () => {
             </div>
             
                
-               <Rightbar/>
+                {/* <Rightbar/>   */}
       </div>
     );
 };

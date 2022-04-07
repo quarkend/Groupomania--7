@@ -88,7 +88,7 @@ export default function Comment() {
                 </div>
                 <div className="card-comment">
                     <form >
-                        <input className="card-input" id="hcom" type="text" name="comment" placeholder="Laisser un commentaire "
+                        <input  id="hcom" type="text" name="comment" placeholder="Laisser un commentaire "
                             autoComplete="off"
                             value={newComment}
                             onChange={(event) => {

@@ -1,124 +1,124 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+// import React, { useState, useEffect } from "react";
+// import { withRouter } from "react-router-dom";
 
-// Icons
-
-
-// Images
+// // Icons
 
 
-// Styles
-import styles from "./ImageUpload.module.css";
+// // Images
 
-const ImageUpload = (props) => {
-    // Use state de l'image
-    const [file, setFile] = useState();
 
-    // Use state de la previsualisation de l'image
-    const [previewUrl, setPreviewUrl] = useState();
+// // Styles
+// import styles from "./ImageUpload.module.css";
 
-    // Use state de la validation
-    const [isValid, setIsValid] = useState(false);
+// const ImageUpload = (props) => {
+//     // Use state de l'image
+//     const [file, setFile] = useState();
 
-    // Localisation actuelle de l'app
-    const path = props.location.pathname;
+//     // Use state de la previsualisation de l'image
+//     const [previewUrl, setPreviewUrl] = useState();
 
-    useEffect(() => {
-        // verification s'il y a une image ou pas dans le useState
-        if (!file) {
-            return;
-        }
+//     // Use state de la validation
+//     const [isValid, setIsValid] = useState(false);
 
-        // Accéder à la previsualisation de l'image du navigateur et le transferer au useState
-        const fileReader = new FileReader();
-        fileReader.onload = () => {
-            setPreviewUrl(fileReader.result);
-        };
-        fileReader.readAsDataURL(file);
-    }, [file]);
+//     // Localisation actuelle de l'app
+//     const path = props.location.pathname;
 
-    // Fontion qui prend l'image
-    const pickedImageHandler = (event) => {
-        let pickedFile;
-        let fileIsValid = isValid;
+//     useEffect(() => {
+//         // verification s'il y a une image ou pas dans le useState
+//         if (!file) {
+//             return;
+//         }
 
-        // S'il y a une image dans l'événement
-        if (event.target.files && event.target.files.length === 1) {
-            pickedFile = event.target.files[0];
-            setFile(pickedFile);
-            setIsValid(true);
-            fileIsValid = true;
-        } else {
-            setIsValid(false);
-            fileIsValid = false;
-        }
-        props.onInput(props.id, pickedFile, fileIsValid);
-    };
+//         // Accéder à la previsualisation de l'image du navigateur et le transferer au useState
+//         const fileReader = new FileReader();
+//         fileReader.onload = () => {
+//             setPreviewUrl(fileReader.result);
+//         };
+//         fileReader.readAsDataURL(file);
+//     }, [file]);
 
-    // Construction pour la page new post
-    if (path === "/posts/") {
-        return (
-            <>
-                <label htmlFor="upload-button" className={styles.image_container}>
-                    {previewUrl ? (
-                        <>
-                            <img
-                                className={styles.preview_post}
-                                src={previewUrl}
-                                alt="Prévisualisation de la publication"
-                            />
-                            <div className={styles.red_banner_post}>
-                                <span className={styles.banner_text_post}>changer l'image</span>
-                            </div>
-                        </>
-                    ) : (
-                        <div className={styles.icon_block}>
-                            <img className={styles.icon} src={Image} alt="" />
-                            <span className={styles.text}>Veuillez choisir une image en cliquant ici</span>
-                        </div>
-                    )}
-                </label>
-                <input
-                    type="file"
-                    accept=".jpeg,.jpg,.gif"
-                    id="upload-button"
-                    style={{ display: "none" }}
-                    onChange={pickedImageHandler}
-                />
-            </>
-        );
-    }
+//     // Fontion qui prend l'image
+//     const pickedImageHandler = (event) => {
+//         let pickedFile;
+//         let fileIsValid = isValid;
 
-    // Construction pour la page Update Profile
-    return (
-        <>
-            <label htmlFor="upload-button" className={styles.photo_container}>
-                {previewUrl ? (
-                    <>
-                        <img className={styles.preview_img} src={previewUrl} alt="Prévisualisation du profil" />
+//         // S'il y a une image dans l'événement
+//         if (event.target.files && event.target.files.length === 1) {
+//             pickedFile = event.target.files[0];
+//             setFile(pickedFile);
+//             setIsValid(true);
+//             fileIsValid = true;
+//         } else {
+//             setIsValid(false);
+//             fileIsValid = false;
+//         }
+//         props.onInput(props.id, pickedFile, fileIsValid);
+//     };
 
-                        <div className={styles.red_banner}>
-                            <span className={styles.banner_text}>changer</span>
-                        </div>
-                    </>
-                ) : (
-                    <div>
-                        <img className={styles.profile_photo} src={props.profilePicture } alt="propsprofilePicture" />
-                        <div className={styles.red_banner}>
-                            <span className={styles.banner_text}>changer</span>
-                        </div>
-                    </div>
-                )}
-            </label>
-            <input
-                type="file"
-                accept=".jpeg,.jpg"
-                id="upload-button"
-                style={{ display: "none" }}
-                onChange={pickedImageHandler}
-            />
-        </>
-    );
-};
+//     // Construction pour la page new post
+//     if (path === "/posts/") {
+//         return (
+//             <>
+//                 <label htmlFor="upload-button" className={styles.image_container}>
+//                     {previewUrl ? (
+//                         <>
+//                             <img
+//                                 className={styles.preview_post}
+//                                 src={previewUrl}
+//                                 alt="Prévisualisation de la publication"
+//                             />
+//                             <div className={styles.red_banner_post}>
+//                                 <span className={styles.banner_text_post}>changer l'image</span>
+//                             </div>
+//                         </>
+//                     ) : (
+//                         <div className={styles.icon_block}>
+//                             <img className={styles.icon} src={Image} alt="" />
+//                             <span className={styles.text}>Veuillez choisir une image en cliquant ici</span>
+//                         </div>
+//                     )}
+//                 </label>
+//                 <input
+//                     type="file"
+//                     accept=".jpeg,.jpg,.gif"
+//                     id="upload-button"
+//                     style={{ display: "none" }}
+//                     onChange={pickedImageHandler}
+//                 />
+//             </>
+//         );
+//     }
 
-export default withRouter(ImageUpload);
+//     // Construction pour la page Update Profile
+//     return (
+//         <>
+//             <label htmlFor="upload-button" className={styles.photo_container}>
+//                 {previewUrl ? (
+//                     <>
+//                         <img className={styles.preview_img} src={previewUrl} alt="Prévisualisation du profil" />
+
+//                         <div className={styles.red_banner}>
+//                             <span className={styles.banner_text}>changer</span>
+//                         </div>
+//                     </>
+//                 ) : (
+//                     <div>
+//                         <img className={styles.profile_photo} src={props.profilePicture } alt="propsprofilePicture" />
+//                         <div className={styles.red_banner}>
+//                             <span className={styles.banner_text}>changer</span>
+//                         </div>
+//                     </div>
+//                 )}
+//             </label>
+//             <input
+//                 type="file"
+//                 accept=".jpeg,.jpg"
+//                 id="upload-button"
+//                 style={{ display: "none" }}
+//                 onChange={pickedImageHandler}
+//             />
+//         </>
+//     );
+// };
+
+// export default withRouter(ImageUpload);

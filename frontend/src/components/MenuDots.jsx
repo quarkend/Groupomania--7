@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
 import {slide as Menu} from "react-burger-menu";
-import  "./topbar/topbar.css";    
+ import "./search/search.css" 
 import { MoreHoriz, MoreVert } from '@material-ui/icons';
 import { AuthContext } from './../App';
 
@@ -10,7 +10,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 import { Link, BrowserRouter, useParams, useHistory,render } from "react-router-dom"
 
-import  "./topbar/topbar.css";    
+  
 
 export default  props => {
 
@@ -21,10 +21,10 @@ export default  props => {
   const { state, dispatch } = React.useContext(AuthContext);
   const storage = JSON.parse(localStorage.getItem('user'));
   const [open, setOpen] = useState(false);
-  const container = useRef(null);
+  const dropdownwrapper = useRef(null);
   
   const handleClickOutside = event => {
-    if (container.current && !container.current.contains(event.target)) {
+    if (dropdownwrapper.current && !dropdownwrapper.current.contains(event.target)) {
       setOpen(false);
     }
   };
@@ -39,14 +39,14 @@ export default  props => {
   });
 
   return (
-    <div className="container" ref={container}>
+    <div className="dropdownwrapper" ref={dropdownwrapper}>
 
     <MoreVert  onClick={() => setOpen(!open)}{...props}/>
     {open && (
        <div >
-      <div class="dropdown-wrapper">
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-menu__item" href="/"> Home</a></li>
+      <div className="dropdown-wrapper">
+        <ul className="dropdown-menu">
+          <li><a className="dropdown-menu__item" href="/"> Home</a></li>
     
 
  
@@ -63,7 +63,7 @@ export default  props => {
 
 
     <li className="dropdown-menu__item" >Hi {state.user.username} (X) </li>
-    <span className="dropdown-menu__item" 
+    <li className="dropdown-menu__item" 
                 onClick={() =>
                   dispatch({
                     type: "X"
@@ -72,13 +72,14 @@ export default  props => {
               >
                 deco
                
-              </span>
+              </li>
    
     </ul>
     </div>
         </div>
       )}
     </div>
+    
   );
 };
 

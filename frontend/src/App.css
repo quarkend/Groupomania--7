@@ -17,6 +17,11 @@
 } */
 /******  LOGIN PAGE  ******/
 /******  HEADER  ******/
+.body {
+  font-family: "Open Sans", Arial, sans-serif;
+  color: #042e72 !important;
+
+}
 #navigation{
   width: 100%;
   position: fixed;
@@ -33,6 +38,7 @@
 }
 .login-container{
     background-image: url("./assets/login-page.png");
+    background-color:white;
 }
 #navigation h1{
   color: white;
@@ -49,6 +55,6 @@
   outline: none !important;
 }
 /******  HEADER  ******/
-#root{
+/* #root{
   background-color:#f0f2f5;
-}
+} */

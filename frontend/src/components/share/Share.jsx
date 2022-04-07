@@ -119,8 +119,8 @@ export default function Share() {
                             <span className="shareOptionText">Location</span>
                         </label>
                         <label className="shareOption">
-                            <EmojiEmotions   onEmojiClick={onEmojiClick}  onClick={() => setState({ shown: !state.shown })} htmlColor="goldenrod" className="shareIcon" />
-                            {/* <span className="shareOptionText">Feelings</span> */}
+                            <EmojiEmotions    onClick={() => setState({ shown: !state.shown })} htmlColor="goldenrod" className="shareIcon" />
+                            {/* <span className="shareOptionText">Feelings</span  onEmojiClick={onEmojiClick} > */}
                        
                            
       {chosenEmoji ? (

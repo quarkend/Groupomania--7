@@ -12,6 +12,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import { Component } from './../Component';
 import MenuBurger from '../MenuBurger';
+import SearchItem from '../search/SearchItem';
 
 export default function Topbar() {
   const [isActive, setActive] = useState('false')
@@ -19,7 +20,7 @@ export default function Topbar() {
   const [isLoaded, setIsLoaded] = useState(false);
   let history = useHistory();
   const { state, dispatch } = React.useContext(AuthContext);
-  const storage = JSON.parse(localStorage.getItem('user'));
+  const storage = JSON.parse(localStorage.getItem('userAount'));
   // const  isAdmin = storage.isAmin;
   // const id = storage.id;
   const handleToggle = () => {
@@ -28,102 +29,91 @@ export default function Topbar() {
 
   return (
     <BrowserRouter>
-        
-      <nav >
-  
+
+      <nav  >
+
         {state.isAuthenticated && (
           <div>
-          
+
             <div className="topbarContainer">
-          
-         
+              <h1 className="topbar-title">Groupomania</h1>
               <div className="topbarLeft">
-         <h1>Groupomania</h1>
-      
-     
+
+                <div className="searchbar">
+                  {/* <SearchItem /> */}
+                  {/* f<input
+            placeholder="Rechercher sur Groupomania"
+            className="searchInput"
+          /> */}
+                </div>
+
+
 
               </div>
               <div className="topbarCenter">
-              <div className="searchbar">
-          <Search className="searchIcon" />
-          <input
-            placeholder="Rechercher sur Groupomania"
-            className="searchInput"
-          />
-        </div>
 
-      </div>
-             
+
+
+              </div>
+
               {/* <div className="topbarLinks"> */}
-                {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/UpdateUser/" + state.user.id) }}>updateuser</button> */}
-               
+              {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/UpdateUser/" + state.user.id) }}>updateuser</button> */}
 
-                
-             
-     
-                {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/updateprofile/" + state.user.id) }}>update profile </button> */}
+
+
+
+
+              {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/updateprofile/" + state.user.id) }}>update profile </button> */}
               {/* </div> */}
 
 
               <div className="topbarIcons">
-              <div className="topbarIcons">
-              <div className="topbarIcon">
-            <HomeIcon  onClick={() => { history.push("/") }}/>
+          
+                  <div className="topbarIcon">
+                    <HomeIcon onClick={() => { history.push("/") }} />
+
+                  </div>
+                  <div className="topbarIconItem">
+                    <SupervisorAccountIcon onClick={() => { history.push("/admin/" + state.user.id) }} />
+                    {/* <span className="topbarIconBadge">{storage.length}</span> */}
+                  </div>
+
+                  {/* <div className="topbarIconItem">
+                  <Chat />
+                  </div> */}
+         
+                {/* <div className="topbarIcon">
+                  <Person />
+
+                </div> */}
+
+                <div className="topbarIconItem">
+            
+            <PostAddIcon onClick={() => { history.push("/updateuser/" + state.user.id) }} />
            
           </div>
-  <div className="topbarIcon">
-              <SupervisorAccountIcon onClick={() => { history.push("/admin/" + state.user.id) }}/>
-              </div>
-    
-          <div className="topbarIconItem">
-          <PostAddIcon onClick={() => { history.push("/mypost/" + state.user.id) }}/>
-          </div>
-      </div>
-              <div className="topbarIcon">
-            <Person />
-    
-          </div>
-            
-          <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">2</span>
-          </div>
-          <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">1</span>
-          </div>
-        </div>        <div className="topbarIcons">
-  
-          <div className="topbarIconItem">
-          <img src={"http://localhost:8800/images/" +state.user.profilePicture} alt="" className="topbarImg"  onClick={() => { history.push("/profile/" + state.user.id) }} /> 
-        <span className="topbarLinks">{state.user.username}  </span>  
-          </div>
-          <div className="topbarIconItem">
-          <MenuBurger/>
-        
-          </div>
-        </div>
-              <div className="topbarIcons">
-                 
+                {/* <div className="topbarIconItem">
+                  <Notifications />
+                  <span className="topbarIconBadge">1</span>
+                </div> */}
+              </div>        <div className="topbarIcons">
+
                 <div className="topbarIconItem">
-                  <img src="http://localhost:8800/images/dots-menu.png"  alt="" className="topbarIcon" />  
-                
+                  <img src={"http://localhost:8800/images/" + state.user.profilePicture} alt="" className="topbarImg" onClick={() => { history.push("/profile/" + state.user.id) }} />
+                  <span className="topbarLinks">{state.user.username}  </span>
+                </div>
+                <div className="topbarIconItem">
+                  <MenuBurger />
+
                 </div>
               </div>
 
-              <span
-                onClick={() =>
-                  dispatch({
-                    type: "X"
-                  })
-                }
-              >
-               
-              </span>
-             
-             
+
+
+
+
             </div>
-            
+
           </div>
         )}
       </nav>

@@ -1,7 +1,7 @@
 import Share from '../share/Share'
 import Post from '../post/Post'
 import "./feed.css"
-
+import React from 'react'
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import axios from "axios";
 import { useEffect, useState } from "react";

@@ -26,7 +26,7 @@ export default function Rightbar({ user}) {
             let abortController = new AbortController(); 
             const fetchData = async () => { axios.get("http://localhost:8800/api/users").then((res) => {
                 if(componentMounted) {
-                    setUsers(res?.data);
+                    setUsers(res.data);
                   }
                 console.log(res.data)
             })
@@ -76,7 +76,7 @@ export default function Rightbar({ user}) {
                 }
             ).then((res) => {
                 if(componentMounted) {
-                    setUsers(res?.data);
+                    setUsers(res.data);
                   }
                 console.log(res.data)
             })
@@ -111,7 +111,8 @@ export default function Rightbar({ user}) {
                     
                      
                             <div className="rightbarFollowing">
-                                <img src={"http://localhost:8800/images/" + storage.coverPicture} alt="" className="rightbarFollowingImg" />
+                                <img src={"http://localhost:8800/images/"  + storage.profilePicture} alt="" className="rightbarFollowingImg" />
+                          
                                 <span className="rightbarFollowingName"> {storage.username}</span>
                             </div> 
           
@@ -123,9 +124,9 @@ export default function Rightbar({ user}) {
     return (
         <div className="rightbar">
             <div className="rightbarWrapper">
-                {/* {storage ? <ProfileRightbar /> : <HomeRightbar />}  */}
+             {user ? <HomeRightbar /> : <ProfileRightbar />}  
                 {/* <ProfileRightbar /> */}
-                <HomeRightbar />
+                {/* <HomeRightbar /> */}
          
             </div>
         </div>

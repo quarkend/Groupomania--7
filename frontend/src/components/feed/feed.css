@@ -1,6 +1,10 @@
 .feed{
-    flex:5.5
+       
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .feedWrapper{
     padding: 20px;
 }

@@ -225,6 +225,7 @@
 //     );
 // }
 import  React, {useState, useEffect }  from 'react';
+import './myPost.css'
 export default function UpdateProfilePhoto({submit, register, title}){
            const [image, setImage] = React.useState("")
            const [previewUrl, setPreviewUrl] = React.useState("")
@@ -253,7 +254,7 @@ export default function UpdateProfilePhoto({submit, register, title}){
 
            
       return(
-                  <form className="card"  encType="multipart/form-data" onSubmit={submit}  >
+                  <form className="user-action"  encType="multipart/form-data" onSubmit={submit}  >
                         <div className="form-group">
                               <label htmlFor="user-pic">{ title || "Selectioner une photo de profil" }</label>
                               <input type="file" id="user-pic" name="image" accept=".jpeg, .png, .jpg, .gif" onChange={imageHandler} ref={register}/>

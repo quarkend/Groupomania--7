@@ -6,7 +6,7 @@ import "./profile.css"
 import { AddAPhoto} from '@material-ui/icons';
 import Sidebar from "../../components/sidebar/Sidebar"
 import Feed from "../../components/feed/Feed"
-import Rightbar from "../../components/rightbar/Rightbar"
+
 import { AuthContext } from './../../App';
 import UpdateProfilePhoto from './UpdateProfilePhoto';
 
@@ -132,51 +132,47 @@ useEffect(() => {
                            
                       
                         <div className="profileUserImgChange"> 
-                        <AddAPhoto/> 
+   
+                        <AddAPhoto onClick={() => {
+                                          setShowUpdatePhoto(!showUpdatePhoto)
+                                          setShowUpdateEmail(false)
+                                          setShowUpdateUsername(false)
+                                    }}/> 
                       </div>
                       </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{storage.username}</h4>
-                           <span className="profileInfoDesc">hello my fuuuriend</span>
+                           <span  className='profile-title'>MON COMPTE</span>
                            <Fragment>
-                        <h2 className='profile-title'>MON COMPTE</h2>
+                        
                         <div className="card">
-                              {/* <div className="profile-image-div">
-                                    <img src={"http://localhost:8800/images/" + data.img} alt="profile" />
-                              </div>
-                              <div className="user-info">
-                              <p>img : {data.img}</p>
-                                    <p>desc : {data.desc}</p>
-                                    <p>id : {data.id}</p>
-                                    <p>Profil crée le : {data.createdAt.split('T').join(' à ').split('.000Z')}</p>
-                                    <p>Profil Modifié le : {data.updatedAt.split('T').join(' à ').split('.000Z')}</p>
-                              </div> */}
-                              <div className="user-action">
+                   
+                              {/* <div className="user-action">
                                     <i className="fas fa-user white fa-3x" onClick={() => {
                                           setShowUpdateUsername(!showUpdateUsername)
                                           setShowUpdateEmail(false)
                                           setShowUpdatePhoto(false)
                                     }}
-                                    >  UpdateUsername </i>
+                                    >   </i>
                                     <i className="fas fa-envelope-open white fa-3x" onClick={() => {
                                           setShowUpdateEmail(!showUpdateEmail)
                                           setShowUpdatePhoto(false)
                                           setShowUpdateUsername(false)
-                                    }}>setShowUpdateEmail
+                                    }}>
                                     </i>
                                     <i className="fas fa-portrait white fa-3x" onClick={() => {
                                           setShowUpdatePhoto(!showUpdatePhoto)
                                           setShowUpdateEmail(false)
                                           setShowUpdateUsername(false)
-                                    }}>UpdatePhoto
+                                    }}>
                                     </i>
                                     <i className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
-                              </div>
+                              </div> */}
                        
                         {showUpdatePhoto &&
                               <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
                         }
-s
+
                         {showUpdateUsername &&
                               <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} register={register({ required: true })} />
                         }
@@ -186,7 +182,7 @@ s
                   </div>
                     <div className="profileRightBottom">
                
-                        <Feed />
+                    { data?     <Feed />  : ""}
                 
                    </div>
                 </div>

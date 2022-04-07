@@ -10,7 +10,9 @@ import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
 import { Fragment } from 'react';
 import Post from './../../components/post/Post';
-import Search from "../../components/search/Search";
+// import Mesenger from "../../components/mesenger/Mesenger";
+
+
 const POSTS_URL = "/posts/"
 const UPDATE = "/users/"
 const DELETE_ACCOUNT_URL = "/users/delete/"
@@ -32,6 +34,9 @@ export default function Admin({ submit, username }) {
     const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
     const [showUpdateEmail, setShowUpdateEmail] = useState(false)
     const [showUpdateUsername, setShowUpdateUsername] = useState(false)
+
+
+    
     async function handleUpdateProfilePhoto(data) {
         const { userId } = userCredentials
         const formData = new FormData()
@@ -62,7 +67,7 @@ export default function Admin({ submit, username }) {
         const response = await sendedEmail.json()
         console.log(response)
         getUserData()
-        setShowUpdateEmail(false)
+        setShowUpdateEmail(true)
     }
     async function handleUpdateProfileUsername(data) {
         const { userId } = userCredentials
@@ -197,16 +202,16 @@ export default function Admin({ submit, username }) {
         <div className="profilePageContainer">
             <div className="profile">
                 <div className="card">
-                    <h1>admin</h1>
+                <h2 className='profile-title'>Admin</h2>
                     {/* <h4 className="detail"> {user.username}</h4> */}
-                    <form className="signup-form margin" onSubmit={submit}  >
+                    {/* <form className="signup-form margin" onSubmit={submit}  >
                         <div className="form-group">
                            <label htmlFor="username"> {storage.username || "Username"}</label> 
                             <input className="add-input" type="text" name="username" id="username" placeholder={username === undefined ? 'username...' : username} ref={register} />
                         </div>
-                    </form>
-                    <button onClick={() => { updateUsename(user.id) }}>updateUsename</button>
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
+                    </form> */}
+                    {/* <button onClick={() => { updateUsename(user.id) }}>updateUsename</button> */}
+                    <button className="fas fa-user-slash white fa-3x"  onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
                
                 </div>
             </div>
@@ -235,25 +240,25 @@ export default function Admin({ submit, username }) {
 </div>
                         {/* <p>user.profilePicture: {user.profilePicture}</p> */}
                     </div>
-                    <Search />
+                
                     <div className="user-action">
                         <i className="fas fa-user white fa-3x" onClick={() => {
                             setShowUpdateUsername(!showUpdateUsername)
                             setShowUpdateEmail(false)
                             setShowUpdatePhoto(false)
                         }}
-                        >up usernam</i>
+                        ></i>
                         <i className="fas fa-envelope-open white fa-3x" onClick={() => {
                             setShowUpdateEmail(!showUpdateEmail)
                             setShowUpdatePhoto(false)
                             setShowUpdateUsername(false)
-                        }}>up emil
+                        }}>
                         </i>
                         <i className="fas fa-portrait white fa-3x" onClick={() => {
                             setShowUpdatePhoto(!showUpdatePhoto)
                             setShowUpdateEmail(false)
                             setShowUpdateUsername(false)
-                        }}>up pho
+                        }}>
                         </i>
                         <i className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
                     </div>

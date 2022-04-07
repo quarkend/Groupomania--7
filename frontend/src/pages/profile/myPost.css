@@ -1,3 +1,32 @@
+.signup-form{
+    width: 50%;
+    margin:10rem auto;
+}
+
+.image-preview{
+    width: inherit;
+
+}
+.image-preview img {
+    margin: 1rem auto;
+    width: 50%;
+}
+
+@media screen and (max-width: 600px){
+    .signup-form{
+          width: 95%;
+    }
+  
+}
+
+code{
+    color: crimson;
+}
+
+#user-pic{
+    background-color: #CA4F6E;
+    cursor: pointer;
+}
  button {
        cursor: pointer;
  }
@@ -117,7 +146,7 @@
   .green  {
       color: chartreuse;
   }
-  .card {
+  /* .card {
       width: 45rem;
       overflow: hidden;
       margin: 2rem auto;
@@ -125,7 +154,7 @@
       border-radius: 5px;
       background-color: rgb(247, 241, 241);
       box-shadow: -1px 0px 5px black;
-  }
+  } */
   .card-username__info {
       margin-top: 0.4rem;
       height: 60px;
@@ -193,7 +222,7 @@
       margin: auto;
       height: 25px;
       box-shadow: 0px 0px 10px black;
-      background-color: rgb(186, 181, 255);
+ 
       outline: none;
       transition: .3s;
   }
@@ -320,13 +349,13 @@
           width: 93vw;
       }
   }
-  #hcom{
+  /* #hcom{
       display: block;
       text-align: center;
       width: 70%;
       margin: auto;
       height: 40px;
-  }
+  } */
   .shareIcon{
       font-size: 18px;
       margin-right: 3px;

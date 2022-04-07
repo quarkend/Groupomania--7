@@ -19,7 +19,8 @@
     "path": "^0.12.7",
     "react-bootstrap": "^2.0.2",
     "sequelize": "^6.11.0",
-    "serviceworker": "^0.1.7"
+    "serviceworker": "^0.1.7",
+    "use-socket.io-client": "^1.1.0"
   },
   "name": "backend",
   "version": "1.0.0",

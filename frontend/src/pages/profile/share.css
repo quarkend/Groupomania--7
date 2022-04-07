@@ -42,6 +42,7 @@
     align-items: center;
     margin-right: 15px;
     cursor: pointer;
+    width: 100%;
 }
 .shareIcon{
     font-size: 18px;

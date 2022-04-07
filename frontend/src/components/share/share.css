@@ -1,5 +1,5 @@
 .share {
-  width: 100%;
+
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
@@ -24,7 +24,7 @@
 }
 .shareInput {
   border: none;
-  width: 80%;
+  width: 100%;
 }
 .shareInput:focus {
   outline: none;
@@ -80,3 +80,6 @@
   cursor: pointer;
   opacity: 0.7;
 }
+  .emoji-picker-react {
+    position: absolute !important;
+  }

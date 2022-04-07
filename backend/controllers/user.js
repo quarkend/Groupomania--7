@@ -104,10 +104,12 @@ exports.findAllUserByName = (req, res, next) => {
 exports.modifyUser = (req, res, next) => {
     // éléments de la requète
     const username = req.body.username;
+    const email = req.body.email;
+
 
 
     // vérification que tous les champs sont remplis
-    if (username === null || username === '') {
+    if (username === null || username === '' || email === null || email === '' ) {
         return res.status(400).json({ 'error': "Les champs 'nom' et 'prénom' doivent être remplis " });
     }
     // gestion d'ajout/modification image de profil

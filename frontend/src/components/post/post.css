@@ -100,7 +100,7 @@ cursor: pointer;
 
     border-radius: 5px;
   
-    background-color: white;
+    background-color: rgb(196, 233, 245);
 }
 .card-username__info {
     margin-top: 0.4rem;

@@ -1,7 +1,7 @@
 .topbarContainer{
     height: 50px;
     width: 100%;
-    background-color:rgb(140, 183, 233);
+    background-color: rgb(96, 158, 209);
     display:flex;
     align-items:center;
     position: sticky;
@@ -31,7 +31,14 @@
     display: flex;
    
 }
-.searchbar{
+.topbar-title {
+    text-align: center;
+    margin: 0 26px 0px;
+    color: black;
+    /* text-decoration: underline; */
+    font-size: xxx-large;
+}
+/* .searchbar{
     width: 70%;
      height: 30px;
     background-color:white;
@@ -53,7 +60,7 @@
 .searchInput:focus
 {
 outline: none;
-}
+} */
 .topbarRight{
     flex:4;
     display: flex;
@@ -77,7 +84,7 @@ outline: none;
 }
 .topbarIconItem
 {
-    margin-right: 15px;
+     margin-right: 15px; 
     cursor: pointer;
     position: relative;
 }
@@ -110,152 +117,6 @@ outline: none;
 
   object-fit: cover;
   cursor: pointer;
-  padding: 0 0.5em 0;
+  padding: 0 0.5em 1em;
 
 }
-/* menuBurger */
-#page-wrap {
-    text-align: center;
-  
-    /* Prevent sidebar from showing a scrollbar on page */
-    overflow: auto;
-  }
-  
-  /* Individual item */
-  .bm-item {
-    display: inline-block;
-  
-    /* Our sidebar item styling */
-    text-decoration: none;
-    margin-bottom: 10px;
-    color: #d1d1d1;
-    transition: color 0.2s;
-  }
-  
-  /* Change color on hover */
-  .bm-item:hover {
-    color: white;
-  }
-  
-  /* The rest copied directly from react-burger-menu docs */
-  
-  /* Position and sizing of burger button */
-  .bm-burger-button {
-    position: absolute;
-    width: 36px;
-    height: 30px;
-    left: 20px;
-    top: 20px;
-    
-  }
-  
-  /* Color/shape of burger icon bars */
-  .bm-burger-bars {
-    background: #373a47;
-  }
-  
-  /* Position and sizing of clickable cross button */
-  .bm-cross-button {
-    height: 24px;
-    width: 24px;
-  }
-  
-  /* Color/shape of close button cross */
-  .bm-cross {
-    background: #bdc3c7;
-  }
-  
-  /* General sidebar styles */
-  .bm-menu {
-    background: #373a47;
-    padding: 2.5em 1.5em 0;
-    font-size: 1.15em;
-  }
-  
-  /* Morph shape necessary with bubble or elastic */
-  .bm-morph-shape {
-    fill: #373a47;
-  }
-  
-  /* Wrapper for item list */
-  .bm-item-list {
-    color: #b8b7ad;
-  }
-  
-  /* Styling of overlay */
-  .bm-overlay {
-    background: rgba(0, 0, 0, 0.3);
-  }
-  /* //dot// */
-  .more-dot {
-    background-color: #aab8c2;
-    margin: 0 auto;
-    display: inline-block;
- 
-    margin-right: 1px;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-    pointer-events: auto;
-}
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
-body {
-  
-  font-family: "Open Sans", Arial, sans-serif;
-  color: #042e72;
-  /* font-size: 1em;
-  line-height: 1.5;
-  padding: 1rem; */
-}
-
-.container {
-  
- 
-  position: relative;
-  display: inline-block;
-}
-
-/* .button {
-  padding: 0;
-  width: 50px;
-  border: 0;
-  background-color: #fff;
-  color: #333;
-  cursor: pointer;
-  outline: 0;
-  font-size: 40px;
-} */
-
-.dropdown-wrapper {
-
-  position: absolute;
-  top: 100%;
-  left: -276px;
-  width: 300px;
-  z-index: 2;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
-}
-
-.dropdown-menu {
-  background-color:white;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.dropdown-menu__item {
-  padding: 8px 12px;
-}
-.dropdown-menu__item:hover {
-  
-  background-color: rgba(0, 0, 0, 0.14);
-  cursor: pointer;
-}
-

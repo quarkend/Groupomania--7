@@ -4,6 +4,7 @@ import './profile.css'
 import { AuthContext } from './../../App';
 import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
+import UpdateProfileEmail from './UpdateProfileEmail';
 
 
 
@@ -129,29 +130,33 @@ export default function UpdateUser() {
                                           setShowUpdateEmail(false)
                                           setShowUpdatePhoto(false)
                                     }}
-                                    >  UpdateUsername </i>
+                                    >  </i>
                                     <i className="fas fa-envelope-open white fa-3x" onClick={() => {
                                           setShowUpdateEmail(!showUpdateEmail)
                                           setShowUpdatePhoto(false)
                                           setShowUpdateUsername(false)
-                                    }}>setShowUpdateEmail
+                                    }}>
                                     </i>
                                     <i className="fas fa-portrait white fa-3x" onClick={() => {
                                           setShowUpdatePhoto(!showUpdatePhoto)
                                           setShowUpdateEmail(false)
                                           setShowUpdateUsername(false)
-                                    }}>UpdatePhoto
+                                    }}>
                                     </i>
                                     <i className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
                               </div>
-                       
+                              <div className="user-actions">
                         {showUpdatePhoto &&
                               <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
                         }
-s
+
                         {showUpdateUsername &&
                               <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} register={register({ required: true })} />
                         }
+                            {showUpdateEmail &&
+                              <UpdateProfileEmail submit={handleSubmit(handleUpdateProfileEmail)} register={register({ required: true })} />
+                        }
+                         </div>
                          </div>
                   </Fragment>
             )
