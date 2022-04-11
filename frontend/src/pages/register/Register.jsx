@@ -2,6 +2,7 @@ import React from 'react'
 import axios from "axios";
 import { useRef } from "react";
 import { useHistory,Link } from 'react-router-dom';
+// import CheckBox from './../login/CheckBox';
 export default function Register() {
   const username = useRef();
   const email = useRef();
@@ -32,6 +33,7 @@ export default function Register() {
     <div className="login-container">
             <div className="cardlogin">
                 <div className="container">
+              
    
        
           <form  onSubmit={handleClick}>
@@ -83,6 +85,7 @@ export default function Register() {
               Sign Up
             </button>
             <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/login" ) }}>Login</button>
+            {/* <div><CheckBox/></div> */}
           </form>
        
           </div>

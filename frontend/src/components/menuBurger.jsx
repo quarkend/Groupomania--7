@@ -45,13 +45,9 @@ export default  props => {
     <a className="menu-item" href={"/admin/" + state.user.id}>
     admin
     </a>
-    <a className="menu-item" href={"/UpdateUser/" + state.user.id }>
-Update User
-    </a> 
 
-    <a className="menu-item" href={"/Updateprofile/" + state.user.id }>
-Update Profile
-    </a> 
+
+
    
     <a className="menu-item" href={"/" }
                 onClick={() =>

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
 import {slide as Menu} from "react-burger-menu";
- import "./search/search.css" 
+//  import "./search/search.css" 
 import { MoreHoriz, MoreVert } from '@material-ui/icons';
 import { AuthContext } from './../App';
 
@@ -57,9 +57,7 @@ export default  props => {
     <li> <a className="dropdown-menu__item" href={"/admin/" + state.user.id}>
     admin
     </a> </li>
-    <li><a className="dropdown-menu__item" href={"/" + state.user.id}>
-    Hi {state.user.username} (X)
-    </a> </li>
+
 
 
     <li className="dropdown-menu__item" >Hi {state.user.username} (X) </li>

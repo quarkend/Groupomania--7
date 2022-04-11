@@ -1,8 +1,8 @@
 import React from 'react'
 import "./topbar.css"
-import { CgMenuGridO } from 'react-icons/fa';
+
 import { AuthContext } from "./../../App";
-import { Search, Person, Chat, Notifications } from "@material-ui/icons"
+
 import { Link, BrowserRouter, useParams, useHistory } from "react-router-dom"
 import { useEffect, useState, Redirect } from "react";
 import Home from './../../pages/home/Home';
@@ -10,9 +10,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from "@material-ui/icons/Menu";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import { Component } from './../Component';
+
 import MenuBurger from '../MenuBurger';
-import SearchItem from '../search/SearchItem';
+
 
 export default function Topbar() {
   const [isActive, setActive] = useState('false')
@@ -40,11 +40,7 @@ export default function Topbar() {
               <div className="topbarLeft">
 
                 <div className="searchbar">
-                  {/* <SearchItem /> */}
-                  {/* f<input
-            placeholder="Rechercher sur Groupomania"
-            className="searchInput"
-          /> */}
+   
                 </div>
 
 
@@ -56,15 +52,7 @@ export default function Topbar() {
 
               </div>
 
-              {/* <div className="topbarLinks"> */}
-              {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/UpdateUser/" + state.user.id) }}>updateuser</button> */}
-
-
-
-
-
-              {/* <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/updateprofile/" + state.user.id) }}>update profile </button> */}
-              {/* </div> */}
+    
 
 
               <div className="topbarIcons">
@@ -89,7 +77,7 @@ export default function Topbar() {
 
                 <div className="topbarIconItem">
             
-            <PostAddIcon onClick={() => { history.push("/updateuser/" + state.user.id) }} />
+     
            
           </div>
                 {/* <div className="topbarIconItem">

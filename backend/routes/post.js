@@ -22,7 +22,7 @@ const multer = require('../middlewares/multer-config')
 router.get('/profile/:username', postCtrl.getusersallposts);
 router.get('/', postCtrl.findAllPosts);
 
-router.get('/byuserId/:id', postCtrl.findPostsByUserId);
+// router.get('/byuserId/:id', postCtrl.findPostsByUserId);
 router.get('/:id/comments', commentCtrl.findAllComments);
 router.get('/:id/likes', likeCtrl.findAllLikes);
 

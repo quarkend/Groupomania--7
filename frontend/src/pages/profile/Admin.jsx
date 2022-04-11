@@ -31,60 +31,11 @@ export default function Admin({ submit, username }) {
     const userCredentials = JSON.parse(localStorage.getItem('user'))
     const [data, setData] = useState('')
     const { handleSubmit, register } = useForm()
-    const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
-    const [showUpdateEmail, setShowUpdateEmail] = useState(false)
-    const [showUpdateUsername, setShowUpdateUsername] = useState(false)
+
 
 
     
-    async function handleUpdateProfilePhoto(data) {
-        const { userId } = userCredentials
-        const formData = new FormData()
-        formData.append('image', data.image[0])
-        const sendPhoto = await fetch(`${'/users'}/${userCredentials.id}`, {
-            method: 'put',
-            headers: {
-                Authorization: "Bearer " + token
-            },
-            body: formData
-        })
-        const response = await sendPhoto.json()
-        console.log(response)
-        getPostData()
-        setShowUpdatePhoto(false)
-    }
-    async function handleUpdateProfileEmail(data) {
-        console.log(data)
-        const { userId } = userCredentials
-        const sendedEmail = await fetch(UPDATE + userId, {
-            method: 'put',
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
-            },
-            body: JSON.stringify(data)
-        })
-        const response = await sendedEmail.json()
-        console.log(response)
-        getUserData()
-        setShowUpdateEmail(true)
-    }
-    async function handleUpdateProfileUsername(data) {
-        const { userId } = userCredentials
-        const sendedUsername = await fetch(`${'/users'}/${userCredentials.id}`, userId, {
-            method: 'put',
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token
-            },
-            body: JSON.stringify(data)
-        })
-        console.log(data)
-        const response = await sendedUsername.json()
-        getUserData()
-        setShowUpdateUsername(true)
-        console.log(response)
-    }
+   
     async function getUserData() {
         const URL = `${"/users/"}/${userId}`
         const data = await fetch(URL, {
@@ -114,22 +65,7 @@ export default function Admin({ submit, username }) {
     useEffect(() => {
         getPostData()
     }, [])
-    async function deleteUser() {
-        const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
-        const URL = `${DELETE_ACCOUNT_URL}/${userCredentials.id}`
-        if (conf) {
-            const sendedData = await fetch(URL, {
-                method: 'delete',
-                headers: {
-                    Authorization: "Bearer " + token
-                },
-                body: JSON.stringify(data)
-            })
-            const response = await sendedData.json()
-            console.log(response)
-            auth.Logout()
-        }
-    }
+ 
     useEffect(() => {
         axios.get(`/users/${id}`,
             {
@@ -178,26 +114,7 @@ export default function Admin({ submit, username }) {
         };
         fetchPost();
     }, [token]);
-    const deleteUserAccount = (id) => {
-        axios.delete(`http://localhost:8800/api/users/${id}`,
-            {
-                headers: { "Authorization": token }
-            }
-        ).then(() => {
-            history.push("/")
-        })
-        window.location.reload();
-    }
-    const updateUsename = (id) => {
-        axios.put(`http://localhost:8800/api/users/${id}`,
-            {
-                headers: { "Authorization": token }
-            }
-        )
-            .then(() => {
-                history.push("/")
-            })
-    }
+ 
     return (
         <div className="profilePageContainer">
             <div className="profile">
@@ -211,67 +128,14 @@ export default function Admin({ submit, username }) {
                         </div>
                     </form> */}
                     {/* <button onClick={() => { updateUsename(user.id) }}>updateUsename</button> */}
-                    <button className="fas fa-user-slash white fa-3x"  onClick={() => { history.push("/deleteuser/" + id) }}>Supprimer</button>
+                    {/* <button className="fas fa-user-slash white fa-2x"  onClick={() => { history.push("/deleteuser/" + id) }}>Supprimerff</button> */}
                
                 </div>
             </div>
             {users.map(u => (
                 <User key={u.id} user={u} />
             ))}
-            <Fragment>
-                <h2 className='profile-title'>MON COMPTE</h2>
-                <div className="card">
-                    <div className="profile-image-div">
-                        {/* <img src={"http://localhost:8800/images/" + user.profilePicture} alt=" profil" /> */}
-                    </div>
-                    <div className="user-info">
-                         <p>Username : {user.username}</p> 
-                         <p>Email : {data.email}</p> 
-                        <p>Email : {storage.email}</p>
-                        <p>post : {post.id}</p>
-                        <div>
-  {/* {posts.filter(post => post.id === 1).map(id => (
-    
-      {id}
-    
-  ))} */}
-  
-
-</div>
-                        {/* <p>user.profilePicture: {user.profilePicture}</p> */}
-                    </div>
-                
-                    <div className="user-action">
-                        <i className="fas fa-user white fa-3x" onClick={() => {
-                            setShowUpdateUsername(!showUpdateUsername)
-                            setShowUpdateEmail(false)
-                            setShowUpdatePhoto(false)
-                        }}
-                        ></i>
-                        <i className="fas fa-envelope-open white fa-3x" onClick={() => {
-                            setShowUpdateEmail(!showUpdateEmail)
-                            setShowUpdatePhoto(false)
-                            setShowUpdateUsername(false)
-                        }}>
-                        </i>
-                        <i className="fas fa-portrait white fa-3x" onClick={() => {
-                            setShowUpdatePhoto(!showUpdatePhoto)
-                            setShowUpdateEmail(false)
-                            setShowUpdateUsername(false)
-                        }}>
-                        </i>
-                        <i className="fas fa-user-slash white fa-3x" onClick={deleteUser}></i>
-                    </div>
-                </div>
-                {showUpdatePhoto &&
-                    <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
-                }
-      
-                {showUpdateUsername &&
-                    <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} {...register({ required: true })} />
-                }
-            </Fragment>
-        
+         
         </div>
     );
 }

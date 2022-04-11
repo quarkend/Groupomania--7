@@ -142,12 +142,12 @@ cursor: pointer;
     object-fit: cover;
     height: inherit;
 }
-.card-reaction {
+/* .card-reaction {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
-}
+} */
 .card-reaction span {
     padding: 0 2rem;
 }
@@ -161,7 +161,7 @@ cursor: pointer;
 .comment-list{
     transition: 2s;
 }
-.card-comment input {
+/* .card-comment input {
     display: block;
     width: 70%;
     margin: auto;
@@ -170,7 +170,7 @@ cursor: pointer;
     background-color: rgb(186, 181, 255);
     outline: none;
     transition: .3s;
-}
+} */
 .btn-comment{
     margin: .5rem auto;
     padding: .4rem 1rem;
@@ -248,7 +248,7 @@ cursor: pointer;
     width: 30px;
     height: 30px;
 }
-.hcom {
+.comm {
     display: block;
     text-align: center;
 }
@@ -294,10 +294,10 @@ cursor: pointer;
         width: 93vw;
     }
 }
-#hcom{
+#comm{
     display: block;
     text-align: center;
-    width: 70%;
+    
     margin: auto;
     height: 40px;
 }

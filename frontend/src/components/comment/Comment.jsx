@@ -88,7 +88,7 @@ export default function Comment() {
                 </div>
                 <div className="card-comment">
                     <form >
-                        <input  id="hcom" type="text" name="comment" placeholder="Laisser un commentaire "
+                        <input  id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
                             autoComplete="off"
                             value={newComment}
                             onChange={(event) => {
@@ -97,7 +97,7 @@ export default function Comment() {
                         />
                     </form>
                     <div className="card-reaction">
-                        <button id="hcom" onClick={addComment}> Add Comment</button>
+                        <button id="comm" onClick={addComment}> Add Comment</button>
                     </div>
                 </div>
      

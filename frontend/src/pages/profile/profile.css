@@ -99,3 +99,11 @@
     align-items: center;
     justify-content: space-around;
 }
+.postImgAdmin{
+    margin: 0 auto 0 auto;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 3.5rem;
+    object-fit: cover;
+    object-fit: cover;
+}

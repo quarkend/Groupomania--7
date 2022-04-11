@@ -5,9 +5,10 @@ import React from 'react'
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-export default function Feed({ }) {
+import { useHistory, Link } from "react-router-dom";
+export default function Feed({post }) {
     const [Posts, setPosts] = useState([]);
+    const [users, setUsers] = useState([]);
     const [user, setUser] = useState([]);
     // let { id } = useParams();
     const storage = JSON.parse(localStorage.getItem('user'));
@@ -43,9 +44,19 @@ export default function Feed({ }) {
         <div className="feed">
             <div className="feedWrapper">
                 <Share />
-                {Posts.map(p => (
+                {/* {Posts.map(p => (
                     <Post key={p.id} post={p} />
-                ))}
+                ))} */}
+                                  {Posts.map((post) => {
+                            if (post.userId === storage.id) {
+                         
+                                return (
+                                    <Post key={post.id} post={post} />
+                                )
+                            } else {
+                                return null
+                            }
+                        })} 
             </div>
         </div>
     );

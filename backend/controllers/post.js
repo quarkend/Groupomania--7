@@ -28,14 +28,14 @@ exports.findAllPosts = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.findPostsByUserId = (async (req, res) => {
-    const id = req.params.id;
-    const listOfPosts = await db.posts.findAll({
-        where: { UserId: id }
+// exports.findPostsByUserId = (async (req, res) => {
+//     const id = req.params.id;
+//     const listOfPosts = await db.posts.findAll({
+//         where: { UserId: id }
 
-    });
-    res.json(listOfPosts);
-});
+//     });
+//     res.json(listOfPosts);
+// });
 exports.findOnePost = (async (req, res) => {
     const id = req.params.id;
     const post = await db.posts.findByPk(id);
@@ -45,7 +45,7 @@ exports.findOnePost = (async (req, res) => {
 // FONCTIONNE logique métier : créer un post
 exports.createPost = (req, res, next) => {
     // éléments de la requète
-    const userId = req.body.id;
+
     const title = req.body.title;
     const desc = req.body.desc;
 

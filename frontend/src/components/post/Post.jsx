@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from './../../App';
-import { useParams, Link, useHistory } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
 import "./post.css";
 import { useForm } from 'react-hook-form'
 import UpdateProfilePhoto from './../../pages/profile/UpdateProfilePhoto';
+
 import {
     Chat,
     Cancel
@@ -20,18 +21,20 @@ export default function Post({ post }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [users, setUsers] = useState([]);
+
     const user = useContext(AuthContext);
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const storage = JSON.parse(localStorage.getItem('user'));
     const history = useHistory();
     console.log(user.state.user)
-    const userId = storage.id;
+    
+    const postId = post.id;
     const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
-    let { id } = useParams();
+
     const [like, setLike] = useState([])
-    const [isLiked, setIsLiked] = useState(false)
+
     useEffect(() => {
         const fetchUser = async () => {
             const res = await axios.get(`/users`,
@@ -143,6 +146,7 @@ export default function Post({ post }) {
                         { "Authorization": token }
                 })
             .then(() => {
+                window.location.reload();
                 history.push("/");
             });
     };
@@ -177,11 +181,37 @@ export default function Post({ post }) {
         })
         const response = await data.json()
         setData(response)
+        setIsLoaded(true);
+        setError(error);
         console.log(response)
     }
     useEffect(() => {
         getUserData()
     }, [])
+
+    let userAuth;
+
+    if (post.userId === storage.id) {
+        userAuth = <div className="post-button">
+            <i className="fas fa-portrait white fa-3x" onClick={() => {
+                setShowUpdatePhoto(!showUpdatePhoto)
+            }}>
+            </i>
+
+            {showUpdatePhoto &&
+                <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
+            }
+            <div className="postBottom">
+                <div className="postBottomLeft" >
+                </div>
+       
+            </div>
+        </div>
+    } else if (!!storage.isAdmin === false) {
+        userAuth = <div className="post-button">
+            <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/postdelete/" + postId) }}>Supprimer2admin false</button>
+        </div>
+    }
     return (
         <div className="card">
             <div className="post">
@@ -191,43 +221,64 @@ export default function Post({ post }) {
                             <span className="postUsername">
                                 {/* {users.filter((u) => u.id === post?.userId)[0].username} */}
                             </span>
-                            <img className="postProfileImg"
-                                src={"http://localhost:8800/images/" + data.profilePicture}
-                                alt="user"
-                            />
-                            <Link to={`/profile/${data.username}`}> {data.username}</Link>
+
+                            {users.map((user) => {
+                                if (post.userId === user.id) {
+
+                                    return (
+                                        <div>
+                                            {/* <h2 key={"h2" + user.id}>Publié par <Link to={"/users/" + user.id} key={user.id + post.id} className="nav-link">{user.username} vvv</Link></h2> */}
+                                            <img className="postProfileImg"
+                                                src={"http://localhost:8800/images/" + user.profilePicture}
+                                                alt="user"
+                                            />{user.username}</div>
+                                    )
+                                } else {
+                                    return null
+                                }
+                            })}
+
                         </div>
                         <div className="postTopRight">
                             <span className="postDate">{format(post.createdAt)}</span>
+                     <p className="postDate"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                         </div>
                         <MenuDots />
                     </div>
-                    <p className="created-at"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
+                    
+
+
+
+
+                    <h1>{post.title} </h1>
+
+
+
+
                     <div className="detail">
+
+                        <div className="">
+                            <p>{post.title} Title ? </p>
+                            {post.img
+                                ? <img className="postImg"
+                                    src={"http://localhost:8800/images/" + post.img}
+                                    alt="center"
+                                /> : null}
+                        </div>
+                        {userAuth}
+
                         <hr />
-                        <h3>{post.title}</h3>
-                        <h4>{post.desc}</h4>
+                        <h3>Title:{post.title}</h3>
+                        <h4>Description:{post.desc}</h4>
                         <hr />
                     </div>
-                    <div className="card-image__post">
-                        <img className="postImg"
-                            src={"http://localhost:8800/images/" + post.img}
-                            alt="center"
-                        />
-                        <i className="fas fa-portrait white fa-3x" onClick={() => {
-                            setShowUpdatePhoto(!showUpdatePhoto)
-                        }}>
-                        </i>
-                    </div>
-                    {showUpdatePhoto &&
-                        <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
-                    }
+
                     <div className="card-reaction">
                         <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
                         <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
                         <span className="postLikeCounter">{like} people like it</span>
                     </div>
-               
+
                     <div className="postBottom">
                         <div className="postBottomLeft" >
                         </div>
@@ -239,15 +290,11 @@ export default function Post({ post }) {
                         </div>
                     </div>
                 </div>
-                {/* <div className="postBottomLeft">
-                    <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
-                    <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
-                    <span className="postLikeCounter">{like}</span>
-                </div> */}
+
                 {showComment.shown ? <div className="listOfComments">
-                <div className="card-comment">
+                    <div className="card-comment">
                         <form >
-                            <input className="" id="hcom" type="text" name="comment" placeholder="Laisser un commentaire "
+                            <input className="" id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
                                 autoComplete="off"
                                 value={newComment}
                                 onChange={(event) => {
@@ -259,8 +306,8 @@ export default function Post({ post }) {
                                 }}value={updateComment}/> */}
                         </form>
                         <div className="card-reaction"  >
-                            <button id="hcom" onClick={addComment}> Add Comment</button>
-                            {/* <button id="hcom" onClick={handleUpdateComment}> update Comment</button> */}
+                            <button id="comm" onClick={addComment}> Add Comment</button>
+                            {/* <button id="comm" onClick={handleUpdateComment}> update Comment</button> */}
                         </div>
                     </div>
                     <ul className="comments">
@@ -290,6 +337,7 @@ export default function Post({ post }) {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }

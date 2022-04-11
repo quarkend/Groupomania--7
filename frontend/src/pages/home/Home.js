@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import Rightbar from "../../components/rightbar/Rightbar";
+// import Rightbar from "../../components/rightbar/Rightbar";
 
 // import Post from "./../../Post";
 import { AuthContext } from './../../App';
@@ -7,7 +7,7 @@ import "./home.css"
 import Post from './../../components/post/Post';
 import Share from './../../components/share/Share';
 import Feed from './../../components/feed/Feed';
-import Sidebar from './../../components/sidebar/Sidebar';
+
 
 const initialState = {
     posts: [],
