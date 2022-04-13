@@ -68,7 +68,7 @@
     text-align: center;
     margin-top: 1.5rem;
     font-size: 3rem;
-    color: #704fca;
+    color: #000000;
     text-decoration: underline;
 }
 /* .user-info {
@@ -86,7 +86,7 @@
     width: 100%;
 }
 .user-action {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.658);
     padding-top: 1rem;
     display: flex;
     align-items: center;
@@ -101,9 +101,63 @@
 }
 .postImgAdmin{
     margin: 0 auto 0 auto;
-    height: 15rem;
-    width: 15rem;
-    border-radius: 3.5rem;
+    height: 8em;
+    width: 8em;
+    border-radius: 1.5rem;
     object-fit: cover;
-    object-fit: cover;
+   
+   
+}
+
+.card-input input{
+    background-color: #d0d1d8 !important;
+    padding: .3rem;
+    transition: .3s;
+    border:none; 
+     width: 70%;
+}
+
+.add-input:focus{
+    background-color: #86af9c !important;
+    transform: scale(1.15) !important;
+    color: rgb(172, 139, 97) !important;
+    outline: none;
+}
+.card-input:focus{
+    background-color: #85083c !important;
+    transform: scale(1.15) !important;
+    color: rgb(126, 148, 180) !important;
+}
+@keyframes borderAnimation {
+    from {
+       border: 1px solid #8c8da0;
+    }
+    50%{
+      border: 1px solid #80809b; 
+    }
+    to{
+        border:  1px solid #8e8c99;
+    }
+}
+@media screen and (max-width: 800px) {
+    .card-input:focus,.add-input:focus {
+        transform: scale(1.02) !important;
+    }
+    .card {
+        width: 93vw;
+    }
+    .card-image__post img {
+        width: 93vw;
+    }
+}
+#comm{
+    display: block;
+    text-align: center;
+    
+    margin: auto;
+    height: 40px;
+}
+.shareIcon{
+    font-size: 18px;
+    margin-right: 3px;
 }

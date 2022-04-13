@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import "./topbar.css"
 
 import { AuthContext } from "./../../App";
 
-import { Link, BrowserRouter, useParams, useHistory } from "react-router-dom"
-import { useEffect, useState, Redirect } from "react";
-import Home from './../../pages/home/Home';
+import {  BrowserRouter,  useHistory ,useParams} from "react-router-dom"
+
+
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from "@material-ui/icons/Menu";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
@@ -15,17 +15,38 @@ import MenuBurger from '../MenuBurger';
 
 
 export default function Topbar() {
-  const [isActive, setActive] = useState('false')
+const url = "http://localhost:8800/images/";
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   let history = useHistory();
   const { state, dispatch } = React.useContext(AuthContext);
-  const storage = JSON.parse(localStorage.getItem('userAount'));
+  const storage = JSON.parse(localStorage.getItem('user'));
+  const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
+  const [data, setData] = useState('')
+  const {user} = useContext(AuthContext);
+
+  let id= useParams();
   // const  isAdmin = storage.isAmin;
-  // const id = storage.id;
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
+
+  async function getUserData() {
+    const URL = `${"/users/"}/${id}`
+    const data = await fetch(URL, {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    })
+    const response = await data.json()
+    setData(response)
+    console.log(response)
+
+        setIsLoaded(true);
+        setError(error);
+    
+}
+useEffect(() => {
+    getUserData()
+   
+}, [])
 
   return (
     <BrowserRouter>
@@ -36,9 +57,10 @@ export default function Topbar() {
           <div>
 
             <div className="topbarContainer">
-              <h1 className="topbar-title">Groupomania</h1>
+          
               <div className="topbarLeft">
-
+                
+              <img className="topbarIco"src="http://localhost:8800/images/icon-left-font-monochrome-black.PNG" onClick={() => { history.push("/")}}/>
                 <div className="searchbar">
    
                 </div>
@@ -62,7 +84,7 @@ export default function Topbar() {
 
                   </div>
                   <div className="topbarIconItem">
-                    <SupervisorAccountIcon onClick={() => { history.push("/admin/" + state.user.id) }} />
+                    <SupervisorAccountIcon onClick={() => { history.push("/admin/" + storage.id) }} />
                     {/* <span className="topbarIconBadge">{storage.length}</span> */}
                   </div>
 
@@ -85,9 +107,14 @@ export default function Topbar() {
                   <span className="topbarIconBadge">1</span>
                 </div> */}
               </div>        <div className="topbarIcons">
-
+              {/* {"http://localhost:8800/images/" + data.profilePicture}  */}
+              
                 <div className="topbarIconItem">
-                  <img src={"http://localhost:8800/images/" + state.user.profilePicture} alt="" className="topbarImg" onClick={() => { history.push("/profile/" + state.user.id) }} />
+                  <img src={
+                            state.user.profilePicture
+                                ? url + state.user.profilePicture
+                                : url + "noAvatar.png"
+                        }       alt="" className="topbarImg" onClick={() => { history.push("/profile/" + state.user.id) }} />
                   <span className="topbarLinks">{state.user.username}  </span>
                 </div>
                 <div className="topbarIconItem">

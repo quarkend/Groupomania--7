@@ -12,6 +12,7 @@ import {
     Cancel
 } from "@material-ui/icons";
 import MenuDots from '../MenuDots';
+import Comment from './../comment/Comment';
 const USER_INFO_URL = "http://localhost:8800/api/users/"
 export default function Post({ post }) {
     const { handleSubmit, register } = useForm()
@@ -127,13 +128,9 @@ export default function Post({ post }) {
                     headers:
                         { "Authorization": token }
                 })
-            .then(() => {
-                setComments(
-                    comments.filter((val) => {
-                        return val.id !== id;
-                    })
-                );
-            });
+           
+                window.location.reload();
+         
     };
     function handleShowComment(e) {
         setShowComment(!showComment)
@@ -193,7 +190,7 @@ export default function Post({ post }) {
 
     if (post.userId === storage.id) {
         userAuth = <div className="post-button">
-            <i className="fas fa-portrait white fa-3x" onClick={() => {
+            <i className="fas fa-portrait white fa-2x" onClick={() => {
                 setShowUpdatePhoto(!showUpdatePhoto)
             }}>
             </i>
@@ -207,9 +204,9 @@ export default function Post({ post }) {
        
             </div>
         </div>
-    } else if (!!storage.isAdmin === false) {
+    } else if (!!storage.isAdmin === true) {
         userAuth = <div className="post-button">
-            <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/postdelete/" + postId) }}>Supprimer2admin false</button>
+            <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/postdelete/" + postId) }}>Supprimer2admin </button>
         </div>
     }
     return (
@@ -220,6 +217,7 @@ export default function Post({ post }) {
                         <div className="postTopLeft">
                             <span className="postUsername">
                                 {/* {users.filter((u) => u.id === post?.userId)[0].username} */}
+                             
                             </span>
 
                             {users.map((user) => {
@@ -250,15 +248,15 @@ export default function Post({ post }) {
 
 
 
-                    <h1>{post.title} </h1>
+                  
 
 
 
 
                     <div className="detail">
-
+                    <h1>{post.title} </h1>
                         <div className="">
-                            <p>{post.title} Title ? </p>
+                            <p>Title:{post.title} </p>
                             {post.img
                                 ? <img className="postImg"
                                     src={"http://localhost:8800/images/" + post.img}
@@ -273,7 +271,7 @@ export default function Post({ post }) {
                         <hr />
                     </div>
 
-                    <div className="card-reaction">
+                    <div className="postBottomLeft">
                         <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
                         <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
                         <span className="postLikeCounter">{like} people like it</span>
@@ -289,10 +287,25 @@ export default function Post({ post }) {
                             }} />
                         </div>
                     </div>
+                    {showComment.shown ? <Comment/>
+             
+                       
+             : ""}
+             <div className="topbarIcon">
+                 <div className="topbarIconItem">
+                     <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
+                     <span className="topbarIconBadge">{comments.length}</span>
+                 </div>
+             </div>
                 </div>
 
-                {showComment.shown ? <div className="listOfComments">
-                    <div className="card-comment">
+          
+            </div>
+
+        </div>
+    );
+}
+       {/* <div className="card-comment">
                         <form >
                             <input className="" id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
                                 autoComplete="off"
@@ -304,13 +317,13 @@ export default function Post({ post }) {
                             {/* <input type="text" placeholder="Mettre a jour "        onChange={(event) => {
                                   setUpdateComment(event.target.value);
                                 }}value={updateComment}/> */}
-                        </form>
-                        <div className="card-reaction"  >
-                            <button id="comm" onClick={addComment}> Add Comment</button>
+                        {/* </form>
+                        <div className="card-reaction"  > */}
+                            {/* <button id="comm" onClick={addComment}> Add Comment</button> */} 
                             {/* <button id="comm" onClick={handleUpdateComment}> update Comment</button> */}
-                        </div>
-                    </div>
-                    <ul className="comments">
+                        {/* </div>
+                    </div> */}
+                    {/* <ul className="comments">
                         {comments.map((comment, key) => {
                             return (
                                 <li key={key} className="comment">
@@ -328,16 +341,4 @@ export default function Post({ post }) {
                                 </li>
                             );
                         })}
-                    </ul>
-                </div> : ""}
-                <div className="topbarIcon">
-                    <div className="topbarIconItem">
-                        <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
-                        <span className="topbarIconBadge">{comments.length}</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    );
-}
+                    // </ul> */}

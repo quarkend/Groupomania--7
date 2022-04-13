@@ -9,17 +9,20 @@ import {
 } from "@material-ui/icons";
 import Picker from 'emoji-picker-react';
 import { useEffect, useContext, useRef, useState } from "react";
-// import { AuthContext } from './../../helpers/AuthContext';
+
 // import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { AuthContext } from './../../App';
+const url ="http://localhost:8800/images/"
 export default function Share() {
     // let { id } = useParams();
-    const { user } = useContext(AuthContext);
+     const { user } = useContext(AuthContext);
+const storage = JSON.parse(localStorage.getItem('user'))
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    
+  
     const desc = useRef();
+    const title= useRef();
     /////
     const [state, setState] = useState({ shown: false });
     const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -36,6 +39,7 @@ export default function Share() {
         const newPost = {
             userId: storage.id,
             desc: desc.current.value,
+            title: title.current.value,
         };
         if (file) {
             const data = new FormData();
@@ -71,24 +75,26 @@ export default function Share() {
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    {/* <img
+                     <img
                         className="shareProfileImg"
                         src={
-                            user.profilePicture
-                                ? url + user.profilePicture
-                                : url + "person/noAvatar.png"
+                            storage.profilePicture
+                                ? url + storage.profilePicture
+                                : url + "noAvatar.png"
                         }
-                        alt="profilePicture" /> */}
+                        alt="profilePicture" /> 
+                        {/* <img src={"http://localhost:8800/images/" + storage.profilePicture} alt="" className="topbarImg"  /> */}
                     <input
+                    
                         placeholder={"Create Post : Title "}
                         className="shareInput"
-                        ref={desc}
+                        ref={title}
                     />
-                    {/* <input
-                        placeholder={"What's in your mind " + user.username + "?"}
+                 <input
+                        placeholder={"What's in your mind " + storage.username + "?"}
                         className="shareInput"
                         ref={desc}
-                    /> */}
+                    /> 
                 </div>
                 <hr className="shareHr" />
                 {file && (

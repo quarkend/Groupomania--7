@@ -20,6 +20,7 @@ import UpdateProfilePhoto from "./pages/profile/UpdateProfilePhoto";
 
 
 
+
 export const AuthContext = React.createContext();
 
 const initialState = {
@@ -104,6 +105,7 @@ function App() {
 
           </Route>
 
+          
           <Route path="/deleteuser/:id">
             <DeleteUser />
           </Route>

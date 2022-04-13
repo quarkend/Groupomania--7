@@ -312,8 +312,8 @@ form button:hover:enabled {
     display: flex;
     flex-direction: column;
     position: fixed;
-    background: white;
-    min-height: 24vh;
+    background: rgb(243, 236, 236);
+
 
     border-radius: 2rem;
     padding: 13px 2rem;

@@ -18,6 +18,7 @@ const POSTS_URL = "/posts/"
 const UPDATE = "/users/"
 const DELETE_ACCOUNT_URL = "/users/delete/"
 
+
 export default function User({user,post}) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -26,16 +27,15 @@ export default function User({user,post}) {
     const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
     const [showUpdateEmail, setShowUpdateEmail] = useState(false)
     const [showUpdateUsername, setShowUpdateUsername] = useState(false)
- 
+    const { state, dispatch } = React.useContext(AuthContext);
     const history = useHistory();
-    
+    let { id} = useParams();
      const storage = JSON.parse(localStorage.getItem('user'));
     const posts = JSON.parse(localStorage.getItem('userposts'));
  
     const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
  
-const userId = storage.id;
-const id = user.id;
+const userId = state.user.id;
  async function handleUpdateProfilePhoto(data) {
   
         const formData = new FormData()
@@ -177,8 +177,47 @@ let idUser;
 } else if (!isLoaded) {
     return <div>Chargement...</div>;
 } else
- if (user.id === userId || user.isAdmin === false) {
+ if (state.user.id === id || state.user.isAdmin === true) {
     idUser = <div className="user-button">
+          <Fragment>
+          
+          <div className="card"> 
+        
+
+         
+<div className="user-action">
+                                   <i className="fas fa-user white fa-3x" onClick={() => {
+                                         setShowUpdateUsername(!showUpdateUsername)
+                                         setShowUpdateEmail(false)
+                                         setShowUpdatePhoto(false)
+                                   }}
+                                   >  </i>
+                                   <i className="fas fa-envelope-open white fa-3x" onClick={() => {
+                                         setShowUpdateEmail(!showUpdateEmail)
+                                         setShowUpdatePhoto(false)
+                                         setShowUpdateUsername(false)
+                                   }}>
+                                   </i>
+                                   <i className="fas fa-portrait white fa-3x" onClick={() => {
+                                         setShowUpdatePhoto(!showUpdatePhoto)
+                                         setShowUpdateEmail(false)
+                                         setShowUpdateUsername(false)
+                                   }}>
+                                   </i>
+                                   <i className="fas fa-user-slash white fa-3x" onClick={() => { history.push("/deleteuser/" + id) }}></i>
+                             </div>
+         </div> 
+          {showUpdatePhoto &&
+                             <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
+                       }
+
+                       {showUpdateUsername &&
+                             <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} register={register({ required: true })} />
+                       }
+                           {showUpdateEmail &&
+                             <UpdateProfileEmail submit={handleSubmit(handleUpdateProfileEmail)} register={register({ required: true })} />
+                       } 
+     </Fragment>
        
         <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/deleteuser/" + userId) }}>Supprimer</button>
         <button className="btn btn-outline-dark btn-sm" >Déconnecter</button>
@@ -190,77 +229,31 @@ let idUser;
         <div className="card">
                   <div className="detail">
             <h1 > {user.username} </h1>
+            <img className="postProfileImg"
+                                src={"http://localhost:8800/images/" + user.profilePicture}
+                                alt="user"
+                            />
             <h1 > {user.email} </h1>
             <h1 > {user.profilePicture} </h1>
       
         
             
            
-            {idUser}
-            <div >
-                    <h2>Vos posts</h2>
-                    {posts.map((post) => {
-                            if (post.userId === user.id) {
-                         
-                                return (
+          
+      
+            <div className="postsAdmin" >
+                    
+    
                                     <div >
-                                    <Link to={"/mypost/" + post.id} key={"post" + post.id} className="nav-link">{post.title}</Link>
-                                    <p key={"postp" + post.id}>{post.desc}</p>
-                                    <h3 key={"date" + post.id}>Publié le <Moment key={"date" + post.id} format="DD MMM YYYY" date={post.createdAt} /></h3>
-                                    <img className="postProfileImg"
-                                src={"http://localhost:8800/images/" + user.profilePicture}
-                                alt="user"
-                            />
-                             <img className="postImgAdmin"
-                                    src={"http://localhost:8800/images/" + post.img}
-                                    alt="center"
-                                />
-                                    <Fragment>
-          
-          <div className="card">
-         
-
-          
-          <div className="user-action">
-                                    <i className="fas fa-user white fa-3x" onClick={() => {
-                                          setShowUpdateUsername(!showUpdateUsername)
-                                          setShowUpdateEmail(false)
-                                          setShowUpdatePhoto(false)
-                                    }}
-                                    >  </i>
-                                    <i className="fas fa-envelope-open white fa-3x" onClick={() => {
-                                          setShowUpdateEmail(!showUpdateEmail)
-                                          setShowUpdatePhoto(false)
-                                          setShowUpdateUsername(false)
-                                    }}>
-                                    </i>
-                                    <i className="fas fa-portrait white fa-3x" onClick={() => {
-                                          setShowUpdatePhoto(!showUpdatePhoto)
-                                          setShowUpdateEmail(false)
-                                          setShowUpdateUsername(false)
-                                    }}>
-                                    </i>
-                                    <i className="fas fa-user-slash white fa-3x" onClick={() => { history.push("/deleteuser/" + id) }}></i>
-                              </div>
-          </div>
-          {showUpdatePhoto &&
-                              <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
-                        }
-
-                        {showUpdateUsername &&
-                              <UpdateProfileUsername submit={handleSubmit(handleUpdateProfileUsername)} register={register({ required: true })} />
-                        }
-                            {showUpdateEmail &&
-                              <UpdateProfileEmail submit={handleSubmit(handleUpdateProfileEmail)} register={register({ required: true })} />
-                        }
-      </Fragment>
+                          
+                         
+                                   
+                       {idUser}
+                                  
   
                                 </div>
-                                )
-                            } else {
-                                return null
-                            }
-                        })} 
+                                
+                   
                 </div>
             
             </div>

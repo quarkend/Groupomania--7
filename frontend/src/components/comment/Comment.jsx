@@ -61,15 +61,18 @@ export default function Comment() {
                     };
                     setComments([...comments, commentToAdd]);
                     setNewComment("");
+                    window.location.reload();
                 }
             });
     };
     const deleteComment = (id) => {
         axios
             .delete(`/comments/${id}`, {
-                headers: { accessToken: localStorage.getItem("accessToken") },
+                headers:
+                        { "Authorization": token }
             })
             .then(() => {
+                window.location.reload();
                 setComments(
                     comments.filter((val) => {
                         return val.id !== id;
@@ -103,7 +106,7 @@ export default function Comment() {
      
             </div>
             <div className="listOfComments">
-                <h2> comment lenght {comments.length}</h2>
+                <h5>Nombre :{comments.length}</h5>
                 <ul className="comments">
                     {comments.map((comment, key) => {
                         

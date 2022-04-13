@@ -11,7 +11,7 @@ import UpdateProfileUsername from './UpdateProfileUsername';
 import { Fragment } from 'react';
 import Post from './../../components/post/Post';
 // import Mesenger from "../../components/mesenger/Mesenger";
-
+import "./profile.css"
 
 const POSTS_URL = "/posts/"
 const UPDATE = "/users/"

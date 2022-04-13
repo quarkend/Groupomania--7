@@ -1,6 +1,6 @@
 
 import  React, {useState, useEffect }  from 'react';
-import './myPost.css'
+
 export default function UpdateProfilePhoto({submit, register, title}){
            const [image, setImage] = React.useState("")
            const [previewUrl, setPreviewUrl] = React.useState("")

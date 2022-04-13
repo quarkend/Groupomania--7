@@ -19,6 +19,7 @@ margin:30px 0;
     align-items: center;
    
 }
+
 .postProfileImg{
     width: 32px;
     height: 32px;
@@ -100,7 +101,7 @@ cursor: pointer;
 
     border-radius: 5px;
   
-    background-color: rgb(196, 233, 245);
+    background-color: #f4f4f4;
 }
 .card-username__info {
     margin-top: 0.4rem;
@@ -257,10 +258,7 @@ cursor: pointer;
     padding: .3rem;
     transition: .3s;
 }
-.add-input {
-    background-color: #4d2435;
-    transition: .3s;
-}
+
 .add-input:focus{
     background-color: #86af9c !important;
     transform: scale(1.15) !important;
@@ -305,3 +303,8 @@ cursor: pointer;
     font-size: 18px;
     margin-right: 3px;
 }
+/* .postsAdmin{
+    background-color:#b8a2a2;
+    display: flex;
+    flex-flow:wrap;
+} */
