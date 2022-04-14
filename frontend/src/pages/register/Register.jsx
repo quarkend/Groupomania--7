@@ -28,15 +28,11 @@ export default function Register() {
       }
     }
   };
-    
-  return (
+ return (
     <div className="login-container">
             <div className="cardlogin">
                 <div className="container">
-              
-   
-       
-          <form  onSubmit={handleClick}>
+         <form  onSubmit={handleClick}>
           <h1>Register</h1>
               <label htmlFor="Username">
                   Username
@@ -87,10 +83,8 @@ export default function Register() {
             <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/login" ) }}>Login</button>
             {/* <div><CheckBox/></div> */}
           </form>
-       
-          </div>
+         </div>
         </div>
       </div>
-  
-  );
+ );
 }

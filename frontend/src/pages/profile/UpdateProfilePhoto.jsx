@@ -1,5 +1,5 @@
 
-import  React, {useState, useEffect }  from 'react';
+import  React, {useEffect }  from 'react';
 
 export default function UpdateProfilePhoto({submit, register, title}){
            const [image, setImage] = React.useState("")
@@ -24,11 +24,7 @@ export default function UpdateProfilePhoto({submit, register, title}){
                        return
                  }
            },[image])
-
-
-
-           
-      return(
+     return(
                   <form className="user-action"  encType="multipart/form-data" onSubmit={submit}  >
                         <div className="form-group">
                               <label htmlFor="user-pic">{ title || "Selectioner une photo de profil" }</label>
@@ -43,4 +39,4 @@ export default function UpdateProfilePhoto({submit, register, title}){
                   </form>
       )
 }
-{/* <div className="image-preview"> */}
+

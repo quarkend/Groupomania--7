@@ -198,36 +198,54 @@ exports.deleteUser = (req, res, next) => {
         )
         .catch(error => res.status(400).json({ error }));
 };
-// exports.getFriends = async (req, res) => {
-//     try {
-//         const user = await User.findById(req.params.userId);
-//         const friends = await Promise.all(
-//             user.followings.map((friendId) => {
-//                 return User.findById(friendId);
-//             })
-//         );
-//         let friendList = [];
-//         friends.map((friend) => {
-//             const { _id, username, profilePicture } = friend;
-//             friendList.push({ _id, username, profilePicture });
-//         });
-//         res.status(200).json(friendList)
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
-// exports.deleteUser = (req, res, next) => {
-//     const accountId = req.params.id;
-//     const accountDeleteParams = [accountId];
-//     const accountDeleteSql = "DELETE FROM account WHERE account_id = ?;";
-//     db.query({ 'sql': accountDeleteSql, 'timeout': 10000 }, accountDeleteParams, function (err, result) {
-//         if (err) {
-//             throw err;
-//         }
-//         if (result.affectedRows === 1) {
-//             return res.status(200).json({ message: 'Le compte et toutes ses informations ont été supprimés avec succès !' });
-//         } else {
-//             return res.status(404).json({ message: 'Utilisateur non trouvé !' });
-//         }
-//     });
-// };
+
+
+// PUT Update User Password Controller
+//==========================================================================================================
+exports.updatePassword = (req, res, next) => {
+    // éléments de la requète
+   
+    const { password } = req.body;
+  const user= req.body
+
+    // vérification que tous les champs sont remplis
+    if (password === null || password === '' )
+  
+        // Si on ne trouve pas l'utilisateur
+       
+    bcrypt.hash(req.body.password, 10).then(valid => {
+        if (!valid) {
+            return res.status(401).json({ error: 'Mot de passe incorrect !' })
+        }
+        res.status(200).json({
+            user,
+            // Création d'un token pour sécuriser le compte de l'utilisateur
+            token: jwt.sign(
+                {
+                    success: true,
+                    message: 'Authentication successful!',
+    
+                    // user: {
+                    //     username: "Admin",
+                    //     email: "User",
+                    // },
+                },
+                'secretToken',
+                { expiresIn: '23h' }
+            )
+        });
+    
+    })
+    // gestion d'ajout/modification image de profil
+    const userObject = req.file ?
+        {
+            ...req.body.user,
+            
+          
+   
+        } : { ...req.body };
+        console.log(req.body),
+    User.update({ ...userObject, id: req.params.id }, { where: { id: req.params.id } })
+        .then(() => res.status(200).json({ message: 'password modifié !' }))
+        .catch(error => res.status(400).json({ error }));
+};

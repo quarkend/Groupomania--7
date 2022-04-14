@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from './../../App';
-import { useParams,useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
 import "./post.css";
@@ -14,6 +14,7 @@ import {
 import MenuDots from '../MenuDots';
 import Comment from './../comment/Comment';
 const USER_INFO_URL = "http://localhost:8800/api/users/"
+const url = "http://localhost:8800/images/"
 export default function Post({ post }) {
     const { handleSubmit, register } = useForm()
     const [data, setData] = useState('')
@@ -22,20 +23,15 @@ export default function Post({ post }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [users, setUsers] = useState([]);
-
-    const user = useContext(AuthContext);
-
+    const {user }= useContext(AuthContext);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const storage = JSON.parse(localStorage.getItem('user'));
     const history = useHistory();
-    console.log(user.state.user)
-    
+    console.log(user)
     const postId = post.id;
     const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
-
     const [like, setLike] = useState([])
-
     useEffect(() => {
         const fetchUser = async () => {
             const res = await axios.get(`/users`,
@@ -62,19 +58,19 @@ export default function Post({ post }) {
                     { "Authorization": token }
             }).then((response) => {
                 setLike(response.data.like);
-                console.log(response.data.like)
                 localStorage.setItem('like', JSON.stringify(response.data));
-                console.log(response.data.like)
+                console.log(like)
             });
     }
-    useEffect(() => {
-        axios.get(`/posts/${post.id}/likes`, {
-            headers:
-                { "Authorization": token },
-        }).then((response) => {
-            setLike(response.data.length);
-        });
-    }, [post.id, token]);
+    // useEffect(() => {
+    //     axios.get(`/posts/${post.id}/likes`, {
+    //         headers:
+    //             { "Authorization": token },
+    //     }).then((response) => {
+    //         setLike(response.data.length);
+    //         console.log(response.data.like);
+    //     });
+    // }, [post.id, token]);
     useEffect(() => {
         axios.get(`/posts/byId/${post.id}`, {
             headers:
@@ -94,47 +90,6 @@ export default function Post({ post }) {
             localStorage.setItem('comments', JSON.stringify(response.data));
         });
     }, [post.id, token]);
-    const addComment = () => {
-        axios
-            .post(
-                "/comments",
-                {
-                    content: newComment,
-                    postId: post.id,
-                    userId: storage.id
-                },
-                {
-                    headers:
-                        { "Authorization": token }
-                }
-            )
-            .then((response) => {
-                if (response.data.error) {
-                    console.log(response.data.error);
-                } else {
-                    const commentToAdd = {
-                        content: newComment,
-                        username: response.data.username,
-                    };
-                    setComments([...comments, commentToAdd]);
-                    setNewComment("");
-                }
-            });
-    };
-    const deleteComment = (id) => {
-        axios
-            .delete(`/comments/${id}`,
-                {
-                    headers:
-                        { "Authorization": token }
-                })
-           
-                window.location.reload();
-         
-    };
-    function handleShowComment(e) {
-        setShowComment(!showComment)
-    }
     const deletePost = (id) => {
         axios
             .delete(`http://localhost:8800/api/posts/${id}`,
@@ -185,23 +140,19 @@ export default function Post({ post }) {
     useEffect(() => {
         getUserData()
     }, [])
-
     let userAuth;
-
     if (post.userId === storage.id) {
         userAuth = <div className="post-button">
             <i className="fas fa-portrait white fa-2x" onClick={() => {
                 setShowUpdatePhoto(!showUpdatePhoto)
             }}>
             </i>
-
             {showUpdatePhoto &&
                 <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
             }
             <div className="postBottom">
                 <div className="postBottomLeft" >
                 </div>
-       
             </div>
         </div>
     } else if (!!storage.isAdmin === true) {
@@ -217,44 +168,31 @@ export default function Post({ post }) {
                         <div className="postTopLeft">
                             <span className="postUsername">
                                 {/* {users.filter((u) => u.id === post?.userId)[0].username} */}
-                             
                             </span>
-
                             {users.map((user) => {
                                 if (post.userId === user.id) {
-
                                     return (
-                                        <div>
+                                        <div key={user.id + post.id}>
                                             {/* <h2 key={"h2" + user.id}>Publié par <Link to={"/users/" + user.id} key={user.id + post.id} className="nav-link">{user.username} vvv</Link></h2> */}
-                                            <img className="postProfileImg"
-                                                src={"http://localhost:8800/images/" + user.profilePicture}
-                                                alt="user"
-                                            />{user.username}</div>
+                                           <img className="postProfileImg" src={
+                                              user.profilePicture
+                                                    ? url + user.profilePicture
+                                                    : url + "noAvatar.png"
+                                            }/>{user.username}</div>
                                     )
                                 } else {
                                     return null
                                 }
                             })}
-
                         </div>
                         <div className="postTopRight">
                             <span className="postDate">{format(post.createdAt)}</span>
-                     <p className="postDate"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
+                            <p className="postDate"> Posté le {post.createdAt.split('T').join(' à ').split('.000Z').join('')}</p>
                         </div>
                         <MenuDots />
                     </div>
-                    
-
-
-
-
-                  
-
-
-
-
                     <div className="detail">
-                    <h1>{post.title} </h1>
+                        <h1>{post.title} </h1>
                         <div className="">
                             <p>Title:{post.title} </p>
                             {post.img
@@ -264,19 +202,16 @@ export default function Post({ post }) {
                                 /> : null}
                         </div>
                         {userAuth}
-
                         <hr />
                         <h3>Title:{post.title}</h3>
-                        <h4>Description:{post.desc}</h4>
+                        <h4>Description:{post.desc}{data.like}</h4>
                         <hr />
                     </div>
-
                     <div className="postBottomLeft">
                         <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
                         <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
-                        <span className="postLikeCounter">{like} people like it</span>
+                        <span className="postLikeCounter"> {like} people like it</span>
                     </div>
-
                     <div className="postBottom">
                         <div className="postBottomLeft" >
                         </div>
@@ -287,58 +222,16 @@ export default function Post({ post }) {
                             }} />
                         </div>
                     </div>
-                    {showComment.shown ? <Comment/>
-             
-                       
-             : ""}
-             <div className="topbarIcon">
-                 <div className="topbarIconItem">
-                     <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
-                     <span className="topbarIconBadge">{comments.length}</span>
-                 </div>
-             </div>
+                    {showComment.shown ? <Comment />
+                        : ""}
+                    <div className="topbarIcon">
+                        <div className="topbarIconItem">
+                            <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
+                            <span className="topbarIconBadge">{comments.length}</span>
+                        </div>
+                    </div>
                 </div>
-
-          
             </div>
-
         </div>
     );
 }
-       {/* <div className="card-comment">
-                        <form >
-                            <input className="" id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
-                                autoComplete="off"
-                                value={newComment}
-                                onChange={(event) => {
-                                    setNewComment(event.target.value);
-                                }}
-                            />
-                            {/* <input type="text" placeholder="Mettre a jour "        onChange={(event) => {
-                                  setUpdateComment(event.target.value);
-                                }}value={updateComment}/> */}
-                        {/* </form>
-                        <div className="card-reaction"  > */}
-                            {/* <button id="comm" onClick={addComment}> Add Comment</button> */} 
-                            {/* <button id="comm" onClick={handleUpdateComment}> update Comment</button> */}
-                        {/* </div>
-                    </div> */}
-                    {/* <ul className="comments">
-                        {comments.map((comment, key) => {
-                            return (
-                                <li key={key} className="comment">
-                                    {comment.content}
-                                    {(showComment && storage.id === <div className="listOfComments"></div>) &&
-                                        <div className="update__container" key={comment.id}>
-                                        </div>
-                                    }
-                                    {(
-                                        <Cancel className="shareIcon" onClick={() => {
-                                            deleteComment(comment.id);
-                                        }} />
-                                    )}
-                                    <Chat title="Modification" onClick={handleShowComment} data-id={comment.id}></Chat>
-                                </li>
-                            );
-                        })}
-                    // </ul> */}

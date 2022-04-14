@@ -116,28 +116,7 @@ const storage = JSON.parse(localStorage.getItem('user'))
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </label>
-                        {/* <div className="shareOption">
-                            <Label htmlColor="blue" className="shareIcon" />
-                            <span className="shareOptionText">Tag</span>
-                        </div> */}
-                        <label className="shareOption">
-                            <Room htmlColor="green" className="shareIcon" />
-                            <span className="shareOptionText">Location</span>
-                        </label>
-                        <label className="shareOption">
-                            <EmojiEmotions    onClick={() => setState({ shown: !state.shown })} htmlColor="goldenrod" className="shareIcon" />
-                            {/* <span className="shareOptionText">Feelings</span  onEmojiClick={onEmojiClick} > */}
-                       
-                           
-      {chosenEmoji ? (
-        <span  className="shareOptionText">Feelings: {chosenEmoji.emoji}</span>
-      ) : (
-        <span>No emoji Chosen</span>
-      )}
-       </label>    
-      <h2 >{state.shown ?   <Picker onEmojiClick={onEmojiClick}  />  : '' }</h2>
-      {/* <button onEmojiClick={onEmojiClick}  onClick={() => setState({ shown: !state.shown })}>Toggle</button> */}
-    
+                      
   
  
                     </div>

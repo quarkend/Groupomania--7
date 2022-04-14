@@ -9,8 +9,10 @@ import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
 import UpdateProfileEmail from './UpdateProfileEmail';
 // ^\s*$\n 
+const url = "http://localhost:8800/images/"
 const DELETE_ACCOUNT_URL = "/delete/"
 export default function Profile() {
+      const url = "http://localhost:8800/images/"
       let { id } = useParams();
       let history = useHistory();
       const { state, dispatch } = React.useContext(AuthContext);
@@ -164,8 +166,7 @@ export default function Profile() {
                                                             }}>
                                                             </i>
                                                             <i className="fas fa-user-slash white fa-2x"  onClick={() => { history.push("/deleteuser/" + id) }}></i>
-                
-                                                      </div>
+                                                     </div>
                                                       {showUpdatePhoto &&
                                                             <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
                                                       }

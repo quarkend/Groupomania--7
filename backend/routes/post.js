@@ -6,18 +6,6 @@ const commentCtrl = require('../controllers/comment');
 const likeCtrl = require('../controllers/like');
 const auth = require('../middlewares/auth');
 const multer = require('../middlewares/multer-config')
-// Routes
-// router.get("http://localhost:8800/api/profile/:username", async (req, res) => {
-//     try {
-//         const user = await User.findOne({ username: req.params.username });
-//         const posts = await Post.find({ userId: user._id });
-//         res.status(200).json(posts);
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
-// "http://localhost:3000/api/profile/:username", a
-// exports.getusersallposts = async (req, res) => {
 
 router.get('/profile/:username', postCtrl.getusersallposts);
 router.get('/', postCtrl.findAllPosts);

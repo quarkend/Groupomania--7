@@ -12,15 +12,9 @@ import Topbar from "./components/topbar/Topbar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Admin from './pages/profile/Admin';
-import LoginAdmin from './pages/login/AdminLogin'
 import DeleteUser from './pages/profile/DeleteUser';
 import UpdateProfilePhoto from "./pages/profile/UpdateProfilePhoto";
-
-
-
-
-
-
+import UpdateProfile from './pages/profile/UpdateProfile/UpdateProfile';
 export const AuthContext = React.createContext();
 
 const initialState = {
@@ -32,17 +26,7 @@ const initialState = {
 };
 const reducer = (state, action) => {
   switch (action.type) {
-    case "AdminLogin":
-      localStorage.setItem("admin", JSON.stringify(action.payload.admin));
-      return {
-        ...state,
-        isAuthenticated: true,
-        isAdmin: action.payload.isAdmin,
-        user: action.payload.user,
-        admin: action.payload.admin,
-        token: action.payload.token
-      };
-    case "LOGIN":
+   case "LOGIN":
       localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", JSON.stringify(action.payload.token));
       return {
@@ -92,8 +76,7 @@ function App() {
           <Route exact path="/">
             {state.isAuthenticated ? <Home /> : <Register />}
           </Route>
-          <Route path="/LoginAdmin">{state.isAuthenticated ? <Redirect to={"/admin/" + state.user.id} /> : <LoginAdmin />}</Route>
-          <Route path="/login">{state.isAuthenticated ? <Redirect to="/" /> : <Login />}</Route>
+         <Route path="/login">{state.isAuthenticated ? <Redirect to="/" /> : <Login />}</Route>
           <Route path="/register">
             {state.isAuthenticated ? <Redirect to="/" /> : <Register />}
           </Route>
@@ -102,21 +85,17 @@ function App() {
           </Route>
           <Route path="/admin/:id">
             {state.isAuthenticated ? <Admin /> : <Redirect to="/" />}
-
-          </Route>
-
-          
-          <Route path="/deleteuser/:id">
+         </Route>
+         <Route path="/deleteuser/:id">
             <DeleteUser />
           </Route>
           <Route path="/updateprofilephoto">
             <UpdateProfilePhoto />
           </Route>
-
-
-
-
-        </Switch>
+         <Route path="/updateprofile">
+            <UpdateProfile />
+          </Route>
+       </Switch>
       </AuthContext.Provider>
     </Router>
   );
