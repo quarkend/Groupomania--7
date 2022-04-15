@@ -24,10 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING,
         desc: DataTypes.STRING,
 
-
-
-
-
     }, {
         sequelize,
         modelName: 'User',

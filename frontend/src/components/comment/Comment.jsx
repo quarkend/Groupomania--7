@@ -6,16 +6,16 @@ import {
     Cancel,
 } from "@material-ui/icons";
 
-export default function Comment({Post}) {
+export default function Comment({ Post }) {
     const [post, setPost] = useState([])
     const [showComment, setShowComment] = useState(false)
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-   const user = useContext(AuthContext);
+    const user = useContext(AuthContext);
 
     const storage = JSON.parse(localStorage.getItem('user'));
     const stor = JSON.parse(localStorage.getItem('post'));
-   console.log(user.state.user)
+    console.log(user.state.user)
     let token = "Bearer " + storage.token;
     useEffect(() => {
         axios.get(`/posts/byId/${stor.id}`, {
@@ -25,7 +25,7 @@ export default function Comment({Post}) {
             setPost(response.data)
             localStorage.setItem('post', JSON.stringify(response.data));
         });
-    }, [ token]);
+    }, [token]);
     console.log(post)
     useEffect(() => {
         axios.get(`/posts/${stor.id}/comments`, {
@@ -69,7 +69,7 @@ export default function Comment({Post}) {
         axios
             .delete(`/comments/${id}`, {
                 headers:
-                        { "Authorization": token }
+                    { "Authorization": token }
             })
             .then(() => {
                 window.location.reload();
@@ -91,7 +91,7 @@ export default function Comment({Post}) {
                 </div>
                 <div className="card-comment">
                     <form >
-                        <input  id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
+                        <input id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
                             autoComplete="off"
                             value={newComment}
                             onChange={(event) => {
@@ -103,15 +103,15 @@ export default function Comment({Post}) {
                         <button id="comm" onClick={addComment}> Add Comment</button>
                     </div>
                 </div>
-     
+
             </div>
             <div className="listOfComments">
                 <h5>Nombre :{comments.length}</h5>
                 <ul className="comments">
                     {comments.map((comment, key) => {
-                        
+
                         return (
-                            <li  key={post.id + comment.id} className="comment">
+                            <li key={post.id + comment.id} className="comment">
                                 {comment.content}:{comment.postId}
                                 {(showComment && stor.id === <div className="listOfComments"></div>) &&
                                     <div className="update__container" key={comment.id}>

@@ -11,7 +11,7 @@ import {
     Chat,
     Cancel
 } from "@material-ui/icons";
-import MenuDots from '../MenuDots';
+import MenuDots from '../menuBurger/MenuDots';
 import Comment from './../comment/Comment';
 const USER_INFO_URL = "http://localhost:8800/api/users/"
 const url = "http://localhost:8800/images/"
@@ -21,10 +21,10 @@ export default function Post({ post }) {
     const [showUpdatePhoto, setShowUpdatePhoto] = useState(false)
     const [showComment, setShowComment] = useState(false)
     const [comments, setComments] = useState([]);
- 
+
     const [users, setUsers] = useState([]);
     // eslint-disable-next-line
-    const {user }= useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [error, setError] = useState(null);
     // eslint-disable-next-line
     const [isLoaded, setIsLoaded] = useState(false);
@@ -63,15 +63,6 @@ export default function Post({ post }) {
                 console.log(like)
             });
     }
-    // useEffect(() => {
-    //     axios.get(`/posts/${post.id}/likes`, {
-    //         headers:
-    //             { "Authorization": token },
-    //     }).then((response) => {
-    //         setLike(response.data.length);
-    //         console.log(response.data.like);
-    //     });
-    // }, [post.id, token]);
     useEffect(() => {
         axios.get(`/posts/byId/${post.id}`, {
             headers:
@@ -151,16 +142,16 @@ export default function Post({ post }) {
             {showUpdatePhoto &&
                 <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
             }
-                <div className="postBottom">
-                        <div className="postBottomLeft" >
-                        </div>
-                        <div className="postBottomRight">
-                            <span className="postCommentText">Supprimer le post</span>
-                            <Cancel className="shareIcon" onClick={() => {
-                                deletePost(post.id);
-                            }} />
-                        </div>
-                    </div>
+            <div className="postBottom">
+                <div className="postBottomLeft" >
+                </div>
+                <div className="postBottomRight">
+                    <span className="postCommentText">Supprimer le post</span>
+                    <Cancel className="shareIcon" onClick={() => {
+                        deletePost(post.id);
+                    }} />
+                </div>
+            </div>
         </div>
     } else if (!!storage.isAdmin === true) {
         userAuth = <div className="post-button">
@@ -181,11 +172,11 @@ export default function Post({ post }) {
                                     return (
                                         <div key={user.id + post.id}>
                                             {/* <h2 key={"h2" + user.id}>Publié par <Link to={"/users/" + user.id} key={user.id + post.id} className="nav-link">{user.username} vvv</Link></h2> */}
-                                           <img className="postProfileImg" src={
-                                              user.profilePicture
+                                            <img className="postProfileImg" src={
+                                                user.profilePicture
                                                     ? url + user.profilePicture
-                                                    :  "/assets/person/noAvatar.png"
-                                            }  alt="center"/>{user.username}</div>
+                                                    : "/assets/person/noAvatar.png"
+                                            } alt="center" />{user.username}</div>
                                     )
                                 } else {
                                     return null
@@ -199,21 +190,20 @@ export default function Post({ post }) {
                         <MenuDots />
                     </div>
                     <div className="detail">
-                     
+
                         <div className="">
                             <h3>Title:{post.title} </h3>
                             <img className="postImg"
-                                    src={ post.img
+                                src={post.img
                                     ? url + post.img
                                     : "/assets/icon/gallery.png"
-                                  
-                                    }  alt="center"
-                                    
-                                /> 
+
+                                } alt="center"
+
+                            />
                         </div>
                         {userAuth}
                         <hr />
-                       
                         <h3>Description:{post.desc}{data.like}</h3>
                         <hr />
                     </div>
@@ -222,20 +212,17 @@ export default function Post({ post }) {
                         <img className="likeIcon" src="/assets/icon/heart.png" onClick={likeHandler} alt="" />
                         <span className="postLikeCounter"> {like} people like it</span>
                     </div>
-           
-                           
-                   
                     {showComment.shown ? <Comment />
                         : ""}
-     </div>
-                    </div>
-                    <div className="topbarIcon">
-                        <div className="topbarIconItem">
-                            <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
-                            <span className="topbarIconBadge">{comments.length}</span>
-                        </div>
-                    </div>
                 </div>
-    
+            </div>
+            <div className="topbarIcon">
+                <div className="topbarIconItem">
+                    <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
+                    <span className="topbarIconBadge">{comments.length}</span>
+                </div>
+            </div>
+        </div>
+
     );
 }

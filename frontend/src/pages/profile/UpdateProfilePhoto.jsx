@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
-import "./share.css";
+import "./profile.css"
+
 import {
       PermMedia,
    
@@ -28,31 +29,21 @@ export default function UpdateProfilePhoto({ submit, register, title }) {
                   return
             }
       }, [image])
-      return (
-            <form className="user-action" encType="multipart/form-data" onSubmit={submit}  >
-                  <div className="form-group">
-
-
-                        <label htmlFor="file" className="shareOption">
-                              <PermMedia htmlColor="tomato" className="shareIcon" />
-                              <span className="shareOptionText">Selectioner une photo</span>
-                              <input
-                                    style={{ display: "none" }}
-                                    className="shareInput"
-                                    type="file" name="image" accept=".jpeg, .png, .jpg, .gif" onChange={imageHandler} ref={register}
-
-                              />
-                        </label>
-                        {previewUrl &&
-                              <div >
-                                    <img src={previewUrl} alt="" />
-                              </div>
-                        }
+      return ( 
+      <form className="user-action"  encType="multipart/form-data" onSubmit={submit}  >
+      <div className="form-group">
+            <label htmlFor="user-pic">{ title || "Selectioner une photo de profil" }
+            <PermMedia htmlColor="tomato" className="shareIcon shareOption" />
+            </label>
+            <input type="file" id="user-pic" style={{ display: "none" }} name="image" accept=".jpeg, .png, .jpg, .gif" onChange={imageHandler} ref={register}/>
+            { previewUrl &&
+                  <div className="profile-image-div ">
+                        <img src={previewUrl} alt=""/>
                   </div>
-
-
-                  <button className="fa-solid fa-highlighter   " type="submit" >Mettre à jour</button>
-            </form>
+            }
+      </div>
+      <button type="submit">Mettre à jour</button>
+</form>
       )
 }
 

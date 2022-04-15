@@ -1,19 +1,14 @@
-import React  from "react";
-
+import React from "react";
 import { AuthContext } from './../../App';
 import "./home.css"
 import Post from './../../components/post/Post';
 import Share from './../../components/share/Share';
-
-
-
 const initialState = {
     posts: [],
     isFetching: false,
     hasError: false,
 };
 const reducer = (state, action) => {
-    
     switch (action.type) {
         case "FETCH_POSTS_REQUEST":
             return {
@@ -41,7 +36,6 @@ export const Home = () => {
     const { state: authState } = React.useContext(AuthContext);
     const [state, dispatch] = React.useReducer(reducer, initialState);
     React.useEffect(() => {
-        
         dispatch({
             type: "FETCH_POSTS_REQUEST"
         });
@@ -52,18 +46,15 @@ export const Home = () => {
         })
             .then(res => {
                 if (res.ok) {
-               
                     return res.json();
                 } else {
                     throw res;
                 }
             })
             .then(resJson => {
-        
                 dispatch({
                     type: "FETCH_POSTS_SUCCESS",
                     payload: resJson,
-                   
                 });
             })
             .catch(error => {
@@ -74,39 +65,27 @@ export const Home = () => {
             });
     }, [authState.token]);
     return (
-       
-           <div className="homeContainer">
-               {/* <Sidebar/> */}
-               <div className="feed">
-            <div className="feedWrapper">
-        
-            <Share/>
-              
-            </div>
-            {state.isFetching ? (
+        <div className="homeContainer">
+            {/* <Sidebar/> */}
+            <div className="feed">
+                <div className="feedWrapper">
+                    <Share />
+                </div>
+                {state.isFetching ? (
                     <span className="loader">LOADING...</span>
                 ) : state.hasError ? (
                     <span className="error">AN ERROR HAS OCCURED</span>
                 ) : (
                     <>
-         
-      
-  
-                    
-                              {
-                                 
-            state.posts.map(post => (
-                
-              <Post key={post.id.toString()} post={post} />
-            ))}  
-            
+                        {
+                            state.posts.map(post => (
+                                <Post key={post.id.toString()} post={post} />
+                            ))}
                     </>
                 )}
             </div>
-            
-               
-                {/* <Rightbar/>   */}
-      </div>
+            {/* <Rightbar/>   */}
+        </div>
     );
 };
 export default Home;

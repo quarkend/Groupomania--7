@@ -4,8 +4,7 @@ import "./feed.css"
 import React from 'react'
 import axios from "axios";
 import {useContext, useEffect, useState } from "react";
-
-import { AuthContext } from './../context/auth.context';
+import { AuthContext } from './../../App';
 export default function Feed({ username }) {
     const {user} = useContext(AuthContext);
     const [Posts, setPosts] = useState([]);

@@ -59,7 +59,7 @@ export default function Share() {
 
                     <input
 
-                        placeholder={ storage.username +": Create Post : Title ?"}
+                        placeholder={storage.username + ": Create Post : Title ?"}
                         className="shareInput"
                         ref={title}
                     />

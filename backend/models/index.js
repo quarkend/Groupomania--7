@@ -38,6 +38,4 @@ db.likes = require('./like.js')(sequelize, Sequelize);
 db.comments = require('./comment.js')(sequelize, Sequelize);
 
 sequelize.sync()
-
-
 module.exports = db;

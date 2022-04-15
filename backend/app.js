@@ -61,7 +61,7 @@ const likesRouter = require("./routes/like");
 
 
 app.use('/images', express.static(path.join(__dirname,'images')));
-/*xhinafi2 s */
+/* s */
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
@@ -74,8 +74,4 @@ db.sequelize.sync()
 
 
 
-// .then(() => {
-//     app.listen(3001, () => {
-//         console.log("Server running on port 3001");
-//     });
-// });
+

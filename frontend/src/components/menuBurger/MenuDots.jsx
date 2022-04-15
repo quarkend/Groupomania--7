@@ -1,63 +1,40 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
 
-//  import "./search/search.css" 
 import {  MoreVert } from '@material-ui/icons';
-import { AuthContext } from './../App';
+import { AuthContext } from '../../App';
 
 import { useState, useEffect  } from 'react';
 import { useRef } from 'react';
 
-
-  
-
 export default  props => {
-
-
-  
- 
-
-  const { state, dispatch } = React.useContext(AuthContext);
-
-  const [open, setOpen] = useState(false);
+ const { state, dispatch } = React.useContext(AuthContext);
+ const [open, setOpen] = useState(false);
   const dropdownwrapper = useRef(null);
-  
-  const handleClickOutside = event => {
+ const handleClickOutside = event => {
     if (dropdownwrapper.current && !dropdownwrapper.current.contains(event.target)) {
       setOpen(false);
     }
   };
-
-  useEffect(() => {
+ useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
+   return () => {
       // clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
-
-  return (
+ return (
     <div className="dropdownwrapper" ref={dropdownwrapper}>
-
-    <MoreVert  onClick={() => setOpen(!open)}{...props}/>
+   <MoreVert  onClick={() => setOpen(!open)}{...props}/>
     {open && (
        <div >
       <div className="dropdown-wrapper">
         <ul className="dropdown-menu">
           <li><a className="dropdown-menu__item" href="/"> Home</a></li>
-    
-
- 
-    
-
-    <li> <a className="dropdown-menu__item" href={"/admin/" + state.user.id}>
+   <li> <a className="dropdown-menu__item" href={"/admin/" + state.user.id}>
     admin
     </a> </li>
-
-
-
-    <li className="dropdown-menu__item" >Hi {state.user.username} (X) </li>
+   <li className="dropdown-menu__item" >Hi {state.user.username} (X) </li>
     <li className="dropdown-menu__item" 
                 onClick={() =>
                   dispatch({
@@ -66,16 +43,13 @@ export default  props => {
                 }
               >
                 Deconexion
-               
-              </li>
-   
-    </ul>
+             </li>
+   </ul>
     </div>
         </div>
       )}
     </div>
-    
-  );
+ );
 };
 
 

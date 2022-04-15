@@ -8,6 +8,7 @@ import { AuthContext } from './../../App';
 import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
 import UpdateProfileEmail from './UpdateProfileEmail';
+
 // ^\s*$\n 
 
 
@@ -112,13 +113,14 @@ export default function Profile() {
                                                 }} />
                                           </div>
                                     </div>
-                                    <div className="profileInfo">
-                                          <h4 className="profileInfoName">{data.username}</h4>
+                                    <div >
+                                        
                                       
                                           <Fragment>
                                                 <div className="card">
-                                                      <div className="postWrapper">
-                                                            <h4>Username : {data.username}</h4>
+                                                      <div className="profileInfo">
+                                                    
+                                                            <h4 className="profileInfoName">Username : {data.username}</h4>
                                                             <p>Email : {data.email}</p>
                                                             <p>Profil crée le : {state.user.createdAt.split('T').join(' à ').split('.000Z')}</p>
                                                             <p>Profil Modifié le : {state.user.updatedAt.split('T').join(' à ').split('.000Z')}</p>

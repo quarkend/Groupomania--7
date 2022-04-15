@@ -42,18 +42,6 @@ exports.deleteComment = (req, res, next) => {
         .then(() => res.status(200).json({ message: 'Commentaire supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 };
-// exports.modifyComment = (req, res, next) => {
-//     // éléments de la requète
-//     const content = req.body.content;
-//     // vérification que tous les champs sont remplis
-//     if (content === null || content === '' ) {
-//         return res.status(400).json({ 'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un post" });
-//     }
-//     const commentObject = req.body;
-//     Comment.update({ ...commentObject, userId: req.params.id }, { where: { userId: req.params.id } })
-//         .then(() => res.status(200).json({ message: 'Comment ifié !' }))
-//         .catch(error => res.status(400).json({ error }));
-// };
 exports.modifyComment = (req, res, next) => {
 	console.log('dans la fonction modify');
     
