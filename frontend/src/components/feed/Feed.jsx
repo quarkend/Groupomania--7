@@ -4,13 +4,13 @@ import "./feed.css"
 import React from 'react'
 import axios from "axios";
 import {useContext, useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+
 import { AuthContext } from './../context/auth.context';
 export default function Feed({ username }) {
     const {user} = useContext(AuthContext);
     const [Posts, setPosts] = useState([]);
     const storage = JSON.parse(localStorage.getItem('user'));
-    const id = storage.id;
+
     let token = "Bearer " + storage.token;
    useEffect(() => {
         const fetchPosts = async () => {
@@ -35,20 +35,3 @@ export default function Feed({ username }) {
   </div>
     );
 }
-{/* <div className="feed">
-<div className="feedWrapper">
-    <Share />
-    {/* {Posts.map(p => (
-        <Post key={p.id} post={p} />
-    ))} */}
-//     {Posts.map((post) => {
-//         if (post.userId === storage.id) {
-//             return (
-//                 <Post key={post.id} post={post} />
-//             )
-//         } else {
-//             return null
-//         }
-//     })}
-// </div>
-// </div> */}

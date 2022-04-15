@@ -6,7 +6,7 @@ import {
     Cancel,
 } from "@material-ui/icons";
 
-export default function Comment() {
+export default function Comment({Post}) {
     const [post, setPost] = useState([])
     const [showComment, setShowComment] = useState(false)
     const [comments, setComments] = useState([]);
@@ -83,7 +83,7 @@ export default function Comment() {
     function handleShowComment(e) {
         setShowComment(!showComment)
     }
-    const userId = user.id;
+
     return (
         <div className="post">
             <div className="postWrapper">
@@ -111,7 +111,7 @@ export default function Comment() {
                     {comments.map((comment, key) => {
                         
                         return (
-                            <li key={key}  postId = {comment.postId} className="comment">
+                            <li  key={post.id + comment.id} className="comment">
                                 {comment.content}:{comment.postId}
                                 {(showComment && stor.id === <div className="listOfComments"></div>) &&
                                     <div className="update__container" key={comment.id}>

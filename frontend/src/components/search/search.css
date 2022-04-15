@@ -213,7 +213,7 @@ form button {
   border: none;
   background: #42afe3;
   color: white;
-  padding: 10px 22px;
+  /* padding: 10px 22px; */
   border-radius: 3px;
   text-transform: uppercase;
   letter-spacing: 2px;

@@ -1,14 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
-import {slide as Menu} from "react-burger-menu";
+
 //  import "./search/search.css" 
-import { MoreHoriz, MoreVert } from '@material-ui/icons';
+import {  MoreVert } from '@material-ui/icons';
 import { AuthContext } from './../App';
 
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { useRef } from 'react';
-import { useEffect } from 'react';
-import { Link, BrowserRouter, useParams, useHistory,render } from "react-router-dom"
+
 
   
 
@@ -19,7 +18,7 @@ export default  props => {
  
 
   const { state, dispatch } = React.useContext(AuthContext);
-  const storage = JSON.parse(localStorage.getItem('user'));
+
   const [open, setOpen] = useState(false);
   const dropdownwrapper = useRef(null);
   
@@ -51,9 +50,7 @@ export default  props => {
 
  
     
-          <li><a className="dropdown-menu__item" href={"/profile/" + storage.id}>
-    Profile
-    </a> </li>
+
     <li> <a className="dropdown-menu__item" href={"/admin/" + state.user.id}>
     admin
     </a> </li>
@@ -68,7 +65,7 @@ export default  props => {
                   })
                 }
               >
-                deco
+                Deconexion
                
               </li>
    

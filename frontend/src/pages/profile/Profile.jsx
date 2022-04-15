@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useContext } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useForm } from 'react-hook-form'
 import "./profile.css";
 import { useParams, useHistory } from "react-router-dom";
@@ -9,17 +9,17 @@ import UpdateProfilePhoto from './UpdateProfilePhoto';
 import UpdateProfileUsername from './UpdateProfileUsername';
 import UpdateProfileEmail from './UpdateProfileEmail';
 // ^\s*$\n 
-const url = "http://localhost:8800/images/"
-const DELETE_ACCOUNT_URL = "/delete/"
+
+
 export default function Profile() {
       const url = "http://localhost:8800/images/"
       let { id } = useParams();
       let history = useHistory();
-      const { state, dispatch } = React.useContext(AuthContext);
+      const { state } = React.useContext(AuthContext);
       const storage = JSON.parse(localStorage.getItem('user'));
       const userId = storage.id;
       let token = "Bearer " + storage.token;
-      const auth = useContext(AuthContext)
+
       const [data, setData] = useState('')
       const { handleSubmit, register } = useForm()
       const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
@@ -58,7 +58,7 @@ export default function Profile() {
             setShowUpdateEmail(false)
       }
       async function handleUpdateProfileUsername(data) {
-            const { userId } = storage
+ 
             const sendedUsername = await fetch(`${'http://localhost:8800/api/profile'}/${storage.id}`, {
                   method: 'put',
                   headers: {
@@ -88,45 +88,22 @@ export default function Profile() {
             getUserData()
             console.log(data.username)
       }, [])
-      async function handleUpdateProfileEmail(data) {
-            const sendedEmail = await fetch("http://localhost:8800/api/users/" + storage.id, {
-                  method: 'put',
-                  headers: {
-                        "Content-Type": "application/json",
-                        'Accept': 'application/json',
-                        Authorization: "Bearer " + token
-                  },
-                  body: JSON.stringify(data)
-            })
-            const response = await sendedEmail.json()
-            console.log(response)
-            getUserData()
-            setShowUpdateEmail(false)
-      }
-      async function deleteUser() {
-            const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
-            const URL = `"/delete/"${storage.id}`
-            if (conf) {
-                  const sendedData = await fetch(URL, {
-                        method: 'delete',
-                        headers: {
-                              Authorization: "Bearer " + token
-                        },
-                        body: JSON.stringify(data)
-                  })
-                  const response = await sendedData.json()
-                  console.log(response)
-                  auth.Logout()
-            }
-      }
+
+
       return (
             <div className="profilePageContainer">
                   <div className="profile">
                         <div className="profileRight">
                               <div className="profileRightTop">
                                     <div className="profileCover">
-                                          <img className="profileCoverImg" src="http://localhost:8800/images/1.jpg " alt="" />
-                                          <img className="profileUserImg" src={"http://localhost:8800/images/" + data.profilePicture} alt="" />
+                                          <img className="profileCoverImg" src="/assets/groupomania.jpg " alt="" />
+                                          <img className="profileUserImg" src={ data.profilePicture?
+                                          url + data.profilePicture
+                                          :  "/assets/person/noAvatar.png "
+                                                
+                                                
+                                                
+                                               } alt="" />
                                           <div className="profileUserImgChange">
                                                 <AddAPhoto onClick={() => {
                                                       setShowUpdatePhoto(!showUpdatePhoto)
@@ -137,7 +114,7 @@ export default function Profile() {
                                     </div>
                                     <div className="profileInfo">
                                           <h4 className="profileInfoName">{data.username}</h4>
-                                          <h4 className='profile-title'>MON COMPTE</h4>
+                                      
                                           <Fragment>
                                                 <div className="card">
                                                       <div className="postWrapper">

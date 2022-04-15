@@ -1,6 +1,5 @@
 const db = require("../models");
 const Like = db.likes;
-
 // logique métier : lire tous les likes
 exports.findAllLikes = (req, res, next) => {
     Like.findAll({
@@ -14,7 +13,6 @@ exports.findAllLikes = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ error }));
 };
-
 // logique métier : créer un like
 exports.createLike = (req, res, next) => {
     const likeObject = req.body;

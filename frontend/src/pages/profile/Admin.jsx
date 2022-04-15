@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams} from "react-router-dom";
 import axios from "axios";
 import User from './User';
 import "./profile.css";
-import { AuthContext } from '../../App';
+
 import "./profile.css";
 const POSTS_URL = "/posts/"
 
 export default function Admin() {
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+
+ 
     let { id } = useParams();
     const [users, setUsers] = useState([]);
+    // eslint-disable-next-line
     const [user, setUser] = useState([]);
     const storage = JSON.parse(localStorage.getItem('user'));
     const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
     const userId = storage.id;
+    // eslint-disable-next-line
     const [data, setData] = useState('')
     async function getUserData() {
         const URL = `${"/users/"}/${userId}`
@@ -74,7 +76,7 @@ export default function Admin() {
         <div className="profilePageContainer">
             <div className="profile">
                 <div className="card">
-                    <h2 className='profile-title'>Admin</h2>
+                    <h4 className='profile-title'>Admin</h4>
                 </div>
             </div>
             {users.map(u => (

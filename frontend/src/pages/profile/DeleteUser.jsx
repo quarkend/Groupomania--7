@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from './../../App';
-import Cookies from 'js-cookie';
+
 export default function DeleteUser() {
     const history = useHistory();
     const Auth = React.useContext(AuthContext);

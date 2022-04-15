@@ -15,6 +15,7 @@ const url = "http://localhost:8800/images/"
 export default function User({ user }) {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    // eslint-disable-next-line
     const [data, setData] = useState('')
     const { handleSubmit, register } = useForm()
     const [showUpdatePhoto, setShowUpdatePhoto] = useState(false);
@@ -152,17 +153,22 @@ export default function User({ user }) {
     return (
         <div className="card">
             <div className="detail">
-                <h1 > {user.username} </h1>
+            <div className="postTopRight">
+                          
+                            <h4 className="postDate">Compte Crée le : {user.createdAt.split('T').join(' à ').split('.000Z').join('')}</h4>
+                        </div>
+                <h3 > Username:{user.username} </h3>
+                <h3 > Email:{user.email} </h3>
                 <img className="postProfileImg"
                     src={
                        user.profilePicture
                             ? url + user.profilePicture
-                            : url + "noAvatar.png"
+                            :  "/assets/person/noAvatar.png"
                     }
                     alt="user"
                 />
-                <h1 > {user.email} </h1>
-                <h1 > {user.profilePicture} </h1>
+               
+             
                 <div className="postsAdmin" >
                     <div >
                         {idUser}

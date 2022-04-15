@@ -2,40 +2,21 @@ import React from 'react'
 import "./share.css";
 import {
     PermMedia,
-    Label,
-    Room,
-    EmojiEmotions,
     Cancel,
 } from "@material-ui/icons";
-import Picker from 'emoji-picker-react';
-import { useEffect, useContext, useRef, useState } from "react";
-
-// import { AuthContext } from "../../context/AuthContext";
+import { useRef, useState } from "react";
 import axios from "axios";
-import { useParams, Link, useHistory } from "react-router-dom";
-import { AuthContext } from './../../App';
-const url ="http://localhost:8800/images/"
+const url = "http://localhost:8800/images/"
 export default function Share() {
-    // let { id } = useParams();
-     const { user } = useContext(AuthContext);
-const storage = JSON.parse(localStorage.getItem('user'))
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  
-    const desc = useRef();
-    const title= useRef();
-    /////
-    const [state, setState] = useState({ shown: false });
-    const [chosenEmoji, setChosenEmoji] = useState(null);
 
-    const onEmojiClick = (event, emojiObject) => {
-      setChosenEmoji(emojiObject);
-    };
+    const storage = JSON.parse(localStorage.getItem('user'))
+    const desc = useRef();
+    const title = useRef();
     const [file, setFile] = useState(null);
     const submitHandler = async (e) => {
         e.preventDefault();
         const storage = JSON.parse(localStorage.getItem('user'));
         let token = "Bearer " + storage.token;
-        // const user = JSON.parse(localStorage.getItem(' userAccount'));
         const newPost = {
             userId: storage.id,
             desc: desc.current.value,
@@ -62,39 +43,31 @@ const storage = JSON.parse(localStorage.getItem('user'))
             window.location.reload();
         } catch (err) { }
     };
-//   Picker.init({
-//         selector: "#mytextarea",
-//         plugins: "emoticons autoresize",
-//         toolbar: "emoticons",
-//         toolbar_location: "bottom",
-//         menubar: false,
-//         statusbar: false
-//       });
-      
+
     return (
         <div className="share">
             <div className="shareWrapper">
                 <div className="shareTop">
-                     <img
+                    <img
                         className="shareProfileImg"
                         src={
                             storage.profilePicture
                                 ? url + storage.profilePicture
-                                : url + "noAvatar.png"
+                                : "/assets/person/noAvatar.png"
                         }
-                        alt="profilePicture" /> 
-                        {/* <img src={"http://localhost:8800/images/" + storage.profilePicture} alt="" className="topbarImg"  /> */}
+                        alt="profilePicture" />
+
                     <input
-                    
-                        placeholder={"Create Post : Title "}
+
+                        placeholder={ storage.username +": Create Post : Title ?"}
                         className="shareInput"
                         ref={title}
                     />
-                 <input
-                        placeholder={"What's in your mind " + storage.username + "?"}
+                    <input
+                        placeholder={"Description ?"}
                         className="shareInput"
                         ref={desc}
-                    /> 
+                    />
                 </div>
                 <hr className="shareHr" />
                 {file && (
@@ -107,7 +80,7 @@ const storage = JSON.parse(localStorage.getItem('user'))
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOption">
                             <PermMedia htmlColor="tomato" className="shareIcon" />
-                            <span className="shareOptionText">Photo or Video</span>
+                            <span className="shareOptionText">Multimedia</span>
                             <input
                                 style={{ display: "none" }}
                                 type="file"
@@ -116,9 +89,6 @@ const storage = JSON.parse(localStorage.getItem('user'))
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </label>
-                      
-  
- 
                     </div>
                     <button className="shareButton" type="submit">
                         Share

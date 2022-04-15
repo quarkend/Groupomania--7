@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { useRef } from "react";
-import { useHistory,Link } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 // import CheckBox from './../login/CheckBox';
 export default function Register() {
   const username = useRef();

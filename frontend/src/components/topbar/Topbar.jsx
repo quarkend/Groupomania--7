@@ -7,9 +7,9 @@ import {  BrowserRouter,  useHistory ,useParams} from "react-router-dom"
 
 
 import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from "@material-ui/icons/Menu";
+
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import PostAddIcon from '@material-ui/icons/PostAdd';
+
 
 import MenuBurger from '../MenuBurger';
 
@@ -17,12 +17,15 @@ import MenuBurger from '../MenuBurger';
 export default function Topbar() {
 const url = "http://localhost:8800/images/";
   const [error, setError] = useState(null);
+  // eslint-disable-next-line
   const [isLoaded, setIsLoaded] = useState(false);
   let history = useHistory();
-  const { state, dispatch } = React.useContext(AuthContext);
+  const { state } = React.useContext(AuthContext);
   const storage = JSON.parse(localStorage.getItem('user'));
   const token = "Bearer " +JSON.parse(localStorage.getItem('token'));
+  // eslint-disable-next-line
   const [data, setData] = useState('')
+  // eslint-disable-next-line
   const {user} = useContext(AuthContext);
 
   let id= useParams();
@@ -60,7 +63,7 @@ useEffect(() => {
           
               <div className="topbarLeft">
                 
-              <img className="topbarIco"src="http://localhost:8800/images/icon-left-font-monochrome-black.PNG" onClick={() => { history.push("/")}}/>
+              <img className="topbarIco"src="/assets/icon/icon-left-font-monochrome-black.png" alt ="icon"  onClick={() => { history.push("/")}}/>
                 <div className="searchbar">
    
                 </div>
@@ -113,7 +116,7 @@ useEffect(() => {
                   <img src={
                             state.user.profilePicture
                                 ? url + state.user.profilePicture
-                                : url + "noAvatar.png"
+                                :"/assets/person/noAvatar.png"
                         }       alt="" className="topbarImg" onClick={() => { history.push("/profile/" + state.user.id) }} />
                   <span className="topbarLinks">{state.user.username}  </span>
                 </div>

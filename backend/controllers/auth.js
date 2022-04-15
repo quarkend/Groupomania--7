@@ -1,26 +1,20 @@
 // imports
 const db = require("../models");
 const User = db.users;
-const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 // Logiques métiers pour les utilisateurs
-// Création de nouveaux utilisateurs (Post signup)
+// Création de nouveaux utilisateurs 
 exports.signup = (req, res, next) => {
     // éléments de la requète
     const username = req.body.username;
-
     const email = req.body.email;
     const password = req.body.password;
-
     // vérification que tous les champs sont remplis
     if (username === null || username === ''
         || email === null || email === '' || password === null || password === '') {
         return res.status(400).json({ 'error': "Veuillez remplir l'ensemble des champs du formulaire" });
     }
-
-
     User.findOne({
         attributes: ['email'],
         where: { email: email }
@@ -31,12 +25,9 @@ exports.signup = (req, res, next) => {
                 // Hash du mot de passe avec bcrypt
                 bcrypt.hash(password, 10)
                     .then(hash => {
-
-
                         // Création du nouvel utilisateur
                         const user = new User({
                             username: username,
-
                             email: email,
                             password: hash
                         })
@@ -51,11 +42,8 @@ exports.signup = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
 };
-
 // Création de connexion d'utilisateur enregistré (Post login)
 exports.login = (req, res, next) => {
-
-
     // Recherche d'un utilisateur dans la base de données
     User.findOne({ where: { email: req.body.email } })
         .then(user => {
@@ -76,7 +64,6 @@ exports.login = (req, res, next) => {
                             {
                                 success: true,
                                 message: 'Authentication successful!',
-
                                 // user: {
                                 //     username: "Admin",
                                 //     email: "User",
@@ -86,7 +73,6 @@ exports.login = (req, res, next) => {
                             { expiresIn: '23h' }
                         )
                     });
-
                 })
                 .catch(error => res.status(500).json({ error }));
         })
@@ -111,25 +97,16 @@ exports.getCurrentUser = async (req, res, next) => {
         res.status(500).json(err);
     }
 }
-
-
 exports.findAllUsers = async (req, res, next) => {
     console.log(req.params);
-
     User.findAll(
         {
             attributes: {
                 attr1: 'id',
                 attr2: 'username',
-
             }
         },
         { order: [['username', 'ASC']] })
         .then(users => res.status(200).json(users))
         .catch(error => res.status(500).json({ error }))
 };
-
-
-
-
-

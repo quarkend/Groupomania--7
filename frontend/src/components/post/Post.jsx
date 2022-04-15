@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from './../../App';
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { format } from "timeago.js";
 import "./post.css";
@@ -21,14 +21,15 @@ export default function Post({ post }) {
     const [showUpdatePhoto, setShowUpdatePhoto] = useState(false)
     const [showComment, setShowComment] = useState(false)
     const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState("");
+ 
     const [users, setUsers] = useState([]);
+    // eslint-disable-next-line
     const {user }= useContext(AuthContext);
     const [error, setError] = useState(null);
+    // eslint-disable-next-line
     const [isLoaded, setIsLoaded] = useState(false);
     const storage = JSON.parse(localStorage.getItem('user'));
     const history = useHistory();
-    console.log(user)
     const postId = post.id;
     const token = "Bearer " + JSON.parse(localStorage.getItem('token'));
     const [like, setLike] = useState([])
@@ -150,14 +151,20 @@ export default function Post({ post }) {
             {showUpdatePhoto &&
                 <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
             }
-            <div className="postBottom">
-                <div className="postBottomLeft" >
-                </div>
-            </div>
+                <div className="postBottom">
+                        <div className="postBottomLeft" >
+                        </div>
+                        <div className="postBottomRight">
+                            <span className="postCommentText">Supprimer le post</span>
+                            <Cancel className="shareIcon" onClick={() => {
+                                deletePost(post.id);
+                            }} />
+                        </div>
+                    </div>
         </div>
     } else if (!!storage.isAdmin === true) {
         userAuth = <div className="post-button">
-            <button className="btn btn-outline-danger btn-sm" onClick={() => { history.push("/postdelete/" + postId) }}>Supprimer2admin </button>
+            <button className="fas fa-portrait white fa-2x " onClick={() => { history.push("/postdelete/" + postId) }}>S </button>
         </div>
     }
     return (
@@ -177,8 +184,8 @@ export default function Post({ post }) {
                                            <img className="postProfileImg" src={
                                               user.profilePicture
                                                     ? url + user.profilePicture
-                                                    : url + "noAvatar.png"
-                                            }/>{user.username}</div>
+                                                    :  "/assets/person/noAvatar.png"
+                                            }  alt="center"/>{user.username}</div>
                                     )
                                 } else {
                                     return null
@@ -192,38 +199,36 @@ export default function Post({ post }) {
                         <MenuDots />
                     </div>
                     <div className="detail">
-                        <h1>{post.title} </h1>
+                     
                         <div className="">
-                            <p>Title:{post.title} </p>
-                            {post.img
-                                ? <img className="postImg"
-                                    src={"http://localhost:8800/images/" + post.img}
-                                    alt="center"
-                                /> : null}
+                            <h3>Title:{post.title} </h3>
+                            <img className="postImg"
+                                    src={ post.img
+                                    ? url + post.img
+                                    : "/assets/icon/gallery.png"
+                                  
+                                    }  alt="center"
+                                    
+                                /> 
                         </div>
                         {userAuth}
                         <hr />
-                        <h3>Title:{post.title}</h3>
-                        <h4>Description:{post.desc}{data.like}</h4>
+                       
+                        <h3>Description:{post.desc}{data.like}</h3>
                         <hr />
                     </div>
                     <div className="postBottomLeft">
-                        <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
-                        <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
+                        <img className="likeIcon" src="/assets/icon/like.png" onClick={likeHandler} alt="" />
+                        <img className="likeIcon" src="/assets/icon/heart.png" onClick={likeHandler} alt="" />
                         <span className="postLikeCounter"> {like} people like it</span>
                     </div>
-                    <div className="postBottom">
-                        <div className="postBottomLeft" >
-                        </div>
-                        <div className="postBottomRight">
-                            <span className="postCommentText">Supprimer le post</span>
-                            <Cancel className="shareIcon" onClick={() => {
-                                deletePost(post.id);
-                            }} />
-                        </div>
-                    </div>
+           
+                           
+                   
                     {showComment.shown ? <Comment />
                         : ""}
+     </div>
+                    </div>
                     <div className="topbarIcon">
                         <div className="topbarIconItem">
                             <Chat onClick={() => setShowComment({ shown: !showComment.shown })} />
@@ -231,7 +236,6 @@ export default function Post({ post }) {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+    
     );
 }
