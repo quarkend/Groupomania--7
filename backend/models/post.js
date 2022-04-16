@@ -25,8 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         desc: DataTypes.STRING,
         img: DataTypes.STRING,
         title: DataTypes.STRING,
-        content: DataTypes.TEXT,
-        postUrl: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Post',
