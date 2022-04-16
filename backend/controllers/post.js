@@ -62,12 +62,12 @@ const userObject = req.file ?
     ...req.body.user,
     img: req.file.filename
   } : { ... req.body};
-//  suppression de l'anciene image
-			fs.unlink(`images/${filename}`, () => {
+
+	
 Post.update({ ...userObject, id:  req.params.id}, { where: {id: req.params.id} })
 .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
 .catch(error => res.status(400).json({ error }));
-})
+
 };
 // Logique métier : supprimer un post
 exports.deletePost = (req, res, next) => {

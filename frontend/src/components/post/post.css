@@ -235,10 +235,7 @@ cursor: pointer;
     width: 30px;
     height: 30px;
 }
-.comm {
-    display: block;
-    text-align: center;
-}
+
 .card-input {
     background-color: #d0d1d8 !important;
     padding: .3rem;
@@ -281,7 +278,7 @@ cursor: pointer;
 #comm{
     display: block;
     text-align: center;
-    
+    min-width: -webkit-fill-available;
     margin: auto;
     height: 40px;
 }

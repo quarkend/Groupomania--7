@@ -45,7 +45,7 @@ export default function Profile() {
       async function handleUpdateProfileEmail(data) {
             console.log(data)
             const { userId } = storage
-            const sendedEmail = await fetch("http://localhost:8800/api/profile/" + userId, {
+            const sendedEmail = await fetch("http://localhost:8800/api/profile/" + storage.id, {
                   method: 'put',
                   headers: {
                         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function Profile() {
                   body: JSON.stringify(data)
             })
             const response = await sendedEmail.json()
-            console.log(response)
+         
             getUserData()
             setShowUpdateEmail(false)
       }
@@ -71,7 +71,7 @@ export default function Profile() {
             console.log(data)
             const response = await sendedUsername.json()
             getUserData()
-            setShowUpdateUsername(true)
+            setShowUpdateUsername(false)
             console.log(response)
       }
       async function getUserData() {
