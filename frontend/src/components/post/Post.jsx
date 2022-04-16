@@ -22,6 +22,9 @@ export default function Post({ post }) {
     const [showComment, setShowComment] = useState(false)
     const [comments, setComments] = useState([]);
 
+
+
+    const [newComment, setNewComment] = useState("");
     const [users, setUsers] = useState([]);
     // eslint-disable-next-line
     const { user } = useContext(AuthContext);
@@ -82,6 +85,48 @@ export default function Post({ post }) {
             localStorage.setItem('comments', JSON.stringify(response.data));
         });
     }, [post.id, token]);
+    const addComment = () => {
+        axios
+            .post(
+                "/comments",
+                {
+                    content: newComment,
+                    postId: post.id,
+                    userId: storage.id
+                },
+                {
+                    headers:
+                        { "Authorization": token }
+                }
+            )
+            .then((response) => {
+                if (response.data.error) {
+                    console.log(response.data.error);
+                } else {
+                    const commentToAdd = {
+                        content: newComment,
+                        username: response.data.username,
+                    };
+                    setComments([...comments, commentToAdd]);
+                    setNewComment("");
+                }
+            });
+    };
+    const deleteComment = (id) => {
+        axios
+            .delete(`/comments/${id}`,
+                {
+                    headers:
+                        { "Authorization": token }
+                })
+            .then(() => {
+                setComments(
+                    comments.filter((val) => {
+                        return val.id !== id;
+                    })
+                );
+            });
+    };
     const deletePost = (id) => {
         axios
             .delete(`http://localhost:8800/api/posts/${id}`,
@@ -132,6 +177,10 @@ export default function Post({ post }) {
     useEffect(() => {
         getUserData()
     }, [])
+    function handleShowComment(e) {
+        setShowComment(!showComment)
+    }
+
     let userAuth;
     if (post.userId === storage.id) {
         userAuth = <div className="post-button">
@@ -153,6 +202,7 @@ export default function Post({ post }) {
                 </div>
             </div>
         </div>
+      
     } else if (!!storage.isAdmin === true) {
         userAuth = <div className="post-button">
             <button className="fas fa-portrait white fa-2x " onClick={() => { history.push("/postdelete/" + postId) }}>S </button>
@@ -212,9 +262,49 @@ export default function Post({ post }) {
                         <img className="likeIcon" src="/assets/icon/heart.png" onClick={likeHandler} alt="" />
                         <span className="postLikeCounter"> {like} people like it</span>
                     </div>
-                    {showComment.shown ? <Comment />
-                        : ""}
+                    {/* {showComment.shown ? <Comment />
+                        : ""} */}
+                             {showComment.shown ? <div className="listOfComments">
+                <div className="card-comment">
+                        <form >
+                            <input className="" id="comm" type="text" name="comment" placeholder="Laisser un commentaire "
+                                autoComplete="off"
+                                value={newComment}
+                                onChange={(event) => {
+                                    setNewComment(event.target.value);
+                                }}
+                            />
+                            {/* <input type="text" placeholder="Mettre a jour "        onChange={(event) => {
+                                  setUpdateComment(event.target.value);
+                                }}value={updateComment}/> */}
+                        </form>
+                        <div className="card-reaction"  >
+                            <button id="comm" onClick={addComment}> Add Comment</button>
+                            {/* <button id="comm" onClick={handleUpdateComment}> update Comment</button> */}
+                        </div>
+                    </div>
+                    <ul className="comments">
+                        {comments.map((comment, key) => {
+                            return (
+                                <li key={key} className="comment">
+                                    {comment.content}
+                                    {(showComment && storage.id === <div className="listOfComments"></div>) &&
+                                        <div className="update__container" key={comment.id}>
+                                        </div>
+                                    }
+                                    {(
+                                        <Cancel className="shareIcon" onClick={() => {
+                                            deleteComment(comment.id);
+                                        }} />
+                                    )}
+                                    <Chat title="Modification" onClick={handleShowComment} data-id={comment.id}></Chat>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div> : ""}
                 </div>
+
             </div>
             <div className="topbarIcon">
                 <div className="topbarIconItem">
