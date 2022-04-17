@@ -103,7 +103,7 @@ cursor: pointer;
   
     background-color: #f4f4f4;
 }
-.card-username__info {
+/* .card-username__info {
     margin-top: 0.4rem;
     height: 60px;
     display: flex;
@@ -264,17 +264,16 @@ cursor: pointer;
         border:  1px solid #8e8c99;
     }
 }
+*/
 @media screen and (max-width: 800px) {
-    .card-input:focus,.add-input:focus {
-        transform: scale(1.02) !important;
+    .topbarLeft img  {
+       display:none;
     }
     .card {
-        width: 93vw;
+        width:auto;
     }
-    .card-image__post img {
-        width: 93vw;
-    }
-}
+    
+} 
 #comm{
     display: block;
     text-align: center;

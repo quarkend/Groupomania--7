@@ -46,11 +46,13 @@ export default function Topbar() {
           <div>
             <div className="topbarContainer">
               <div className="topbarLeft">
-                <img className="topbarIco" src="/assets/icon/icon-left-font-monochrome-black.png" alt="icon" onClick={() => { history.push("/") }} />
+              <h1>G</h1>
+                <img className="topbarIco" src="/assets/icon/icon-left-font-monochrome-black.png" alt="icon" onClick={() => { history.push("/") }} /> 
                 <div className="searchbar">
                 </div>
               </div>
               <div className="topbarCenter">
+              
               </div>           <div className="topbarIcons">
                 <div className="topbarIcon">
                   <HomeIcon onClick={() => { history.push("/") }} />

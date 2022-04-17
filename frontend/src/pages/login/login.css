@@ -95,13 +95,13 @@ label{
   color: #F42B4B;
   text-align: center;
 }
-@media screen and (max-width: 700px){
+/* @media screen and (max-width: 700px){
   .login-container{
     justify-content: center;
     background-image: none;
   }
   .card {
-    width: 80%;
+    width: 40%;
     align-self: center;
   }
   
@@ -111,5 +111,5 @@ label{
     width: 100%;
   }
   
-}
+} */
 /******  LOGIN PAGE  ******/

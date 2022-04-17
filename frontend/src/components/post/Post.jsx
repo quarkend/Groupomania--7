@@ -205,7 +205,14 @@ export default function Post({ post }) {
       
     } else if (!!storage.isAdmin === true) {
         userAuth = <div className="post-button">
-            <button className="fas fa-portrait white fa-2x " onClick={() => { history.push("/postdelete/" + postId) }}>S </button>
+              <i className="fas fa-portrait white fa-2x" onClick={() => {
+                setShowUpdatePhoto(!showUpdatePhoto)
+            }}>
+            </i>
+            {showUpdatePhoto &&
+                <UpdateProfilePhoto submit={handleSubmit(handleUpdateProfilePhoto)} register={register({ required: true })} />
+            }
+            
         </div>
     }
     return (
