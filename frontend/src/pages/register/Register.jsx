@@ -38,6 +38,7 @@ export default function Register() {
                   Username
             <input
             type="username"
+             minLength="3"
               placeholder="Username"
               autoComplete="off"
               required

@@ -127,6 +127,8 @@ export default function Post({ post }) {
                 );
             });
     };
+    // const conf = window.confirm('Etes vous sur de vouloir Supprimer definitivement votre compte ?')
+    // if(conf) 
     const deletePost = (id) => {
         axios
             .delete(`http://localhost:8800/api/posts/${id}`,
@@ -134,7 +136,9 @@ export default function Post({ post }) {
                     headers:
                         { "Authorization": token }
                 })
+               
             .then(() => {
+                window.confirm('Etes vous sur de vouloir Supprimer definitivement votre POST ?')
                 window.location.reload();
                 history.push("/");
             });
