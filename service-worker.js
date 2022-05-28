@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Groupomania--7/precache-manifest.fd1b5efa3339fa8c142bd20d680fe1e1.js"
+  "/Groupomania--7/precache-manifest.8d2934e43fb62f77f1d05ee4956d070f.js"
 );
 
 workbox.clientsClaim();
