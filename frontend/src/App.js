@@ -62,7 +62,7 @@ function App() {
     }
   }, []);
   return (
-    <Router basename="https://quarkend.github.io/Groupomania--7/">
+    <Router basename="/Groupomania--7/">
       <AuthContext.Provider
         value={{
           state,
