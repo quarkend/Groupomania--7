@@ -62,7 +62,7 @@ function App() {
     }
   }, []);
   return (
-    <Router basename="/Groupomania--7/">
+    <Router basename="/">
       <AuthContext.Provider
         value={{
           state,
