@@ -62,7 +62,7 @@ function App() {
     }
   }, []);
   return (
-    <Router basename="/">
+    <Router basename={process.env.REACT_APP_API_URL}>
       <AuthContext.Provider
         value={{
           state,
