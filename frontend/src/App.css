@@ -22,7 +22,8 @@
   color: #042e72 !important;
 
 }
-#navigation{
+
+#navigation {
   width: 100%;
   position: fixed;
   z-index: 10;
@@ -30,30 +31,36 @@
   flex-wrap: wrap;
   justify-content: space-between;
   background-color: #F42B4B;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   height: 70px;
   top: 0;
   padding-right: 5px;
   padding-left: 5px;
 }
-.login-container{
-    background-image: url("/assets/login-page.png");
-    background-color:white;
+
+.login-container {
+  /* background-image: url("/assets/login-page.png"); */
+  background-color: rgb(218, 188, 229);
 }
-#navigation h1{
+
+#navigation h1 {
   color: white;
 }
-#navigation button{
+
+#navigation button {
   background-color: transparent;
   border: none;
   align-self: center;
 }
-#navigation button:hover{
+
+#navigation button:hover {
   cursor: pointer;
 }
-#navigation button:focus{
+
+#navigation button:focus {
   outline: none !important;
 }
+
 /******  HEADER  ******/
 /* #root{
   background-color:#f0f2f5;
