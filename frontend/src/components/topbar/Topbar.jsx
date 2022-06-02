@@ -1,25 +1,25 @@
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import "./topbar.css";
 import { AuthContext } from "./../../App";
-import { BrowserRouter, useHistory, useParams } from "react-router-dom";
+import { BrowserRouter, useHistory } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
-import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+//import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import MenuBurger from "../menuBurger/MenuBurger";
 
 export default function Topbar() {
-  const url = "http://localhost:8800/images/";
-  const [error, setError] = useState(null);
+  //const url = "http://localhost:8800/images/";
+  // const [error, setError] = useState(null);
   // eslint-disable-next-line
-  const [isLoaded, setIsLoaded] = useState(false);
+  //const [isLoaded, setIsLoaded] = useState(false);
   let history = useHistory();
   const { state } = React.useContext(AuthContext);
-  const storage = JSON.parse(localStorage.getItem("user"));
-  const token = "Bearer " + JSON.parse(localStorage.getItem("token"));
+  //const storage = JSON.parse(localStorage.getItem("user"));
+  // const token = "Bearer " + JSON.parse(localStorage.getItem("token"));
   // eslint-disable-next-line
-  const [data, setData] = useState("");
+  //const [data, setData] = useState("");
   // eslint-disable-next-line
-  const { user } = useContext(AuthContext);
-  let id = useParams();
+  //const { user } = useContext(AuthContext);
+  //let id = useParams();
   // const  isAdmin = storage.isAmin;
   // async function getUserData() {
   //   const URL = `${"/users/"}${id}`;
