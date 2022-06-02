@@ -21,22 +21,22 @@ export default function Topbar() {
   const { user } = useContext(AuthContext);
   let id = useParams();
   // const  isAdmin = storage.isAmin;
-  async function getUserData() {
-    const URL = `${"/users/"}${id}`;
-    const data = await fetch(URL, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-    const response = await data.json();
-    setData(response);
-    console.log(response);
-    setIsLoaded(true);
-    setError(error);
-  }
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // async function getUserData() {
+  //   const URL = `${"/users/"}${id}`;
+  //   const data = await fetch(URL, {
+  //     headers: {
+  //       Authorization: "Bearer " + token,
+  //     },
+  //   });
+  //   const response = await data.json();
+  //   setData(response);
+  //   console.log(response);
+  //   setIsLoaded(true);
+  //   setError(error);
+  // }
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
   return (
     <BrowserRouter>
       <nav>
@@ -64,17 +64,17 @@ export default function Topbar() {
                     }}
                   />
                 </div>
-                <div className="topbarIconItem">
+                {/* <div className="topbarIconItem">
                   <SupervisorAccountIcon
                     onClick={() => {
                       history.push("/admin/" + storage.id);
                     }}
                   />
-                </div>
+                </div> */}
                 <div className="topbarIconItem"></div>
               </div>{" "}
               <div className="topbarIcons">
-                <div className="topbarIconItem">
+                {/* <div className="topbarIconItem">
                   <img
                     src={
                       state.user.profilePicture
@@ -87,14 +87,14 @@ export default function Topbar() {
                       history.push("/profile/" + state.user.id);
                     }}
                   />
-                  <span className="topbarLinks">{state.user.username} </span>
-                </div>
-                <div className="topbarIconItem">
-                  <MenuBurger />
-                </div>
+                  <span className="topbarLinks">{state.user.username} </span> */}
+              </div>
+              <div className="topbarIconItem">
+                <MenuBurger />
               </div>
             </div>
           </div>
+          // </div>
         )}
       </nav>
     </BrowserRouter>
