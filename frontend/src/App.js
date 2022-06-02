@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
-//import Topbar from "./components/topbar/Topbar";
+import Topbar from "./components/topbar/Topbar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Admin from "./pages/profile/Admin";
@@ -69,6 +69,7 @@ function App() {
           dispatch,
         }}
       >
+         <Topbar />
         {/* <div className="App">{!state.isAuthenticated ? <Login/> : <Home/>}</div> */}
         <Switch>
           <Route exact path="/">
