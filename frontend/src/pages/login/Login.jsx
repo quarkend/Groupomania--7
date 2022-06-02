@@ -23,7 +23,7 @@ export const Login = () => {
       isSubmitting: true,
       errorMessage: null,
     });
-    fetch("/auth/login", {
+    fetch(`${prossec.env.PUBLIC_URL}/auth/login`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
