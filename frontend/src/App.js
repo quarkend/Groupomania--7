@@ -62,14 +62,13 @@ function App() {
     }
   }, []);
   return (
-    <Router basename={process.env.REACT_APP_API_URL}>
+    <Router basename="/">
       <AuthContext.Provider
         value={{
           state,
           dispatch,
         }}
       >
-        <Topbar />
         {/* <div className="App">{!state.isAuthenticated ? <Login/> : <Home/>}</div> */}
         <Switch>
           <Route exact path="/">
