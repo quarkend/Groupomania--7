@@ -21,7 +21,7 @@ export default function Register() {
       };
       try {
         await axios.post("http://localhost:8800/api/auth/signup", user);
-        history.push("http://localhost:8800/api/login");
+        history.push("/login");
       } catch (err) {
         console.log(err);
         window.location.reload();
