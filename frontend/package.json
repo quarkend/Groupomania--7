@@ -37,6 +37,7 @@
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
+  "homepage": "https://quarkend.github.io/Groupomania--7/",
   "scripts": {
     "start": "set PORT=3007 && react-scripts start",
     "build": "react-scripts build",
