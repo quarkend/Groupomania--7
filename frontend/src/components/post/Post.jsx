@@ -33,7 +33,7 @@ export default function Post({ post }) {
   const [like, setLike] = useState([]);
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users`, {
+      const res = await axios.get(`http://localhost:8800/api/users`, {
         headers: { Authorization: token },
       });
       setUsers(res.data);
@@ -63,7 +63,7 @@ export default function Post({ post }) {
   };
   useEffect(() => {
     axios
-      .get(`/posts/byId/${post.id}`, {
+      .get(`http://localhost:8800/api/posts/byId/${post.id}`, {
         headers: { Authorization: token },
       })
       .then((response) => {
@@ -73,7 +73,7 @@ export default function Post({ post }) {
   console.log(post);
   useEffect(() => {
     axios
-      .get(`/posts/${post.id}/comments`, {
+      .get(`http://localhost:8800/api/posts/${post.id}/comments`, {
         headers: { Authorization: token },
       })
       .then((response) => {
