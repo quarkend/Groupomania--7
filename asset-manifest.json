@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.45e6b0fe.chunk.css",
-  "main.js": "/static/js/main.949f7f59.chunk.js",
-  "static/js/1.8b11a3e0.chunk.js": "/static/js/1.8b11a3e0.chunk.js",
-  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
-  "index.html": "/index.html",
-  "precache-manifest.f40a460c3bdf06e7e79c6679dd39a81e.js": "/precache-manifest.f40a460c3bdf06e7e79c6679dd39a81e.js",
-  "service-worker.js": "/service-worker.js"
+  "main.css": "/Groupomania--7/static/css/main.45e6b0fe.chunk.css",
+  "main.js": "/Groupomania--7/static/js/main.949f7f59.chunk.js",
+  "static/js/1.8b11a3e0.chunk.js": "/Groupomania--7/static/js/1.8b11a3e0.chunk.js",
+  "runtime~main.js": "/Groupomania--7/static/js/runtime~main.2ff0fb4b.js",
+  "index.html": "/Groupomania--7/index.html",
+  "precache-manifest.1a1a6c54d104f26197075c1d6930728e.js": "/Groupomania--7/precache-manifest.1a1a6c54d104f26197075c1d6930728e.js",
+  "service-worker.js": "/Groupomania--7/service-worker.js"
 }
