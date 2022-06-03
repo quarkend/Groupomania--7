@@ -15,7 +15,7 @@ const commentRoutes = require("./routes/comment");
 const userRoutes = require("./routes/user");
 //gestion CORS
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3007");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
